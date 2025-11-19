@@ -1,0 +1,341 @@
+/* Global */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: white;
+}
+
+.halaman-login {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background dekor */
+.bg-left, .bg-right {
+    position: absolute;
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.bg-left {
+    width: 330px;
+    left: 10%;
+    top: 18%;
+}
+
+.bg-right {
+    width: 620px;
+    right: 5%;
+    top: 25%;
+    transform: translateY(-50%);
+}
+
+/* Background Images dari Template Sebelumnya (Jaga-jaga jika HTML pakai class lama) */
+.halaman-login .o-in-petricord {
+    position: absolute;
+    width: 634px;
+    height: 634px;
+    top: calc(50% - 198px);
+    left: calc(50% - 92px);
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.halaman-login .img {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    top: calc(50% - 372px);
+    left: calc(50% - 448px);
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Logo */
+.logo-petricord {
+    position: absolute;
+    top: 35px;
+    left: 80px;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.logo-o {
+    width: 22px;
+    margin: 0 4px;
+}
+
+/* Support untuk HTML lama (img src logo) */
+.petric-rd {
+    position: absolute;
+    top: 0; left: 0;
+    font-weight: 700;
+    font-size: 30px;
+    color: #000000;
+}
+.o-in-petricord-2 {
+    position: absolute;
+    top: 16px;
+    left: 91px;
+    width: 17px;
+    height: 17px;
+}
+
+/* Welcome */
+.welcome-text, .text-wrapper {
+    position: absolute;
+    top: 155px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    font-weight: 300;
+    color: #000;
+    text-align: center;
+    z-index: 10;
+}
+
+/* Form container */
+.form-login {
+    position: absolute;
+    top: 240px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 430px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 55px 0 40px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: center;
+    z-index: 20;
+}
+
+/* Badge (Icon Panah/Logo diatas form jika ada) */
+.icon-badge {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(180deg,#E6C87A,#A37A1B);
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+}
+
+.icon-badge img {
+    width: 24px;
+}
+
+/* Inside form */
+.form-inner, .group {
+    width: 88%; /* Menggunakan style kamu */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title, .text-wrapper-3 {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 18px;
+    color: #000;
+}
+
+/* Ilustrasi */
+.group-2 {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 100px;
+    height: auto;
+}
+
+/* Input Group */
+.input-group {
+    position: relative;
+    margin-bottom: 14px;
+    width: 100%;
+}
+
+/* Input Field */
+.input-group input, .input-field {
+    width: 100%;
+    height: 43px;
+    border-radius: 10px;
+    background: rgba(221,221,221,0.45);
+    border: 1px solid transparent;
+    padding-left: 45px;
+    padding-right: 40px; /* Tambah padding kanan biar ga nabrak mata */
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+    color: #000 !important; /* Paksa teks hitam */
+}
+
+.input-field:focus {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(203, 168, 61, 0.5);
+}
+
+/* --- FIX: HILANGKAN IKON MATA BAWAAN BROWSER (SOLUSI UTAMA) --- */
+.input-field::-ms-reveal,
+.input-field::-ms-clear {
+    display: none !important;
+}
+
+/* Icons Input */
+.input-icon {
+    position: absolute;
+    width: 18px;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: .7;
+    pointer-events: none;
+}
+
+/* Ikon Mata Custom (Klikable) */
+.icon-eye {
+    position: absolute;
+    width: 20px;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: .7;
+    z-index: 100; /* Supaya bisa diklik */
+}
+
+/* Lupa sandi */
+.lupa-sandi {
+    font-size: 13px;
+    color: #7f620b;
+    text-align: right;
+    margin-top: -6px;
+    margin-bottom: 18px;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+}
+
+/* Button login */
+.button-login {
+    width: 100%;
+    height: 44px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(180deg,#CBA83D,#7F620B);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0px 10px 20px -5px rgba(127, 98, 11, 0.4);
+    transition: transform 0.2s;
+}
+
+.button-login:hover {
+    transform: translateY(-2px);
+}
+
+/* Divider */
+.divider, .divider-group {
+    margin: 18px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+}
+
+.divider .line, .divider-line {
+    flex: 1;
+    height: 1px;
+    background: #bbb;
+}
+
+.divider span, .divider-text {
+    font-size: 13px;
+}
+
+/* Google button */
+.button-google {
+    width: 100%;
+    height: 44px;
+    background: white;
+    border-radius: 50px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.button-google img, .google-icon {
+    width: 20px;
+}
+
+/* Footer */
+.footer-register, .belum-punya-akun {
+    text-align: center;
+    font-size: 13px;
+    width: 100%;
+}
+
+.footer-register a, .text-wrapper-2 {
+    font-weight: 600;
+    color: #000;
+    text-decoration: none;
+}
+
+/* --- TOMBOL BACK (BULAT EMAS POJOK KANAN) --- */
+/* Ini agar tombol back tetap ada dan stylingnya benar */
+.button-back {
+    position: absolute !important;
+    top: 38px;
+    right: 84px;
+    
+    /* Lingkaran Emas */
+    width: 43px;
+    height: 43px;
+    background: linear-gradient(146deg, #8B732C 13%, #59460C 100%);
+    border-radius: 50%;
+    
+    /* Efek */
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(2px);
+    
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.button-back:hover {
+    transform: scale(1.15);
+}
+
+.back-icon {
+    width: 18px;
+    height: 18px;
+    position: relative;
+    z-index: 1000;
+}

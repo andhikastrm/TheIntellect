@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Petricord - Tambah Profil</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='globals.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='peliharaan.css') }}">
+</head>
+
+<body>
+    <main class="halaman-tambah">
+        
+        <!-- Background Decorative Images -->
+        <img class="o-in-petricord"
+             src="{{ url_for('static', filename='img/O in Petricord-01 7.png') }}"
+             alt="Decorative background element" aria-hidden="true">
+
+        <img class="img"
+             src="{{ url_for('static', filename='img/O in Petricord-01 8.png') }}"
+             alt="Decorative cat illustration" aria-hidden="true">
+
+        <!-- Header Logo -->
+        <header class="logo-petricord">
+            <h1 class="petric-rd">Petric&nbsp;&nbsp;rd</h1>
+            <img class="o-in-petricord-2"
+                 src="{{ url_for('static', filename='img/O in Petricord-01 3.png') }}"
+                 alt="Petricord logo icon">
+        </header>
+
+        <h2 class="text-wrapper">Selamat bergabung, Cordian!</h2>
+        <p class="div">Lengkapi profil kesayanganmu, yuk!</p>
+
+        <section class="form-profil" aria-label="Form profil hewan peliharaan">
+            <form class="group" method="post" action="#" novalidate>
+
+                <!-- Foto Profil -->
+                <div class="add-profil-picture">
+                    <label for="profile-picture-upload" class="ellipse" aria-label="Upload foto profil">
+                        <img class="vector-3"
+                             src="{{ url_for('static', filename='img/icon-cat.svg') }}"
+                             alt="" aria-hidden="true">
+                        <input type="file" id="profile-picture-upload" name="profile-picture"
+                               accept="image/*" class="visually-hidden">
+                    </label>
+
+                    <img class="group-2"
+                         src="{{ url_for('static', filename='img/icon-camera.svg') }}"
+                         alt="Icon kamera" aria-hidden="true">
+                </div>
+
+                <!-- Nama -->
+                <div class="form-nama">
+                    <label for="nama" class="text-wrapper-3">Nama</label>
+                    <input type="text" id="nama" name="nama"
+                           class="rectangle text-wrapper-2"
+                           placeholder="Nama" required aria-required="true">
+                </div>
+
+                <!-- Ras Kucing -->
+                <div class="drop-down-ras-kucing">
+                    <label for="ras-kucing" class="text-wrapper-3">Ras Kucing</label>
+                    <select id="ras-kucing" name="ras-kucing"
+                            class="rectangle text-wrapper-2" required>
+                        <option value="" disabled selected>-</option>
+                        <option value="persia">Persia</option>
+                        <option value="anggora">Anggora</option>
+                        <option value="maine-coon">Maine Coon</option>
+                        <option value="british-shorthair">British Shorthair</option>
+                        <option value="scottish-fold">Scottish Fold</option>
+                        <option value="ragdoll">Ragdoll</option>
+                        <option value="sphynx">Sphynx</option>
+                        <option value="bengal">Bengal</option>
+                        <option value="siamese">Siamese</option>
+                        <option value="domestik">Domestik</option>
+                        <option value="lainnya">Lainnya</option>
+                    </select>
+
+                    <img class="vector"
+                         src="{{ url_for('static', filename='img/icon.svg') }}"
+                         alt="">
+                </div>
+
+                <!-- Usia -->
+                <div class="form-usia">
+                    <label for="usia" class="text-wrapper-3">Usia</label>
+                    <input type="month" id="usia" name="usia"
+                           class="rectangle text-wrapper-2"
+                           placeholder="YYYY/MM" required>
+                </div>
+
+                <!-- Berat Badan -->
+                <div class="form-berat-badan">
+                    <label for="berat-badan" class="text-wrapper-3">Berat Badan</label>
+                    <select id="berat-badan" name="berat-badan"
+                            class="rectangle text-wrapper-2" required>
+                        <option value="" disabled selected>-</option>
+                        <option value="0-2">0–2 kg</option>
+                        <option value="2-4">2–4 kg</option>
+                        <option value="4-6">4–6 kg</option>
+                        <option value="6-8">6–8 kg</option>
+                        <option value="8-10">8–10 kg</option>
+                        <option value="10+">10+ kg</option>
+                    </select>
+
+                    <img class="vector-2"
+                         src="{{ url_for('static', filename='img/icon.svg') }}"
+                         alt="">
+                </div>
+
+                <div class="button-register">
+                    <button type="submit" class="rectangle-2">
+                        <span class="text-wrapper-4">Simpan</span>
+                    </button>
+                </div>
+
+            </form>
+        </section>
+    </main>
+</body>
+</html>

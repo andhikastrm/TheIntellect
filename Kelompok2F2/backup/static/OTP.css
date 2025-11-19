@@ -1,0 +1,248 @@
+/* =========================================
+   1. RESET & GLOBAL
+   ========================================= */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    overflow-x: hidden; /* Mencegah scroll horizontal */
+}
+
+.halaman-otp {
+    position: relative;
+    width: 100%;
+    min-height: 100vh; /* Full Screen */
+    display: flex;     /* Flexbox untuk menengahkan kartu */
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+/* =========================================
+   2. BACKGROUND DECORATION
+   ========================================= */
+.bg-decor-1 {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.bg-decor-2 {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 5%;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* =========================================
+   3. LOGO (Pojok Kiri Atas)
+   ========================================= */
+.logo-container {
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    width: 150px;
+    height: 50px;
+    z-index: 10;
+}
+
+.petric-text {
+    font-weight: 700;
+    font-size: 30px;
+    color: #000000;
+    position: relative;
+    z-index: 2;
+}
+
+.petric-o {
+    position: absolute;
+    top: 12px; /* Sesuaikan agar pas di tengah teks */
+    left: 92px; /* Sesuaikan horizontal */
+    width: 20px;
+    z-index: 3;
+}
+
+/* =========================================
+   4. BUTTON BACK (Pojok Kanan Atas)
+   ========================================= */
+.button-back {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(146deg, #8B732C 0%, #59460C 100%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+    z-index: 100;
+    text-decoration: none;
+}
+
+.button-back:hover {
+    transform: scale(1.1);
+}
+
+.button-back img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1); /* Membuat ikon putih jika ikon aslinya hitam */
+}
+
+/* =========================================
+   5. KARTU FORM OTP (Glassmorphism)
+   ========================================= */
+.form-otp-card {
+    position: relative;
+    z-index: 20; /* Di atas background */
+    width: 100%;
+    max-width: 480px;
+    padding: 50px 40px;
+    
+    /* Efek Kaca */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+    
+    text-align: center;
+}
+
+.icon-lock {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    object-fit: contain;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 26px;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 30px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   6. INPUT OTP
+   ========================================= */
+.otp-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.otp-field {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    
+    /* Style Kotak Input */
+    border: 2px solid transparent;
+    border-radius: 16px;
+    background-color: #f0f0f0; /* Abu-abu muda yang bersih */
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.otp-field:focus {
+    background-color: #fff;
+    border-color: #CBA83D; /* Warna Emas */
+    box-shadow: 0 0 15px rgba(203, 168, 61, 0.2);
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   7. TOMBOL VERIFIKASI & LINK
+   ========================================= */
+.button-verify {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(179deg, #CBA83D 0%, #7F620B 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(127, 98, 11, 0.2);
+    transition: transform 0.2s;
+    margin-bottom: 20px;
+}
+
+.button-verify:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(127, 98, 11, 0.3);
+}
+
+.resend-area {
+    font-size: 14px;
+    color: #555;
+}
+
+.btn-resend-link {
+    background: none;
+    border: none;
+    color: #333;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    padding: 0;
+    margin-left: 5px;
+}
+
+.btn-resend-link:hover {
+    color: #CBA83D;
+}
+
+/* Responsiveness untuk Layar Kecil */
+@media (max-width: 600px) {
+    .form-otp-card {
+        padding: 30px 20px;
+        width: 90%;
+    }
+    
+    .otp-field {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .logo-container {
+        left: 20px;
+        top: 20px;
+    }
+    
+    .button-back {
+        right: 20px;
+        top: 20px;
+    }
+}

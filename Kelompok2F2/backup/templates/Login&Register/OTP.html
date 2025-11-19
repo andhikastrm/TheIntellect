@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifikasi OTP - Petricord</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='OTP.css') }}">
+</head>
+
+<body>
+    <div class="halaman-otp">
+
+        <a href="/login" class="button-back" title="Kembali">
+            <img src="{{ url_for('static', filename='img/OTP_img/icon-back.svg') }}" alt="Back" />
+        </a>
+
+        <img class="bg-decor-1" src="{{ url_for('static', filename='img/OTP_img/O in Petricord-01 7.svg') }}" alt="" />
+        <img class="bg-decor-2" src="{{ url_for('static', filename='img/OTP_img/O in Petricord-01 8.svg') }}" alt="" />
+
+        <div class="logo-container">
+            <div class="petric-text">Petric&nbsp;&nbsp; rd</div>
+            <img class="petric-o" src="{{ url_for('static', filename='img/login_img/O in Petricord-01 3.svg') }}" alt="O" />
+        </div>
+
+        <div class="form-otp-card">
+            <form method="POST" action="/verify-otp">
+                
+                <img class="icon-lock" src="{{ url_for('static', filename='img/otp_img/icon-lock.svg') }}" alt="Locked" />
+
+                <h2 class="title">Masukkan OTP</h2>
+                <p class="subtitle">Kami telah mengirim kode OTP ke alamat email Anda</p>
+
+                <div class="otp-inputs">
+                    <input type="text" class="otp-field" maxlength="1" inputmode="numeric" pattern="[0-9]" required />
+                    <input type="text" class="otp-field" maxlength="1" inputmode="numeric" pattern="[0-9]" required />
+                    <input type="text" class="otp-field" maxlength="1" inputmode="numeric" pattern="[0-9]" required />
+                    <input type="text" class="otp-field" maxlength="1" inputmode="numeric" pattern="[0-9]" required />
+                    <input type="hidden" name="otp_token" id="otp_token">
+                </div>
+
+                <button class="button-verify" type="submit">Verifikasi</button>
+
+                <div class="resend-area">
+                    <span>Belum menerima kode? </span>
+                    <button type="button" class="btn-resend-link">Kirim ulang OTP</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        const inputs = document.querySelectorAll(".otp-field");
+        const hiddenToken = document.getElementById("otp_token");
+
+        inputs.forEach((input, index) => {
+            input.addEventListener("input", (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                if (e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+                updateHiddenToken();
+            });
+
+            input.addEventListener("keydown", (e) => {
+                if (e.key === "Backspace" && e.target.value === "" && index > 0) {
+                    inputs[index - 1].focus();
+                }
+                updateHiddenToken();
+            });
+        });
+
+        function updateHiddenToken() {
+            let token = "";
+            inputs.forEach(input => token += input.value);
+            hiddenToken.value = token;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+/* =========================================
+   1. RESET & GLOBAL SETTINGS
+   ========================================= */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: #ffffff;
+}
+
+.halaman-register {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    background-color: #ffffff;
+}
+
+/* =========================================
+   2. BACKGROUND & DECORATION
+   ========================================= */
+.halaman-register .o-in-petricord {
+    position: absolute;
+    width: 537px;
+    height: 634px;
+    top: calc(50% - 198px);
+    left: 43.61%;
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.halaman-register .img {
+    position: absolute;
+    width: 314px;
+    height: 350px;
+    top: calc(50% - 372px);
+    left: 18.89%;
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* =========================================
+   3. LOGO & HEADER TEXT
+   ========================================= */
+.halaman-register .logo-petricord {
+    position: absolute;
+    top: 37px;
+    left: 84px;
+    width: 150px;
+    height: 45px;
+    z-index: 10;
+}
+
+.halaman-register .petric-rd {
+    position: absolute;
+    top: 0; left: 0;
+    font-weight: 700;
+    font-size: 30px;
+    color: #000000;
+}
+
+.halaman-register .o-in-petricord-2 {
+    position: absolute;
+    top: 16px;
+    left: 91px;
+    width: 17px;
+    height: 17px;
+}
+
+.halaman-register .text-wrapper {
+    position: absolute;
+    top: 218px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    font-weight: 300;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+
+/* =========================================
+   4. GLASSMORPHISM FORM CONTAINER
+   ========================================= */
+.halaman-register .form-register {
+    position: absolute;
+    top: 268px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 420px;
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(17.5px);
+    -webkit-backdrop-filter: blur(17.5px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+    z-index: 20;
+}
+
+.group-2 {
+    position: relative;
+    width: 454px;
+    height: 350px;
+    margin-top: 35px;
+}
+
+.text-wrapper-3 {
+    font-weight: 600;
+    font-size: 20px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+/* =========================================
+   5. INPUT FIELDS STYLING
+   ========================================= */
+.input-group {
+    position: absolute;
+    height: 40px;
+}
+
+.input-group.half-left { top: 50px; left: 0; width: 217px; }
+.input-group.half-right { top: 50px; right: 0; width: 217px; }
+.input-group.full-width { width: 100%; left: 0; }
+
+.input-group.full-width:nth-of-type(3) { top: 105px; }
+.input-group.full-width:nth-of-type(4) { top: 160px; }
+.input-group.full-width:nth-of-type(5) { top: 215px; }
+
+/* Style Kolom Input */
+.input-field {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(221, 221, 221, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    outline: none;
+    padding-left: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: #000000 !important; /* Warna teks hitam */
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    z-index: 1; 
+}
+
+.input-field:focus {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(203, 168, 61, 0.5);
+    box-shadow: 0 0 8px rgba(203, 168, 61, 0.2);
+}
+
+.input-field::placeholder {
+    color: #555555; 
+    font-weight: 300;
+}
+
+/* Padding extra di kanan supaya teks tidak nabrak mata */
+.input-field.with-icon {
+    padding-left: 45px; 
+    padding-right: 40px; 
+}
+
+/* =========================================
+   6. ICONS
+   ========================================= */
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    z-index: 5;
+    opacity: 0.6;
+    pointer-events: none; /* Ikon kiri tidak bisa diklik */
+}
+
+/* IKON MATA (KANAN) - FIX AGAR BISA DIKLIK */
+.icon-eye {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    
+    /* Layer paling atas supaya kena klik */
+    z-index: 100 !important; 
+    pointer-events: auto !important; 
+    
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.icon-eye:hover {
+    opacity: 1;
+}
+
+/* =========================================
+   7. REGISTER BUTTON
+   ========================================= */
+.button-register {
+    position: absolute;
+    top: 275px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(179deg, rgba(203, 168, 61, 1) 0%, rgba(127, 98, 11, 1) 100%);
+    box-shadow: 0px 10px 20px -5px rgba(127, 98, 11, 0.4);
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.button-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 15px 25px -5px rgba(127, 98, 11, 0.5);
+}
+
+.button-register:active {
+    transform: translateY(0);
+}
+
+/* =========================================
+   8. FOOTER LINK
+   ========================================= */
+.sudah-punya-akun {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.text-wrapper-2 {
+    font-weight: 600;
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.text-wrapper-2:hover {
+    color: #CBA83D;
+    text-decoration: underline;
+}
+
+/* =========================================
+   9. BACK BUTTON
+   ========================================= */
+.halaman-register .button-back {
+    position: absolute !important;
+    top: 38px;
+    right: 84px;
+    width: 43px;
+    height: 43px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.halaman-register .button-back:hover {
+    transform: scale(1.15);
+}
+
+.halaman-register .back-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.halaman-register .back-icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    z-index: 1000;
+}
+
+/* =========================================
+   10. HIDE DEFAULT BROWSER EYE
+   ========================================= */
+.input-field::-ms-reveal,
+.input-field::-ms-clear {
+    display: none !important;
+}
