@@ -1,0 +1,343 @@
+/* Import Bootstrap */
+@import "bootstrap/scss/bootstrap";
+
+/* GLOBAL */
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+/* FONT WEIGHTS */
+.nav-link,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+/* NAVBAR */
+.navbar {
+  background-color: rgba(239, 208, 126, 0.8);
+  backdrop-filter: blur(6px);
+  box-shadow: #00000020 0px 5px 12px;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: 20px;
+}
+
+/* Hilangkan panah default bootstrap */
+.nav-link.dropdown-toggle::after {
+  display: none;
+}
+
+.nav-link {
+  margin: 0 5px;
+  color: #000;
+  transition: transform 0.2s ease, font-weight 0.2s ease;
+}
+
+.navbar-toggler {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar-toggler:hover {
+  background-color: rgba(166, 129, 37, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.nav-link:hover {
+  color: #7f620b;
+  transform: translateY(-1px);
+  font-weight: 600;
+}
+
+/* BUTTONS */
+.btn-mainbtn {
+  background: linear-gradient(to right, #cba83d, #7f620b);
+  background-size: 200% 200%;
+  background-position: left center;
+  font-weight: 500;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  transition: background-position 0.5s ease, transform 0.2s ease;
+}
+
+.btn-mainbtn:hover {
+  color: white !important;
+  background-position: right center;
+  transform: translateY(-3px);
+}
+
+.btn-cta {
+  margin-bottom: 20px;
+}
+
+/* HERO SECTION */
+#hero {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 100px;
+  padding-bottom: 0px;
+  padding-left: 50px;
+  padding-right: 50px;
+  background: linear-gradient(to right, #edc86a, #faefcb);
+}
+
+.hero-bg-svg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-bg-svg svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Make sure content stays above the SVG */
+#hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content {
+  flex: 1 1 50%;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.hero-image {
+  flex: 1 1 50%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Gambar nempel bawah */
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+}
+
+/* ABOUT SECTION */
+#about {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 400;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: #00000020 0px 2px 12px;
+  border-radius: 8px;
+  padding: 5px 20px;
+  width: fit-content;
+  margin: 0 auto 30px auto;
+}
+
+.about-text {
+  font-size: 16px;
+  font-weight: 300;
+  margin: 30px 50px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  .about-text {
+    font-size: 16px;
+    margin: 20px;
+  }
+}
+
+@media (max-width: 250px) {
+  .about-text {
+    font-size: 10px;
+  }
+}
+
+/* ABOUT SECTION BACKGROUND - HANYA DI DALAM SECTION #about */
+#about {
+  position: relative; /* Penting! Supaya anak absolute posisinya relatif ke #about */
+  overflow: hidden; /* Mencegah paw keluar dari section */
+  background: #fafafa; /* fallback */
+  z-index: 1;
+}
+
+.about-bg-svg {
+  position: absolute;
+  inset: 0; /* tetap pakai inset 0, tapi sekarang relatif ke #about */
+  z-index: -1; /* di belakang semua konten About */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Base style semua paw */
+.about-bg-svg .paw {
+  position: absolute;
+  opacity: 0.03;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Contoh posisi & rotasi paw */
+.paw1 {
+  width: 180px;
+  top: 8%;
+  left: 6%;
+  transform: rotate(-25deg);
+}
+.paw2 {
+  width: 110px;
+  top: 25%;
+  left: 75%;
+  transform: rotate(15deg);
+}
+
+/* Visi Misi */
+
+.visimisi-box {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  box-shadow: #00000020 0px 0px 4px;
+  border-radius: 8px;
+  padding: 20px; /* padding default (desktop) */
+  transition: background-position 0.5s ease, transform 0.2s ease;
+}
+
+.visimisi-box .box-title-1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.visimisi-box .box-content,
+.visimisi-box .box-content ul {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.box-title-1 {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.box-content {
+  font-size: 16px;
+  text-align: left;
+  font-weight: 300;
+}
+
+.visimisi-box:hover {
+  background-position: right center;
+  transform: translateY(-3px);
+}
+
+.tech-content p {
+  font-size: small;
+}
+
+.tech-icon {
+  margin-bottom: 30px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.teknologi {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/*================ MOBILE ================*/
+
+@media (max-width: 500px) {
+  #hero {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 150px;
+  }
+
+  .hero-content {
+    padding-right: 0;
+  }
+
+  .hero-image {
+    margin-top: 30px;
+    align-items: center; /* Biar tengah kalau mobile */
+  }
+
+  .section-title,
+  .about-text {
+    font-size: small;
+  }
+}
+
+@media (min-width: 1500px) {
+  .navbar {
+    margin: 20px 100px;
+  }
+}
+
+// @media (max-width: 575.98px) {
+//   .visimisi-box {
+//     padding: 20px 18px !important;   /* lebih ramping */
+//     margin-left: 15px !important;
+//     margin-right: 15px !important;
+//     border-radius: 10px;
+//   }
