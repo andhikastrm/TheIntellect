@@ -1,8 +1,6 @@
+# app/core/config.py
 from pydantic_settings import BaseSettings
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+from typing import Any
 
 class Settings(BaseSettings):
     DATABASE_URL: str
@@ -12,7 +10,10 @@ class Settings(BaseSettings):
     DB_PASSWORD: str
     DB_NAME: str
 
-    class Config:
-        env_file = ".env"
+    # INI YANG BIKIN ERROR HILANG
+    model_config = {
+        "env_file": ".env",
+        "extra": "ignore"      # <--- BARIS INI AJA YANG DITAMBAH
+    }
 
 settings = Settings()

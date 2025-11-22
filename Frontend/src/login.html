@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Petricord - Masuk</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <style>
+    body {font-family: sans-serif; background:#f9f9f9; padding:40px; text-align:center;}
+    .box {max-width:420px; margin:0 auto; background:white; padding:40px; border-radius:20px; box-shadow:0 10px 40px rgba(0,0,0,0.1);}
+    h1 {margin-bottom:30px; color:#e67e22;}
+    input {width:100%; padding:14px; margin:10px 0; border-radius:10px; border:1px solid #ddd; font-size:16px;}
+    button {width:100%; padding:14px; margin:12px 0; border:none; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer;}
+    .email-btn {background:#e67e22; color:white;}
+    .google-btn {background:white; color:#333; border:2px solid #e67e22; display:flex; align-items:center; justify-content:center; gap:12px;}
+    .google-btn img {width:22px;}
+    .divider {margin:20px 0; color:#888; position:relative;}
+    .divider::before {content:""; position:absolute; top:50%; left:0; right:0; height:1px; background:#ddd;}
+    .divider span {background:white; padding:0 15px;}
+    a {color:#e67e22; text-decoration:none;}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Selamat datang kembali, Cordian!</h1>
+
+    <!-- FORM EMAIL + PASSWORD (OPSIONAL) -->
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="pass" placeholder="Password" required />
+    <button class="email-btn" onclick="loginWithEmail()">Masuk dengan Email</button>
+
+    <div class="divider"><span>atau</span></div>
+
+    <!-- TOMBOL GOOGLE -->
+    <button class="google-btn" onclick="signInWithGoogle()">
+      <img src="https://www.google.com/favicon.ico" alt="G">
+      Lanjutkan dengan Google
+    </button>
+
+    <p style="margin-top:25px;">
+      Belum punya akun? <a href="/frontend/register.html">Daftar sekarang</a>
+    </p>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
+      authDomain: "petricord-f8c54.firebaseapp.com",
+      projectId: "petricord-f8c54",
+      storageBucket: "petricord-f8c54.firebasestorage.app",
+      messagingSenderId: "814472267558",
+      appId: "1:814472267558:web:d97ddfd93757a7fe5f63e7"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    // LOGIN EMAIL (kalau lu mau pake)
+    async function loginWithEmail() {
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("pass").value;
+      if (!email || !pass) return alert("Isi email dan password dulu ya!");
+
+      try {
+        const result = await firebase.auth().signInWithEmailAndPassword(email, pass);
+        const token = await result.user.getIdToken();
+        await syncToBackend(token);
+      } catch (err) {
+        alert("Login gagal: " + err.message);
+      }
+    }
+
+    // LOGIN GOOGLE
+    async function signInWithGoogle() {
+      try {
+        const result = await firebase.auth().signInWithPopup(provider);
+        const token = await result.user.getIdToken();
+        await syncToBackend(token);
+      } catch (err) {
+        alert("Login Google gagal: " + err.message);
+      }
+    }
+
+    // KIRIM TOKEN KE BACKEND + SIMPAN JWT
+    async function syncToBackend(firebaseToken) {
+      try {
+        const resp = await fetch("/api/auth/google-login", {  // tanpa port, biar relatif
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: firebaseToken })
+        });
+
+        const data = await resp.json();
+
+        if (data.success && data.access_token) {
+          // INI YANG PALING PENTING: SIMPAN JWT KE LOCALSTORAGE
+          localStorage.setItem("access_token", data.access_token);
+          localStorage.setItem("user_name", data.user.nama || "Cordian");
+
+          alert("Selamat datang kembali, " + (data.user.nama || "Cordian") + "!");
+          window.location.href = "/add-cat.html";  // PASTI KE ADD CAT
+        } else {
+          alert("Gagal sync ke server: " + (data.detail || "Unknown error"));
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Koneksi ke server gagal");
+      }
+    }
+  </script>
+</body>
+</html>
