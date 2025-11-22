@@ -98,7 +98,7 @@
           localStorage.setItem("user_name", data.user.nama || "Cordian");
 
           alert("Selamat datang kembali, " + (data.user.nama || "Cordian") + "!");
-          window.location.href = "/add-cat.html";  // PASTI KE ADD CAT
+          window.location.href = "/owner-dashboard.html";  // PASTI KE ADD CAT
         } else {
           alert("Gagal sync ke server: " + (data.detail || "Unknown error"));
         }
