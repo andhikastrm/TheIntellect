@@ -1,6 +1,6 @@
 /Frontend/node_modules
 /Frontend/dist
-/Backend/firebase-service-account.json
+/Backend/secret/firebase-service-account.json
 /Backend/venv/
 .Backend/.env
 /Backend/app/__pycache__/
