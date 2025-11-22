@@ -147,6 +147,11 @@ h6 {
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 700;
   margin-bottom: 15px;
+  text-align: left;
+}
+
+.hero-subtitle {
+  text-align: left;
 }
 
 .hero-image {
