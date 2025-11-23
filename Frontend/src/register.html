@@ -7,11 +7,12 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <style>
-    body { font-family: sans-serif; background: #fff8f0; padding: 40px; text-align: center; }
-    .box { max-width: 400px; margin: 0 auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
-    input, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ddd; }
-    button { background: #e67e22; color: white; font-weight: bold; cursor: pointer; }
-    .google { background: white; color: #333; border: 2px solid #e67e22; }
+    body {font-family: sans-serif; background:#fff8f0; padding:40px; text-align:center;}
+    .box {max-width:400px; margin:0 auto; background:white; padding:30px; border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,0.1);}
+    input, button {width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ddd;}
+    button {background:#e67e22; color:white; font-weight:bold; cursor:pointer;}
+    .google {background:white; color:#333; border:2px solid #e67e22;}
+    a {color:#e67e22; text-decoration:underline; font-weight:bold;}
   </style>
 </head>
 <body>
@@ -23,7 +24,7 @@
     <button onclick="registerManual()">Daftar dengan Email</button>
     <p>atau</p>
     <button class="google" onclick="googleSignIn()">Daftar dengan Google</button>
-    <p>Sudah punya akun? <a href="/login.html">Masuk</a></p>
+    <p>Sudah punya akun? <a href="login.html">Masuk</a></p>
   </div>
 
   <script>
@@ -42,7 +43,6 @@
       const email = document.getElementById("email").value;
       const pass = document.getElementById("pass").value;
       const nama = document.getElementById("nama").value || email.split("@")[0];
-
       try {
         await firebase.auth().createUserWithEmailAndPassword(email, pass);
         const user = firebase.auth().currentUser;
@@ -65,15 +65,19 @@
     }
 
     async function syncToBackend(token) {
-      const resp = await fetch("http://127.0.0.1:8000/api/auth/google-login", {
+      const resp = await fetch("/api/auth/google-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token })
       });
       const data = await resp.json();
       if (data.success) {
-        alert("Selamat datang, " + data.user.nama + "!");
-        window.location.href = "/add-kucing.html";
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("user_name", data.user.nama || "Cordian");
+        alert("Akun berhasil dibuat! Selamat datang, " + (data.user.nama || "Cordian") + "!");
+        window.location.href = "owner-dashboard.html"; // RELATIVE PATH = PASTI JALAN
+      } else {
+        alert("Gagal sync ke server: " + (data.detail || "Unknown error"));
       }
     }
   </script>

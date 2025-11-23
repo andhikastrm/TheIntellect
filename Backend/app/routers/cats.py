@@ -1,14 +1,14 @@
 # app/routers/cats.py — VERSI FINAL 100% JALAN & BERSIH!
 
-from fastapi import APIRouter, Depends, Form, File, UploadFile
+from fastapi import APIRouter, Depends, HTTPException, Form, File, UploadFile
 from sqlalchemy.orm import Session
-from typing import List  # TAMBAH INI!
-
+from typing import List
 from ..database.db import get_db
 from ..models.cat import Cat
+from ..models.cat_user import CatUser  # ← PASTIKAN ADA FILE models/cat_user.py
 from ..models.user import User
-from ..schemas.cat import CatCreate, CatResponse  # PASTIKAN INI ADA!
-from ..dependencies import get_current_user_firebase
+from ..schemas.cat import CatCreate, CatResponse
+from ..dependencies import get_current_user_firebase  # atau get_current_user
 
 router = APIRouter(prefix="/api/cats", tags=["cats"])
 

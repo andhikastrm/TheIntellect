@@ -18,28 +18,26 @@
     .divider {margin:20px 0; color:#888; position:relative;}
     .divider::before {content:""; position:absolute; top:50%; left:0; right:0; height:1px; background:#ddd;}
     .divider span {background:white; padding:0 15px;}
-    a {color:#e67e22; text-decoration:none;}
+    a {color:#e67e22; text-decoration:underline; font-weight:bold;}
   </style>
 </head>
 <body>
   <div class="box">
     <h1>Selamat datang kembali, Cordian!</h1>
 
-    <!-- FORM EMAIL + PASSWORD (OPSIONAL) -->
     <input type="email" id="email" placeholder="Email" required />
     <input type="password" id="pass" placeholder="Password" required />
     <button class="email-btn" onclick="loginWithEmail()">Masuk dengan Email</button>
 
     <div class="divider"><span>atau</span></div>
 
-    <!-- TOMBOL GOOGLE -->
     <button class="google-btn" onclick="signInWithGoogle()">
       <img src="https://www.google.com/favicon.ico" alt="G">
       Lanjutkan dengan Google
     </button>
 
     <p style="margin-top:25px;">
-      Belum punya akun? <a href="/frontend/register.html">Daftar sekarang</a>
+      Belum punya akun? <a href="register.html">Daftar sekarang</a>
     </p>
   </div>
 
@@ -55,12 +53,10 @@
     firebase.initializeApp(firebaseConfig);
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    // LOGIN EMAIL (kalau lu mau pake)
     async function loginWithEmail() {
       const email = document.getElementById("email").value;
       const pass = document.getElementById("pass").value;
       if (!email || !pass) return alert("Isi email dan password dulu ya!");
-
       try {
         const result = await firebase.auth().signInWithEmailAndPassword(email, pass);
         const token = await result.user.getIdToken();
@@ -70,7 +66,6 @@
       }
     }
 
-    // LOGIN GOOGLE
     async function signInWithGoogle() {
       try {
         const result = await firebase.auth().signInWithPopup(provider);
@@ -81,10 +76,9 @@
       }
     }
 
-    // KIRIM TOKEN KE BACKEND + SIMPAN JWT
     async function syncToBackend(firebaseToken) {
       try {
-        const resp = await fetch("/api/auth/google-login", {  // tanpa port, biar relatif
+        const resp = await fetch("/api/auth/google-login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ token: firebaseToken })
@@ -93,14 +87,12 @@
         const data = await resp.json();
 
         if (data.success && data.access_token) {
-          // INI YANG PALING PENTING: SIMPAN JWT KE LOCALSTORAGE
           localStorage.setItem("access_token", data.access_token);
           localStorage.setItem("user_name", data.user.nama || "Cordian");
-
           alert("Selamat datang kembali, " + (data.user.nama || "Cordian") + "!");
-          window.location.href = "/owner-dashboard.html";  // PASTI KE ADD CAT
+          window.location.href = "owner-dashboard.html"; // RELATIVE PATH = PASTI JALAN!
         } else {
-          alert("Gagal sync ke server: " + (data.detail || "Unknown error"));
+          alert("Gagal sync ke server: " + (data.detail || JSON.stringify(data)));
         }
       } catch (err) {
         console.error(err);
