@@ -11,7 +11,7 @@ from app.core.security import create_access_token
 import os
 
 # Service account
-SERVICE_ACCOUNT_PATH = "firebase-service-account.json"
+SERVICE_ACCOUNT_PATH = "secret/firebase-service-account.json"
 if not os.path.exists(SERVICE_ACCOUNT_PATH):
     raise FileNotFoundError(f"Service account key tidak ditemukan: {SERVICE_ACCOUNT_PATH}")
 
