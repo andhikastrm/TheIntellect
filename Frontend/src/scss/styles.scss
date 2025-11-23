@@ -2,6 +2,10 @@
 @import "bootstrap/scss/bootstrap";
 
 /* GLOBAL */
+* {
+  font-family: "Poppins", sans-serif;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -169,8 +173,8 @@ h6 {
 
 /* ABOUT SECTION */
 #about {
+  padding: 70px 0;
   text-align: center;
-  padding: 100px 0;
 }
 
 .section-title {
@@ -198,7 +202,6 @@ h6 {
   }
   .about-text {
     font-size: 16px;
-    margin: 20px;
   }
 }
 
@@ -287,26 +290,193 @@ h6 {
   transform: translateY(-3px);
 }
 
-.tech-content p {
-  font-size: small;
-}
-
-.tech-icon {
-  margin-bottom: 30px;
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
 }
 
+/* FITUR */
 .teknologi {
-  background: white;
-  padding: 30px 20px;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 100px;
+}
+
+.teknologi-icon {
+  margin-bottom: 40px;
+}
+
+.fitur-text {
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+
+.fitur-cards {
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  border-radius: 8px;
+  height: fit-content;
+  box-shadow: #00000020 0px 0px 4px;
+}
+
+
+.fitur-cards-icon {
+  max-height: 150px;
+  margin-bottom: 30px;
+}
+
+.fitur-cards-title {
+  margin-bottom: 15px; 
+}
+
+.swiper {
+  width: 100%;
+  height: fit-content;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  z-index: 1000;
+  margin-bottom: 40px;
+}
+
+
+.swiper-button-prev,
+.swiper-button-next {
+  width: 25px !important;     /* dari default 44px jadi 36px */
+  height: 25px !important;
+  opacity: 0.9 !important;
+  transition: all 0.3s ease !important;
+}
+
+.swiper-button-prev {
+  left: -50px;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 16px !important;   /* dari default 24-28px jadi 16px */
+  color: #7f620b !important;
+  font-weight: bold !important;
+}
+
+.swiper-pagination {
+  display: block !important;
+}
+
+.swiper-slide {
+  padding: 10px;
+}
+
+.swiper-slide-button {
+  color: #7f620b;
+  background: none;
+}
+
+/* === BAGIAN ARTICLE (sebelum copyright) === */
+.petricord-article {
+  background-color: rgba(255, 255, 255, 0);
+  padding: 80px 0 60px;
+  color: #333;
+}
+
+.article-brand h3 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+}
+
+.article-desc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #555;
+  max-width: 400px;
+}
+
+.article-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 18px;
+}
+
+.article-links a {
+  color: #666;
+  text-decoration: none;
+  font-size: 14.5px;
+  line-height: 2.3;
+  transition: color 0.3s ease;
+}
+
+.article-links a:hover {
+  color: #7f620b;
+}
+
+.social-icons img {
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+/* === COPYRIGHT === */
+.petricord-footer {
+  background: linear-gradient(to right, #faefcb, #edc86a);
+  padding: 10px 0;
+}
+
+.footer-bottom p {
+  font-size: 12px;
+  color: #000;
+  font-weight: 400;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .petricord-article {
+    padding: 60px 20px;
+  }
+  .article-brand h3 {
+    font-size: 24px;
+  }
+  .article-title {
+    margin-top: 30px;
+  }
+}
+
+/* Copyright bar berwarna kuning keemasan */
+.article-bottom {
+  margin-top: 40px;
+  padding: 10px;
+  background: linear-gradient(to right, #faefcb, #edc86a);
+  font-size: 14px;
+  color: #7f620b;
+  font-weight: 500;
+}
+
+/* Responsif untuk mobile */
+@media (max-width: 768px) {
+  .petricord-article {
+    padding: 50px 0 20px;
+  }
+  
+  .article-brand h3 {
+    font-size: 24px;
+  }
+  
+  .article-title {
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .article-bottom {
+    margin-top: 30px;
+  }
 }
 
 /*================ MOBILE ================*/
@@ -328,7 +498,8 @@ h6 {
   }
 
   .section-title,
-  .about-text {
+  .about-text,
+  .fitur-text {
     font-size: small;
   }
 }
@@ -338,6 +509,7 @@ h6 {
     margin: 20px 100px;
   }
 }
+
 
 // @media (max-width: 575.98px) {
 //   .visimisi-box {
