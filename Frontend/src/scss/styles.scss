@@ -162,7 +162,8 @@ h6 {
   flex: 1 1 50%;
   display: flex;
   justify-content: center;
-  align-items: flex-end; /* Gambar nempel bawah */
+  align-items: flex-end;
+  /* Gambar nempel bawah */
 }
 
 .hero-image img {
@@ -200,6 +201,7 @@ h6 {
   .hero-title {
     font-size: 2.2rem;
   }
+
   .about-text {
     font-size: 16px;
   }
@@ -213,16 +215,21 @@ h6 {
 
 /* ABOUT SECTION BACKGROUND - HANYA DI DALAM SECTION #about */
 #about {
-  position: relative; /* Penting! Supaya anak absolute posisinya relatif ke #about */
-  overflow: hidden; /* Mencegah paw keluar dari section */
-  background: #fafafa; /* fallback */
+  position: relative;
+  /* Penting! Supaya anak absolute posisinya relatif ke #about */
+  overflow: hidden;
+  /* Mencegah paw keluar dari section */
+  background: #fafafa;
+  /* fallback */
   z-index: 1;
 }
 
 .about-bg-svg {
   position: absolute;
-  inset: 0; /* tetap pakai inset 0, tapi sekarang relatif ke #about */
-  z-index: -1; /* di belakang semua konten About */
+  inset: 0;
+  /* tetap pakai inset 0, tapi sekarang relatif ke #about */
+  z-index: -1;
+  /* di belakang semua konten About */
   pointer-events: none;
   overflow: hidden;
 }
@@ -243,6 +250,7 @@ h6 {
   left: 6%;
   transform: rotate(-25deg);
 }
+
 .paw2 {
   width: 110px;
   top: 25%;
@@ -257,7 +265,8 @@ h6 {
   backdrop-filter: blur(5px);
   box-shadow: #00000020 0px 0px 4px;
   border-radius: 8px;
-  padding: 20px; /* padding default (desktop) */
+  padding: 20px;
+  /* padding default (desktop) */
   transition: background-position 0.5s ease, transform 0.2s ease;
 }
 
@@ -266,6 +275,7 @@ h6 {
   font-weight: 600;
   margin-bottom: 15px;
 }
+
 .visimisi-box .box-content,
 .visimisi-box .box-content ul {
   font-size: 16px;
@@ -494,7 +504,8 @@ h6 {
 
   .hero-image {
     margin-top: 30px;
-    align-items: center; /* Biar tengah kalau mobile */
+    align-items: center;
+    /* Biar tengah kalau mobile */
   }
 
   .section-title,
