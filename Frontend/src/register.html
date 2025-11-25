@@ -1,20 +1,59 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Petricord - Daftar</title>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <style>
-    body {font-family: sans-serif; background:#fff8f0; padding:40px; text-align:center;}
-    .box {max-width:400px; margin:0 auto; background:white; padding:30px; border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,0.1);}
-    input, button {width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ddd;}
-    button {background:#e67e22; color:white; font-weight:bold; cursor:pointer;}
-    .google {background:white; color:#333; border:2px solid #e67e22;}
-    a {color:#e67e22; text-decoration:underline; font-weight:bold;}
+    body {
+      font-family: sans-serif;
+      background: #fff8f0;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .box {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    input,
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      background: #e67e22;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .google {
+      background: white;
+      color: #333;
+      border: 2px solid #e67e22;
+    }
+
+    a {
+      color: #e67e22;
+      text-decoration: underline;
+      font-weight: bold;
+    }
   </style>
 </head>
+
 <body>
   <div class="box">
     <h1>Buat Akun Baru</h1>
@@ -28,6 +67,7 @@
   </div>
 
   <script>
+    const baseUrl = "http://127.0.0.1:8000";
     const firebaseConfig = {
       apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
       authDomain: "petricord-f8c54.firebaseapp.com",
@@ -40,20 +80,43 @@
     const provider = new firebase.auth.GoogleAuthProvider();
 
     async function registerManual() {
-      const email = document.getElementById("email").value;
+      const nama = document.getElementById("nama").value.trim();
+      const email = document.getElementById("email").value.trim();
       const pass = document.getElementById("pass").value;
-      const nama = document.getElementById("nama").value || email.split("@")[0];
+
+      if (!email || !pass) return alert("Email & password wajib diisi!");
+
       try {
-        await firebase.auth().createUserWithEmailAndPassword(email, pass);
-        const user = firebase.auth().currentUser;
-        await user.updateProfile({ displayName: nama });
-        const token = await user.getIdToken();
-        await syncToBackend(token);
-      } catch (e) {
-        alert(e.message);
+        const resp = await fetch(`${baseUrl}/api/auth/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nama: nama || null,    // boleh null, backend akan pakai email.split("@")
+            email: email,
+            password: pass
+          })
+        });
+
+        if (!resp.ok) {
+          const err = await resp.json();
+          throw new Error(err.detail || `HTTP ${resp.status}`);
+        }
+
+        const data = await resp.json();
+
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("user_name", data.user.nama || "Cordian");
+
+        alert("Akun berhasil dibuat! Selamat datang, " + (data.user.nama || "Cordian"));
+        window.location.href = "/pages/dashboard/owner-dashboard.html";
+
+      } catch (err) {
+        console.error(err);
+        alert("Gagal daftar: " + (err.message || "Coba lagi"));
       }
     }
 
+    // Google tetap pakai syncToBackend seperti sebelumnya
     async function googleSignIn() {
       try {
         const result = await firebase.auth().signInWithPopup(provider);
@@ -65,7 +128,7 @@
     }
 
     async function syncToBackend(token) {
-      const resp = await fetch("/api/auth/google-login", {
+      const resp = await fetch(`${baseUrl}/api/auth/google-login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token })
@@ -74,12 +137,11 @@
       if (data.success) {
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("user_name", data.user.nama || "Cordian");
-        alert("Akun berhasil dibuat! Selamat datang, " + (data.user.nama || "Cordian") + "!");
-        window.location.href = "owner-dashboard.html"; // RELATIVE PATH = PASTI JALAN
-      } else {
-        alert("Gagal sync ke server: " + (data.detail || "Unknown error"));
+        alert("Login Google sukses!");
+        window.location.href = "/pages/dashboard/owner-dashboard.html";
       }
     }
   </script>
 </body>
+
 </html>

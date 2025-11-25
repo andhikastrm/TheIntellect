@@ -1,16 +1,14 @@
-# backend/app/routers/auth.py
-# VERSI FINAL — 100% JALAN, GAK ADA 405 LAGI
-
-from fastapi import APIRouter, Request, HTTPException, Depends
+from fastapi import APIRouter, Request, HTTPException, Depends, status
 from sqlalchemy.orm import Session
 from app.database.db import get_db
 from app.models.user import User
 import firebase_admin
 from firebase_admin import auth as firebase_auth, credentials
-from app.core.security import create_access_token
+from app.core.security import get_password_hash, create_access_token
 import os
+from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, validator
 
-# Service account
 SERVICE_ACCOUNT_PATH = "secret/firebase-service-account.json"
 if not os.path.exists(SERVICE_ACCOUNT_PATH):
     raise FileNotFoundError(f"Service account key tidak ditemukan: {SERVICE_ACCOUNT_PATH}")
@@ -78,3 +76,51 @@ async def firebase_login(request: Request, db: Session = Depends(get_db)):
     except Exception as e:
         print("ERROR AUTH:", e)
         raise HTTPException(500, "Login gagal")
+
+class RegisterRequest(BaseModel):
+    nama: str | None = None
+    email: EmailStr
+    password: str
+
+@router.post("/register", status_code=status.HTTP_201_CREATED)
+async def register_user(request: RegisterRequest, db: Session = Depends(get_db)):
+    email = request.email.strip().lower()
+    nama = (request.nama or "").strip() or email.split("@")[0]
+
+    # Cek email sudah ada
+    if db.query(User).filter(User.email == email).first():
+        raise HTTPException(status_code=400, detail="Email sudah terdaftar")
+
+    # Hash password (argon2 atau bcrypt aman)
+    hashed_pw = get_password_hash(request.password)
+
+    # Buat user baru — sesuai tabel kamu
+    new_user = User(
+        email=email,
+        nama=nama,
+        hashed_password=hashed_pw,
+        password=None,          # kolom lama = NULL
+        role="user",            # enum
+        is_admin=False,
+        firebase_uid=None,
+        foto_profil=None,
+    )
+
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    access_token = create_access_token({"sub": str(new_user.id)})
+
+    return {
+        "success": True,
+        "message": "Akun berhasil dibuat!",
+        "access_token": access_token,
+        "user": {
+            "id": new_user.id,
+            "nama": nama,
+            "email": email,
+            "role": "user",
+            "is_admin": False
+        }
+    }
