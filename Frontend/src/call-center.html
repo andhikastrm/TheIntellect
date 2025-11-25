@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pusat Bantuan</title>
+
+    <!-- Link Swiper JS CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+    <!-- Link Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Link Favicon -->
+    <link
+      rel="icon"
+      href="/assets/images/petricord-logo.svg"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg fixed-top">
+        <div
+          class="container-fluid d-flex align-items-center justify-content-between"
+        >
+          <!-- Brand -->
+          <a class="navbar-brand" href="index.html">
+            <img src="./assets/images/petricord-logo.svg" height="30" />
+          </a>
+          <!-- Toggle button mobile -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span>
+              <img
+                src="./assets/icons/burger-advanced-svgrepo-com.svg"
+                alt="Menu"
+                height="25"
+              />
+            </span>
+          </button>
+          <!-- Collapsible content -->
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <!-- Nav links tengah -->
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Beranda</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#about">Tentang</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#fitur">Fitur</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="./assets/icons/dropdown-arrow-svgrepo-com.svg"
+                    height="15"
+                    style="transform: rotate(-90deg); margin-right: 5px"
+                  />
+                  Dukungan
+                </a>
+                <ul
+                  class="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <li>
+                    <a class="dropdown-item" href="temukan-kami.html"
+                      >Temukan Kami</a
+                    >
+                  </li>
+                  <li><a class="dropdown-item" href="faqs.html">FAQs</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Pusat Bantuan</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <!-- Button Masuk -->
+            <div class="d-flex ms-lg-auto mt-2 mt-lg-0">
+              <a class="btn btn-mainbtn btnlogin" href="login.html"> Masuk </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main">
+      <div class="bg-svg">
+        <img src="./assets/images/paw.png" class="paw paw1" alt="" />
+        <img src="./assets/images/paw.png" class="paw paw2" alt="" />
+        <img src="./assets/images/paw.png" class="paw paw3" alt="" />
+      </div>
+      <div class="row container-callcenter position-relative">
+        <div class="row callcenter-content mt-5">
+          <div class="col-md-5 callcenter-heading">
+            <h4 class="callcenter-title mb-4">
+              ADA MASALAH DENGAN PETRICORDMU?
+            </h4>
+            <p class="callcenter-subtitle mb-0">
+              Sampaikan kepada kami secepatnya!<br />Kami ada untukmu!
+            </p>
+          </div>
+          <div class="col-md-7 callcenter-form">
+            <form id="callCenterForm">
+              <label>Pilih kategori masalahmu <span>*</span></label>
+              <select id="kategori" required>
+                <option value="" disabled selected>- Pilih kategori -</option>
+                <option value="produk">Masalah Produk</option>
+                <option value="lainnya">Lainnya</option>
+              </select>
+              <div class="error-text" id="kategori-error"></div>
+
+              <!-- Field Masalah Produk -->
+              <div id="produk-fields">
+                <label>Alamat email <span>*</span></label>
+                <input type="email" id="email" placeholder="contoh@email.com" />
+                <div class="error-text" id="email-error"></div>
+
+                <label>Subjek <span>*</span></label>
+                <input
+                  type="text"
+                  id="subjek"
+                  placeholder="Masalah produk saya..."
+                />
+                <div class="error-text" id="subjek-error"></div>
+
+                <label>Pilih jenis produk <span>*</span></label>
+                <select id="jenis-produk">
+                  <option value="" disabled selected>- Pilih produk -</option>
+                  <option>Petricord Alpha</option>
+                  <option>Petricord Beta</option>
+                  <option>Petricord Pro</option>
+                  <option>Petricord Enterprise</option>
+                </select>
+                <div class="error-text" id="jenis-produk-error"></div>
+
+                <label>ID perangkat <span>*</span></label>
+                <input
+                  type="text"
+                  id="id-perangkat"
+                  placeholder="Contoh: PC-123456789"
+                />
+                <div class="error-text" id="id-perangkat-error"></div>
+              </div>
+
+              <!-- Field Lainnya -->
+              <div id="lainnya-fields">
+                <!-- Deskripsi Umum -->
+                <label>Deskripsikan masalahmu <span>*</span></label>
+                <textarea
+                  id="deskripsi"
+                  placeholder="Jelaskan secara detail apa yang terjadi..."
+                  required
+                ></textarea>
+                <div class="error-text" id="deskripsi-error"></div>
+
+                <!-- Lampiran -->
+                <label>Lampiran (opsional)</label>
+                <div class="file-upload" id="file-upload">
+                  Klik untuk menambahkan lampiran atau seret lampiran ke sini<br />
+                  <small
+                    id="file-names"
+                    style="color: #777; margin-top: 10px"
+                  ></small>
+                  <input
+                    type="file"
+                    id="lampiran"
+                    multiple
+                    accept="image/*,.pdf,.zip,.doc,.docx"
+                    style="display: none"
+                  />
+
+                  <!-- Button submit -->
+                  <div
+                    class="success-text"
+                    id="success-message"
+                    style="display: none"
+                  >
+                    Terima kasih! Laporanmu telah kami terima. Tim kami akan
+                    segera menghubungimu.
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="submit-btn" id="submit-btn">
+                Kirim
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- BAGIAN ATAS FOOTER (Logo + Link) -->
+    <article class="petricord-article">
+      <div class="container">
+        <div class="row gy-5 gy-lg-0 px-3">
+          <!-- Kolom Kiri - Logo & Deskripsi -->
+          <div class="col-12 col-lg-5">
+            <div class="article-brand text-start">
+              <h3 class="mb-3">Petricord</h3>
+              <p class="article-desc">
+                Tetap terhubung dengan hewan peliharaan Anda melalui sistem
+                pemantauan dan pengenalan perilaku real-time berbasis web dari
+                Petricord.
+              </p>
+              <div class="social-icons mt-4">
+                <a href="#" class="me-3">
+                  <img
+                    src="./assets/icons/instagram-svgrepo-com.svg"
+                    alt="Instagram"
+                    width="24"
+                  />
+                </a>
+                <a href="#">
+                  <img
+                    src="./assets/icons/youtube-svgrepo-com.svg"
+                    alt="YouTube"
+                    width="30"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kolom Tengah - Brand -->
+          <div class="col-6 col-lg-3 offset-lg-1 text-start">
+            <p class="article-title">Brand</p>
+            <ul class="article-links list-unstyled">
+              <li><a href="#">Toko Kami di E-Commerce</a></li>
+              <li><a href="#">Tentang</a></li>
+              <li><a href="#">Fitur</a></li>
+            </ul>
+          </div>
+
+          <!-- Kolom Kanan - Dukungan -->
+          <div class="col-6 col-lg-3 text-start">
+            <p class="article-title">Dukungan</p>
+            <ul class="article-links list-unstyled">
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Pusat Bantuan</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- BAGIAN FOOTER SEBENARNYA (Copyright only) -->
+    <footer class="petricord-footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <p class="mb-0 text-center">© 2025 Petricord – All Right Reserved.</p>
+        </div>
+      </div>
+    </footer>
+    
+    <!-- Link custom JS -->
+    <script type="module" src="/js/call-center.js"></script>
+    <script>
+      const form = document.getElementById("callCenterForm");
+      const kategori = document.getElementById("kategori");
+      const produkFields = document.getElementById("produk-fields");
+      const lainnyaFields = document.getElementById("lainnya-fields");
+      const email = document.getElementById("email");
+      const subjek = document.getElementById("subjek");
+      const jenisProduk = document.getElementById("jenis-produk");
+      const idPerangkat = document.getElementById("id-perangkat");
+      const deskripsi = document.getElementById("deskripsi");
+      const fileUpload = document.getElementById("file-upload");
+      const fileNames = document.getElementById("file-names");
+      const lampiran = document.getElementById("lampiran");
+      const submitBtn = document.getElementById("submit-btn");
+      const successMsg = document.getElementById("success-message");
+
+      // Sembunyikan semua field saat pertama kali buka halaman
+      window.addEventListener("DOMContentLoaded", () => {
+        produkFields.style.display = "none";
+        lainnyaFields.style.display = "none";
+        submitBtn.style.display = "none";
+      });
+
+      // Conditional field visibility
+      kategori.addEventListener("change", () => {
+        // Sembunyikan dulu semua
+        document.getElementById("produk-fields").style.display = "none";
+        lainnyaFields.style.display = "none";
+        submitBtn.style.display = "none";
+
+        // Lalu tampilkan sesuai pilihan
+        if (kategori.value === "produk") {
+          document.getElementById("produk-fields").style.display = "block";
+          lainnyaFields.style.display = "block"; // deskripsi + upload
+          submitBtn.style.display = "block";
+        } else if (kategori.value === "lainnya") {
+          lainnyaFields.style.display = "block"; // hanya deskripsi + upload
+          submitBtn.style.display = "block";
+        }
+      });
+
+      // Drag & Drop + Click upload
+      ["dragenter", "dragover"].forEach((event) => {
+        fileUpload.addEventListener(event, (e) => {
+          e.preventDefault();
+          fileUpload.classList.add("dragover");
+        });
+      });
+      ["dragleave", "drop"].forEach((event) => {
+        fileUpload.addEventListener(event, (e) => {
+          e.preventDefault();
+          fileUpload.classList.remove("dragover");
+        });
+      });
+      fileUpload.addEventListener("drop", (e) => {
+        lampiran.files = e.dataTransfer.files;
+        showFileNames();
+      });
+      fileUpload.addEventListener("click", () => lampiran.click());
+      lampiran.addEventListener("change", showFileNames);
+
+      function showFileNames() {
+        if (lampiran.files.length === 0) {
+          fileNames.textContent = "";
+          return;
+        }
+        const names = Array.from(lampiran.files)
+          .map((f) => f.name)
+          .join(", ");
+        fileNames.textContent =
+          names.length > 80 ? names.substring(0, 80) + "..." : names;
+      }
+
+      // Validasi real-time
+      function validateField(field, errorId, condition, message) {
+        const errorEl = document.getElementById(errorId);
+        if (condition()) {
+          field.classList.add("error");
+          errorEl.textContent = message;
+          return false;
+        } else {
+          field.classList.remove("error");
+          errorEl.textContent = "";
+          return true;
+        }
+      }
+
+      function clearProdukErrors() {
+        [email, subjek, jenisProduk, idPerangkat].forEach((f) => {
+          f.classList.remove("error");
+          f.value = "";
+        });
+        document
+          .querySelectorAll("#produk-fields .error-text")
+          .forEach((el) => (el.textContent = ""));
+      }
+
+      // Validasi saat mengetik
+      kategori.addEventListener("change", () =>
+        validateField(
+          kategori,
+          "kategori-error",
+          () => !kategori.value,
+          "Pilih kategori masalah"
+        )
+      );
+      email &&
+        email.addEventListener("input", () =>
+          validateField(
+            email,
+            "email-error",
+            () => email.value && !/^\S+@\S+\.\S+$/.test(email.value),
+            "Email tidak valid"
+          )
+        );
+      subjek &&
+        subjek.addEventListener("input", () =>
+          validateField(
+            subjek,
+            "subjek-error",
+            () => subjek.value.trim().length < 5,
+            "Subjek minimal 5 karakter"
+          )
+        );
+      jenisProduk &&
+        jenisProduk.addEventListener("change", () =>
+          validateField(
+            jenisProduk,
+            "jenis-produk-error",
+            () => jenisProduk.value === "",
+            "Pilih jenis produk"
+          )
+        );
+      idPerangkat &&
+        idPerangkat.addEventListener("input", () =>
+          validateField(
+            idPerangkat,
+            "id-perangkat-error",
+            () => idPerangkat.value.trim() === "",
+            "ID perangkat wajib diisi"
+          )
+        );
+      deskripsi.addEventListener("input", () =>
+        validateField(
+          deskripsi,
+          "deskripsi-error",
+          () => deskripsi.value.trim().length < 20,
+          "Deskripsi minimal 20 karakter"
+        )
+      );
+
+      // Submit handler
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let isValid = true;
+
+        // Validasi kategori
+        if (!kategori.value) {
+          validateField(
+            kategori,
+            "kategori-error",
+            () => true,
+            "Pilih kategori masalah"
+          );
+          isValid = false;
+        }
+
+        // Validasi field produk jika dipilih
+        if (kategori.value === "produk") {
+          if (!email.value || !/^\S+@\S+\.\S+$/.test(email.value)) {
+            validateField(
+              email,
+              "email-error",
+              () => true,
+              "Email tidak valid atau kosong"
+            );
+            isValid = false;
+          }
+          if (!subjek.value || subjek.value.trim().length < 5) {
+            validateField(
+              subjek,
+              "subjek-error",
+              () => true,
+              "Subjek minimal 5 karakter"
+            );
+            isValid = false;
+          }
+          if (!jenisProduk.value) {
+            validateField(
+              jenisProduk,
+              "jenis-produk-error",
+              () => true,
+              "Pilih jenis produk"
+            );
+            isValid = false;
+          }
+          if (!idPerangkat.value.trim()) {
+            validateField(
+              idPerangkat,
+              "id-perangkat-error",
+              () => true,
+              "ID perangkat wajib diisi"
+            );
+            isValid = false;
+          }
+        }
+
+        // Validasi deskripsi
+        if (deskripsi.value.trim().length < 20) {
+          validateField(
+            deskripsi,
+            "deskripsi-error",
+            () => true,
+            "Deskripsi minimal 20 karakter"
+          );
+          isValid = false;
+        }
+
+        if (!isValid) return;
+
+        // Simulasi kirim berhasil (ganti dengan AJAX/fetch jika pakai backend)
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Mengirim...";
+
+        setTimeout(() => {
+          successMsg.style.display = "block";
+          submitBtn.style.display = "none";
+          window.scrollTo({
+            top: successMsg.offsetTop - 100,
+            behavior: "smooth",
+          });
+        }, 800);
+      });
+    </script>
+  </body>
+</html>

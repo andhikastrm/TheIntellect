@@ -55,16 +55,14 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <!-- Nav links tengah -->
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">
-                  <img src="./assets/icons/home-svgrepo-com.svg" height="15" />
-                </a>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Beranda</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Tentang</a>
+                <a class="nav-link" href="#about">Tentang</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Fitur</a>
+                <a class="nav-link" href="#fitur">Fitur</a>
               </li>
               <li class="nav-item dropdown">
                 <a
@@ -86,17 +84,21 @@
                   class="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <li><a class="dropdown-item" href="#">Temukan Kami</a></li>
-                  <li><a class="dropdown-item" href="#">FAQs</a></li>
-                  <li><a class="dropdown-item" href="#">Pusat Bantuan</a></li>
+                  <li>
+                    <a class="dropdown-item" href="temukan-kami.html"
+                      >Temukan Kami</a
+                    >
+                  </li>
+                  <li><a class="dropdown-item" href="faqs.html">FAQs</a></li>
+                  <li><a class="dropdown-item" href="call-center.html">Pusat Bantuan</a></li>
                 </ul>
               </li>
             </ul>
             <!-- Button Masuk -->
             <div class="d-flex ms-lg-auto mt-2 mt-lg-0">
-              <button class="btn btn-mainbtn loginbtn" type="button">
+              <a class="btn btn-mainbtn loginbtn" href="login.html">
                 Masuk
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -158,6 +160,10 @@
         <div class="about-bg-svg">
           <img src="./assets/images/paw.png" class="paw paw1" alt="" />
           <img src="./assets/images/paw.png" class="paw paw2" alt="" />
+          <img src="./assets/images/paw.png" class="paw paw3" alt="" />
+          <img src="./assets/images/paw.png" class="paw paw4" alt="" />
+          <img src="./assets/images/paw.png" class="paw paw5" alt="" />
+
         </div>
         <div class="container position-relative">
           <div class="section-title">
@@ -369,7 +375,7 @@
                     <div class="fitur-cards">
                       <div class="cards-icon">
                         <img
-                          src="./assets/icons/alert.png"
+                          src="./assets/icons/log.png"
                           alt="Log Aktivitas Utama"
                           class="fitur-cards-icon"
                         />
@@ -491,5 +497,18 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <!-- Link custom script -->
     <script src="/js/slider.js"></script>
+    <!-- Smooth scroll behavior -->
+    <!-- Taruh sebelum </body> di index.html saja (nggak perlu di halaman lain) -->
+    <script>
+      // Auto smooth scroll kalau masuk dengan #fitur, #tentang, dll
+      window.addEventListener("load", () => {
+        if (location.hash) {
+          const el = document.querySelector(location.hash);
+          if (el) {
+            setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 150);
+          }
+        }
+      });
+    </script>
   </body>
 </html>

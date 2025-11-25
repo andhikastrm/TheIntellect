@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Petricord - Ada Masalah?</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff;
+      color: #333;
+    }
+    .header {
+      background: #f9ca24;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 0 0 20px 20px;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .login-btn {
+      background: #b8860b;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .container {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    h1 { font-size: 36px; margin-bottom: 10px; }
+    .subtitle { font-size: 20px; color: #555; margin-bottom: 40px; }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    select, input, textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 8px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: border 0.3s;
+    }
+    select:focus, input:focus, textarea:focus {
+      outline: none;
+      border-color: #b8860b;
+    }
+    textarea { min-height: 150px; resize: vertical; }
+
+    /* Error styling */
+    .error {
+      border-color: #e74c3c !important;
+      background-color: #fdf2f2;
+    }
+    .error-text {
+      color: #e74c3c;
+      font-size: 13px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .success-text {
+      color: #27ae60;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .file-upload {
+      border: 2px dashed #ddd;
+      background: #fafafa;
+      padding: 40px;
+      text-align: center;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-bottom: 30px;
+      transition: all 0.3s;
+    }
+    .file-upload.dragover {
+      border-color: #b8860b;
+      background: #fff9e6;
+    }
+
+    .submit-btn {
+      background: #b8860b;
+      color: white;
+      border: none;
+      padding: 16px 50px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      float: right;
+      transition: background 0.3s;
+    }
+    .submit-btn:hover { background: #9f7300; }
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .footer {
+      background: #f9ca24;
+      text-align: center;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 14px;
+    }
+
+    #produk-fields { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo">Petric<span style="color:#b8860b">ord</span></div>
+    <button class="login-btn">Masuk</button>
+  </div>
+
+  <div class="container">
+    <h1>ADA MASALAH DENGAN PETRICORDMU?</h1>
+    <p class="subtitle">Sampaikan kepada kami secepatnya!<br>Kami ada untukmu!</p>
+
+    <form id="support-form" novalidate>
+      <!-- Kategori -->
+      <label>Pilih kategori masalahmu <span style="color:#e74c3c">*</span></label>
+      <select id="kategori" required>
+        <option value="" disabled selected>- Pilih kategori -</option>
+        <option value="produk">Masalah Produk</option>
+        <option value="lainnya">Lainnya</option>
+      </select>
+      <div class="error-text" id="kategori-error"></div>
+
+      <!-- Field khusus Masalah Produk -->
+      <div id="produk-fields">
+        <label>Alamat email <span style="color:#e74c3c">*</span></label>
+        <input type="email" id="email" placeholder="contoh@email.com" />
+        <div class="error-text" id="email-error"></div>
+
+        <label>Subjek <span style="color:#e74c3c">*</span></label>
+        <input type="text" id="subjek" placeholder="Masalah produk saya..." />
+        <div class="error-text" id="subjek-error"></div>
+
+        <label>Pilih jenis produk <span style="color:#e74c3c">*</span></label>
+        <select id="jenis-produk">
+          <option value="" disabled selected>- Pilih produk -</option>
+          <option>Petricord Alpha</option>
+          <option>Petricord Beta</option>
+          <option>Petricord Pro</option>
+          <option>Petricord Enterprise</option>
+        </select>
+        <div class="error-text" id="jenis-produk-error"></div>
+
+        <label>ID perangkat <span style="color:#e74c3c">*</span></label>
+        <input type="text" id="id-perangkat" placeholder="Contoh: PC-123456789" />
+        <div class="error-text" id="id-perangkat-error"></div>
+      </div>
+
+      <!-- Deskripsi umum -->
+      <label>Deskripsikan masalahmu <span style="color:#e74c3c">*</span></label>
+      <textarea id="deskripsi" placeholder="Jelaskan secara detail apa yang terjadi..." required></textarea>
+      <div class="error-text" id="deskripsi-error"></div>
+
+      <!-- Lampiran -->
+      <label>Lampiran (opsional)</label>
+      <div class="file-upload" id="file-upload">
+        Klik untuk menambahkan lampiran atau seret lampiran ke sini<br>
+        <small id="file-names" style="color:#777; margin-top:10px;"></small>
+        <input type="file" id="lampiran" multiple accept="image/*,.pdf,.zip,.doc,.docx" style="display:none;" />
+      </div>
+
+      <button type="submit" class="submit-btn" id="submit-btn">Kirim</button>
+      <div class="success-text" id="success-message" style="display:none;">
+        Terima kasih! Laporanmu telah kami terima. Tim kami akan segera menghubungimu.
+      </div>
+    </form>
+  </div>
+
+  <div class="footer">
+    © 2025 Petricord – All Right Reserved.
+  </div>
+
+  <script>
+    const form         = document.getElementById('support-form');
+    const kategori     = document.getElementById('kategori');
+    const produkFields = document.getElementById('produk-fields');
+    const email        = document.getElementById('email');
+    const subjek       = document.getElementById('subjek');
+    const jenisProduk  = document.getElementById('jenis-produk');
+    const idPerangkat  = document.getElementById('id-perangkat');
+    const deskripsi    = document.getElementById('deskripsi');
+    const fileUpload   = document.getElementById('file-upload');
+    const fileNames    = document.getElementById('file-names');
+    const lampiran     = document.getElementById('lampiran');
+    const submitBtn    = document.getElementById('submit-btn');
+    const successMsg   = document.getElementById('success-message');
+
+    // Conditional field visibility
+    kategori.addEventListener('change', () => {
+      if (kategori.value === 'produk') {
+        produkFields.style.display = 'block';
+      } else {
+        produkFields.style.display = 'none';
+        clearProdukErrors();
+      }
+    });
+
+    // Drag & Drop + Click upload
+    ['dragenter', 'dragover'].forEach(event => {
+      fileUpload.addEventListener(event, e => {
+        e.preventDefault();
+        fileUpload.classList.add('dragover');
+      });
+    });
+    ['dragleave', 'drop'].forEach(event => {
+      fileUpload.addEventListener(event, e => {
+        e.preventDefault();
+        fileUpload.classList.remove('dragover');
+      });
+    });
+    fileUpload.addEventListener('drop', e => {
+      lampiran.files = e.dataTransfer.files;
+      showFileNames();
+    });
+    fileUpload.addEventListener('click', () => lampiran.click());
+    lampiran.addEventListener('change', showFileNames);
+
+    function showFileNames() {
+      if (lampiran.files.length === 0) {
+        fileNames.textContent = '';
+        return;
+      }
+      const names = Array.from(lampiran.files).map(f => f.name).join(', ');
+      fileNames.textContent = names.length > 80 ? names.substring(0,80)+'...' : names;
+    }
+
+    // Validasi real-time
+    function validateField(field, errorId, condition, message) {
+      const errorEl = document.getElementById(errorId);
+      if (condition()) {
+        field.classList.add('error');
+        errorEl.textContent = message;
+        return false;
+      } else {
+        field.classList.remove('error');
+        errorEl.textContent = '';
+        return true;
+      }
+    }
+
+    function clearProdukErrors() {
+      [email, subjek, jenisProduk, idPerangkat].forEach(f => {
+        f.classList.remove('error');
+        f.value = '';
+      });
+      document.querySelectorAll('#produk-fields .error-text').forEach(el => el.textContent = '');
+    }
+
+    // Validasi saat mengetik
+    kategori.addEventListener('change', () => validateField(kategori, 'kategori-error', () => !kategori.value, 'Pilih kategori masalah'));
+    email && email.addEventListener('input', () => validateField(email, 'email-error', () => email.value && !/^\S+@\S+\.\S+$/.test(email.value), 'Email tidak valid'));
+    subjek && subjek.addEventListener('input', () => validateField(subjek, 'subjek-error', () => subjek.value.trim().length < 5, 'Subjek minimal 5 karakter'));
+    jenisProduk && jenisProduk.addEventListener('change', () => validateField(jenisProduk, 'jenis-produk-error', () => jenisProduk.value === '', 'Pilih jenis produk'));
+    idPerangkat && idPerangkat.addEventListener('input', () => validateField(idPerangkat, 'id-perangkat-error', () => idPerangkat.value.trim() === '', 'ID perangkat wajib diisi'));
+    deskripsi.addEventListener('input', () => validateField(deskripsi, 'deskripsi-error', () => deskripsi.value.trim().length < 20, 'Deskripsi minimal 20 karakter'));
+
+    // Submit handler
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      let isValid = true;
+
+      // Validasi kategori
+      if (!kategori.value) {
+        validateField(kategori, 'kategori-error', () => true, 'Pilih kategori masalah');
+        isValid = false;
+      }
+
+      // Validasi field produk jika dipilih
+      if (kategori.value === 'produk') {
+        if (!email.value || !/^\S+@\S+\.\S+$/.test(email.value)) {
+          validateField(email, 'email-error', () => true, 'Email tidak valid atau kosong');
+          isValid = false;
+        }
+        if (!subjek.value || subjek.value.trim().length < 5) {
+          validateField(subjek, 'subjek-error', () => true, 'Subjek minimal 5 karakter');
+          isValid = false;
+        }
+        if (!jenisProduk.value) {
+          validateField(jenisProduk, 'jenis-produk-error', () => true, 'Pilih jenis produk');
+          isValid = false;
+        }
+        if (!idPerangkat.value.trim()) {
+          validateField(idPerangkat, 'id-perangkat-error', () => true, 'ID perangkat wajib diisi');
+          isValid = false;
+        }
+      }
+
+      // Validasi deskripsi
+      if (deskripsi.value.trim().length < 20) {
+        validateField(deskripsi, 'deskripsi-error', () => true, 'Deskripsi minimal 20 karakter');
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Simulasi kirim berhasil (ganti dengan AJAX/fetch jika pakai backend)
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Mengirim...';
+
+      setTimeout(() => {
+        successMsg.style.display = 'block';
+        submitBtn.style.display = 'none';
+        window.scrollTo({ top: successMsg.offsetTop - 100, behavior: 'smooth' });
+      }, 800);
+    });
+  </script>
+</body>
+</html>

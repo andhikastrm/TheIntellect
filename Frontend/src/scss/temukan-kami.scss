@@ -1,0 +1,220 @@
+* {
+  font-family: Poppins, sans-serif;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+#main {
+  align-items: center;
+}
+
+.container-temukan-kami {
+  /* agar konten terpusat vertikal di layar */
+  display: flex;
+  justify-content: center;
+  text-align: center; /* rata tengah horizontal */ /* rata tengah vertikal */
+  padding: 180px 50px 30px; /* atas lebih besar karena navbar fixed */
+  margin: 0 auto;
+  max-width: 1200px; /* opsional: batas lebar maksimal */
+}
+
+/* NAVBAR */
+.navbar {
+  background-color: rgba(239, 208, 126, 0.8);
+  backdrop-filter: blur(6px);
+  box-shadow: #00000020 0px 5px 12px;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: 20px;
+}
+
+/* Hilangkan panah default bootstrap */
+.nav-link.dropdown-toggle::after {
+  display: none;
+}
+
+.nav-link {
+  margin: 0 5px;
+  color: #000;
+  transition: transform 0.2s ease, font-weight 0.2s ease;
+}
+
+.navbar-toggler {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar-toggler:hover {
+  background-color: rgba(166, 129, 37, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.nav-link:hover {
+  color: #7f620b;
+  transform: translateY(-1px);
+  font-weight: 600;
+}
+
+.dropdown-menu {
+  background-color: rgba(255, 255, 255) !important;
+  backdrop-filter: blur(30px);
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: 0 8px 32px rgba(127, 98, 11, 0.3) !important;
+  margin-top: 12px !important;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  color: #333 !important;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background: linear-gradient(to right, rgba(203, 168, 61, 0.9), rgba(166, 129, 37, 0.9)) !important;
+  color: #ffffff !important;  
+  padding-left: 28px !important;   /* efek geser sedikit saat hover */
+}
+
+/* BUTTONS */
+.btn-mainbtn {
+  background: linear-gradient(to right, #cba83d, #7f620b);
+  background-size: 200% 200%;
+  background-position: left center;
+  font-weight: 500;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  transition: background-position 0.5s ease, transform 0.2s ease;
+}
+
+.btn-mainbtn:hover {
+  color: white !important;
+  background-position: right center;
+  transform: translateY(-3px);
+}
+
+.btn-cta {
+  margin-bottom: 20px;
+}
+
+// E-Commerce Styles
+
+.cards-lists {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: #00000020 0px 2px 12px;
+  border-radius: 8px;
+}
+
+.cards-subtitle {
+  margin: 0;
+  font-size: 14px;
+}
+
+
+.e-commerce-logo {
+  max-height: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+// FOOOTER
+
+/* === BAGIAN ARTICLE (sebelum copyright) === */
+.petricord-article {
+  background-color: rgba(255, 255, 255, 0);
+  padding: 80px 0 60px;
+  color: #333;
+}
+
+.article-brand h3 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+}
+
+.article-desc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #555;
+  max-width: 400px;
+}
+
+.article-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 18px;
+}
+
+.article-links a {
+  color: #666;
+  text-decoration: none;
+  font-size: 14.5px;
+  line-height: 2.3;
+  transition: color 0.3s ease;
+}
+
+.article-links a:hover {
+  color: #7f620b;
+}
+
+.social-icons img {
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+/* === COPYRIGHT === */
+.petricord-footer {
+  background: linear-gradient(to right, #faefcb, #edc86a);
+  padding: 10px 0;
+}
+
+.footer-bottom p {
+  font-size: 12px;
+  color: #000;
+  font-weight: 400;
+}
+
+// MOBILE
+
+@media (max-width: 720px) {
+  .e-commerce-logos {
+    justify-content: center !important;
+  }
+}

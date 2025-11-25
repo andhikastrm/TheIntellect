@@ -1,6 +1,7 @@
 /* Import Bootstrap */
 @import "bootstrap/scss/bootstrap";
 
+
 /* GLOBAL */
 * {
   font-family: "Poppins", sans-serif;
@@ -84,6 +85,28 @@ h6 {
   color: #7f620b;
   transform: translateY(-1px);
   font-weight: 600;
+}
+
+.dropdown-menu {
+  background-color: rgba(255, 255, 255) !important;
+  backdrop-filter: blur(30px);
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: 0 8px 32px rgba(127, 98, 11, 0.3) !important;
+  margin-top: 12px !important;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  color: #333 !important;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background: linear-gradient(to right, rgba(203, 168, 61, 0.9), rgba(166, 129, 37, 0.9)) !important;
+  color: #ffffff !important;  
+  padding-left: 28px !important;   /* efek geser sedikit saat hover */
 }
 
 /* BUTTONS */
@@ -253,9 +276,30 @@ h6 {
 
 .paw2 {
   width: 110px;
-  top: 25%;
+  top: 70%;
   left: 75%;
   transform: rotate(15deg);
+}
+
+.paw3 {
+  width: 190px;
+  top: 40%;
+  left: 50%;
+  transform: rotate(-10deg);
+}
+
+.paw4 {
+  width: 140px;
+  top: 50%;
+  left: 20%;
+  transform: rotate(5deg);
+}
+
+.paw5 {
+  width: 180px;
+  top: 15%;
+  left: 70%;
+  transform: rotate(5deg);
 }
 
 /* Visi Misi */
@@ -491,11 +535,15 @@ h6 {
 
 /*================ MOBILE ================*/
 
-@media (max-width: 500px) {
+@media (max-width: 450px) {
   #hero {
     flex-direction: column;
     text-align: center;
     padding-top: 150px;
+  }
+
+  .hero-title, .hero-subtitle, .cta {
+    text-align: center !important;
   }
 
   .hero-content {
@@ -529,3 +577,9 @@ h6 {
 //     margin-right: 15px !important;
 //     border-radius: 10px;
 //   }
+
+
+*, html {
+  scroll-behavior: smooth !important;
+  scroll-padding: 10rem;
+}

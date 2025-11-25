@@ -1,0 +1,421 @@
+//  IMPORTANT
+
+/* Biar saat muncul kembali pakai display yang benar (block) */
+#submit-btn.show,
+#produk-fields.show,
+#lainnya-fields.show {
+  display: block !important;
+}
+
+/* ========================================
+   GLOBAL & TIPOGRAFI
+   ======================================== */
+* {
+  font-family: "Poppins", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: 700;
+}
+
+/* ========================================
+   NAVBAR (tetap seperti sebelumnya)
+   ======================================== */
+.navbar {
+  background-color: rgba(239, 208, 126, 0.8);
+  backdrop-filter: blur(6px);
+  box-shadow: #00000020 0px 5px 12px;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: 20px;
+}
+
+/* Hilangkan panah default bootstrap */
+.nav-link.dropdown-toggle::after {
+  display: none;
+}
+
+.nav-link {
+  margin: 0 5px;
+  color: #000;
+  transition: transform 0.2s ease, font-weight 0.2s ease;
+}
+
+.navbar-toggler {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar-toggler:hover {
+  background-color: rgba(166, 129, 37, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.nav-link:hover {
+  color: #7f620b;
+  transform: translateY(-1px);
+  font-weight: 600;
+}
+
+.dropdown-menu {
+  background-color: rgba(255, 255, 255) !important;
+  backdrop-filter: blur(30px);
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: 0 8px 32px rgba(127, 98, 11, 0.3) !important;
+  margin-top: 12px !important;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  color: #333 !important;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background: linear-gradient(
+    to right,
+    rgba(203, 168, 61, 0.9),
+    rgba(166, 129, 37, 0.9)
+  ) !important;
+  color: #ffffff !important;
+  padding-left: 28px !important; /* efek geser sedikit saat hover */
+}
+
+// BUTTON
+
+.btn-mainbtn {
+  background: linear-gradient(to right, #cba83d, #7f620b);
+  background-size: 200% 200%;
+  background-position: left center;
+  font-weight: 500;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  transition: background-position 0.5s ease, transform 0.2s ease;
+}
+
+.btn-mainbtn:hover {
+  color: white !important;
+  background-position: right center;
+  transform: translateY(-3px);
+}
+
+/* ... (semua style navbar kamu yang lama tetap dipertahankan) ... */
+
+/* ========================================
+   MAIN LAYOUT – SUPER LEBAR & LEGA
+   ======================================== */
+.main {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #ffffff;
+  display: flex;
+  align-items: center; /* vertikal center kalau konten sedikit */
+  justify-content: center;
+  padding-top: 80px; /* ruang untuk navbar fixed */
+}
+
+.bg-svg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.bg-svg .paw {
+  position: absolute;
+  opacity: 0.04;
+  user-select: none;
+}
+.paw1 {
+  width: 180px;
+  top: 8%;
+  left: 6%;
+  transform: rotate(-25deg);
+}
+.paw2 {
+  width: 110px;
+  top: 70%;
+  left: 75%;
+  transform: rotate(15deg);
+}
+.paw3 {
+  width: 190px;
+  top: 40%;
+  left: 50%;
+  transform: rotate(-10deg);
+}
+
+/* Container utama – LEBAR MAKSIMAL & RESPONSIF */
+.container-callcenter {
+  display: flex;
+  width: 100%;
+  max-width: 1480px; /* lebar banget tapi masih nyaman */
+  margin: 0 auto;
+  padding: 60px 40px 100px; /* atas dikurangi karena sudah ada padding di .main */
+  justify-content: center;
+}
+
+/* Pastikan row dalamnya rata atas */
+.callcenter-content {
+  align-items: flex-start !important;
+}
+
+/* Kolom kiri (judul) */
+.callcenter-heading {
+  padding-right: 40px; /* ruang napas ke kanan */
+}
+.callcenter-title {
+  font-size: 2.2rem;
+  line-height: 1.3;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+.callcenter-subtitle {
+  font-size: 1.15rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ========================================
+   FORM STYLE – Rapi & Modern
+   ======================================== */
+#callCenterForm {
+  background: #ffffff;
+  padding: 40px 45px;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(30px);
+  box-shadow: #00000020 0px 2px 12px;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+#callCenterForm label {
+  font-weight: 400;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+#callCenterForm label span {
+  color: #b18e1b;
+}
+
+#callCenterForm input,
+#callCenterForm select,
+#callCenterForm textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  margin-bottom: 5px;
+}
+#callCenterForm input:focus,
+#callCenterForm select:focus,
+#callCenterForm textarea:focus {
+  outline: none;
+  border-color: #cba83d;
+  box-shadow: 0 0 0 3px rgba(203, 168, 61, 0.15);
+}
+
+#callCenterForm textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* File upload custom */
+.file-upload {
+  border: 2px dashed #cba83d;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  background: #fffdf7;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+.file-upload:hover {
+  background: #fff9e6;
+  border-color: #a67c00;
+}
+#file-names {
+  margin-top: 10px;
+  font-weight: 500;
+  color: #7f620b;
+}
+
+/* Tombol Kirim */
+.submit-btn {
+  margin-top: 30px;
+  background: linear-gradient(to right, #cba83d, #7f620b);
+  background-size: 200% auto;
+  color: white;
+  border: none;
+  padding: 14px 40px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+.submit-btn:hover {
+  background-position: right center;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(127, 98, 11, 0.3);
+}
+
+/* Pesan sukses */
+.success-text {
+  margin-top: 20px;
+  padding: 20px;
+  background: #d4edda;
+  color: #155724;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Error text */
+.error-text {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  min-height: 22px;
+  margin-bottom: 10px;
+}
+
+/* Ubah warna background semua dropdown (select) di form */
+#callCenterForm select {
+  background-color: #f0f0f0;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Saat dropdown difokuskan / dipilih */
+#callCenterForm select:focus {
+  background-color: #f0f0f0 !important;
+  box-shadow: 0 0 0 4px rgba(203, 168, 61, 0.2);
+}
+
+/* Panah dropdown juga ikut warna kuning */
+#callCenterForm select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  padding-right: 50px !important; /* biar teks nggak ketutup panah */
+}
+
+
+// FOOOTER
+
+/* === BAGIAN ARTICLE (sebelum copyright) === */
+.petricord-article {
+  background-color: rgba(255, 255, 255, 0);
+  padding: 80px 0 60px;
+  color: #333;
+}
+
+.article-brand h3 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+}
+
+.article-desc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #555;
+  max-width: 400px;
+}
+
+.article-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 18px;
+}
+
+.article-links a {
+  color: #666;
+  text-decoration: none;
+  font-size: 14.5px;
+  line-height: 2.3;
+  transition: color 0.3s ease;
+}
+
+.article-links a:hover {
+  color: #7f620b;
+}
+
+.social-icons img {
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+/* === COPYRIGHT === */
+.petricord-footer {
+  background: linear-gradient(to right, #faefcb, #edc86a);
+  padding: 10px 0;
+}
+
+.footer-bottom p {
+  font-size: 12px;
+  color: #000;
+  font-weight: 400;
+}
+
+// RESPONSIVE
+@media (max-width: 992px) {
+  .container-callcenter {
+    padding: 40px 20px 80px;
+  }
+  .callcenter-heading {
+    padding-right: 0;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .callcenter-title {
+    font-size: 1.9rem;
+  }
+  #callCenterForm {
+    padding: 30px 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .callcenter-content > div {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
