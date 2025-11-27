@@ -14,7 +14,7 @@ import os
 
 router = APIRouter(tags=["Cats & Devices"])
 
-UPLOAD_DIR = "TheIntellect/static/uploads"
+UPLOAD_DIR = "static/uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 
@@ -208,8 +208,8 @@ async def detect_behavior_only(
     # LANJUT DETEKSI JIKA SUDAH ADA CAT_ID
     timestamp = int(datetime.now().timestamp())
     raw_filename = f"raw_{timestamp}.jpg"
-    raw_path = f"TheIntellect/static/uploads_raw/{raw_filename}"
-    os.makedirs("TheIntellect/static/uploads_raw", exist_ok=True)
+    raw_path = f"static/uploads_raw/{raw_filename}"
+    os.makedirs("static/uploads_raw", exist_ok=True)
     
     with open(raw_path, "wb") as f:
         f.write(await image.read())

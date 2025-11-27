@@ -10,8 +10,8 @@ from pathlib import Path
 # ==================== PATH OTOMATIS ====================
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 MODEL_PATH = BASE_DIR / "yolo_models" / "best.pt"
-DETECTIONS_DIR = BASE_DIR / "TheIntellect" / "static" / "detections"
-UPLOADS_RAW_DIR = BASE_DIR / "TheIntellect" / "static" / "uploads_raw"
+DETECTIONS_DIR = BASE_DIR / "static" / "detections"
+UPLOADS_RAW_DIR = BASE_DIR / "static" / "uploads_raw"
 
 # Buat folder kalau belum ada
 DETECTIONS_DIR.mkdir(parents=True, exist_ok=True)
