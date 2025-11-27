@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petricord - Smart Collar Live</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    .gold-gradient {
+      background: linear-gradient(135deg, #f8d08b 0%, #e6b162 50%, #c99f4e 100%);
+    }
+
+    .gold-glow {
+      box-shadow: 0 0 40px rgba(239, 208, 126, 0.7);
+    }
+
+    .pulse-glow {
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 0.8;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen gold-gradient text-white overflow-x-hidden">
+
+  <div class="container mx-auto px-6 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-6xl font-bold mb-4">Petricord Smart Collar</h1>
+      <p class="text-2xl opacity-90">Device ID: <span id="deviceId" class="text-yellow-300 font-bold">Loading...</span>
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+
+      <!-- Kamera Live -->
+      <div class="bg-black/70 backdrop-blur-xl rounded-3xl p-8 gold-glow">
+        <h2 class="text-4xl font-bold text-center mb-6">Kamera Live</h2>
+        <video id="video" class="w-full rounded-3xl shadow-2xl aspect-video object-cover" autoplay muted
+          playsinline></video>
+        <canvas id="canvas" class="hidden"></canvas>
+
+        <button onclick="toggleDetection()" id="detectBtn"
+          class="mt-8 w-full bg-amber-600 hover:bg-amber-700 py-7 rounded-3xl text-3xl font-bold shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-4">
+          <i class="ri-play-circle-fill text-5xl"></i>
+          Mulai Deteksi Otomatis
+        </button>
+      </div>
+
+      <!-- Hasil Deteksi -->
+      <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-10 gold-glow">
+        <h2 class="text-5xl font-bold text-center mb-10">Hasil Deteksi AI</h2>
+
+        <div id="result" class="text-center space-y-8">
+          <div class="bg-black/40 rounded-3xl p-16 border-4 border-dashed border-yellow-600/50">
+            <i class="ri-emotion-happy-line text-9xl text-yellow-400 mb-8"></i>
+            <p class="text-3xl font-semibold">Menunggu kucing Anda muncul...</p>
+          </div>
+        </div>
+
+        <!-- Riwayat -->
+        <div class="mt-12 bg-black/40 rounded-3xl p-8 max-h-96 overflow-y-auto">
+          <h3 class="text-2xl font-bold mb-6">Riwayat Deteksi Hari Ini</h3>
+          <div id="log" class="space-y-4 text-lg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let detecting = false;
+    let interval = null;
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const resultDiv = document.getElementById('result');
+    const logDiv = document.getElementById('log');
+    const deviceIdEl = document.getElementById('deviceId');
+    const btn = document.getElementById('detectBtn');
+
+    // Ambil atau buat device serial
+    let deviceSerial = localStorage.getItem("my_device_serial");
+    if (!deviceSerial) {
+      deviceSerial = "DEV-" + Date.now().toString(36).toUpperCase();
+      localStorage.setItem("my_device_serial", deviceSerial);
+    }
+    deviceIdEl.textContent = deviceSerial;
+
+    // Akses kamera
+    async function startCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: 1280, height: 720 }
+        });
+        video.srcObject = stream;
+      } catch (err) {
+        Swal.fire("Error", "Tidak dapat mengakses kamera. Izinkan akses kamera di browser!", "error");
+      }
+    }
+
+    // Kirim frame ke API /detect-behavior (PAKAI HEADER X-Device-Serial)
+    async function sendFrame() {
+      if (!video.videoWidth) return;
+
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+
+      canvas.toBlob(async (blob) => {
+        const form = new FormData();
+        form.append("image", blob, "frame.jpg");
+
+        try {
+          const response = await fetch("http://127.0.0.1:8000/api/cats/detect-behavior", {
+            method: "POST",
+            headers: {
+              "X-Device-Serial": deviceSerial   // CUKUP INI SAJA!
+            },
+            body: form
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            const time = new Date().toLocaleTimeString('id-ID');
+
+            resultDiv.innerHTML = `
+              <img src="http://127.0.0.1:8000${data.image}" class="rounded-3xl shadow-2xl mx-auto border-8 border-yellow-500 mb-8 max-w-full">
+              <div class="text-8xl font-bold animate-pulse text-yellow-300 mb-4">
+                ${data.habit.toUpperCase()}
+              </div>
+              <div class="text-4xl mb-2">Confidence: <span class="text-green-400 font-bold">${(data.confidence * 100).toFixed(1)}%</span></div>
+              <div class="text-2xl text-yellow-200">Kucing: ${data.cat_name || "Unknown"}</div>
+            `;
+
+            // Tambah ke log
+            logDiv.innerHTML = `
+              <div class="bg-yellow-900/50 p-5 rounded-xl border-l-8 border-yellow-500">
+                <span class="font-bold text-yellow-300">[${time}]</span>
+                <span class="text-white text-xl font-bold"> ${data.habit.toUpperCase()}</span>
+                <span class="text-green-400"> — ${(data.confidence * 100).toFixed(1)}%</span>
+              </div>
+            ` + logDiv.innerHTML;
+          }
+        } catch (err) {
+          console.log("Sedang memproses frame...");
+        }
+      }, "image/jpeg", 0.8);
+    }
+
+    // Toggle deteksi
+    function toggleDetection() {
+      if (detecting) {
+        clearInterval(interval);
+        detecting = false;
+        btn.innerHTML = `<i class="ri-play-circle-fill text-5xl"></i> Mulai Deteksi Otomatis`;
+        btn.className = "mt-8 w-full bg-amber-600 hover:bg-amber-700 py-7 rounded-3xl text-3xl font-bold shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-4";
+      } else {
+        detecting = true;
+        interval = setInterval(sendFrame, 3000); // setiap 3 detik
+        btn.innerHTML = `<i class="ri-stop-circle-fill text-5xl"></i> Hentikan Deteksi`;
+        btn.className = "mt-8 w-full bg-red-600 hover:bg-red-700 py-7 rounded-3xl text-3xl font-bold shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-4";
+      }
+    }
+
+    // Jalankan saat halaman dibuka
+    window.onload = () => {
+      startCamera();
+    };
+  </script>
+</body>
+
+</html>

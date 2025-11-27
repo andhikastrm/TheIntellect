@@ -41,7 +41,6 @@ class Cat(Base):
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
 
     owner = relationship("User", back_populates="cats")
-    devices = relationship("Device", back_populates="cat", cascade="all, delete-orphan")
 
 
 # ===== MODEL DEVICE (SATU FILE DENGAN CAT) =====
@@ -53,7 +52,15 @@ class Device(Base):
     serial_number = Column(String(100), unique=True, nullable=False)
     tipe = Column(Enum(TipePerangkat), nullable=False)
     status = Column(Enum(StatusPerangkat), default=StatusPerangkat.Aktif)
-    #cat_id = Column(Integer, ForeignKey("cats.id", ondelete="SET NULL"), nullable=True)
     assigned_at = Column(DateTime, default=datetime.utcnow)
 
-    #cat = relationship("Cat", back_populates="devices")
+
+class CatActivity(Base):
+    __tablename__ = "cat_activities"
+
+    id = Column(Integer, primary_key=True, index=True)
+    behavior = Column(String(50), nullable=False)  
+    confidence = Column(Float, nullable=False)
+    image_path = Column(String(500))               
+    detected_image = Column(String(500))           
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=True)
