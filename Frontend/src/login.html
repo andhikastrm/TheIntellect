@@ -1,244 +1,276 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selamat datang kembali!</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Petricord - Masuk</title>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #f9f9f9;
-      padding: 40px;
-      text-align: center;
-    }
+    <!-- Script Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
-    .box {
-      max-width: 420px;
-      margin: 0 auto;
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    }
+    <!-- Link Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-    h1 {
-      margin-bottom: 30px;
-      color: #e67e22;
-    }
+    <!-- Link Favicon -->
+    <link
+      rel="icon"
+      href="/assets/images/petricord-logo.svg"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg fixed-top">
+        <div
+          class="container-fluid d-flex align-items-center justify-content-between"
+        >
+          <!-- Brand -->
+          <a class="navbar-brand" href="index.html">
+            <img src="./assets/images/petricord-logo.svg" height="30" />
+          </a>
+          <div class="d-flex ms-lg-auto mt-lg-0">
+            <a class="btn backbtn" onclick="history.back()">
+              <img
+                class="back-icon"
+                src="./assets/icons/back-arrow-svgrepo-com.svg"
+                alt="Back"
+              />
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-    input {
-      width: 100%;
-      padding: 14px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      font-size: 16px;
-    }
+    <main class="main">
+      <div class="container-bg">
+        <img src="./assets/images/paw.png" class="paw paw1" alt="" />
+        <img src="./assets/images/paw.png" class="paw paw2" alt="" />
+      </div>
 
-    button {
-      width: 100%;
-      padding: 14px;
-      margin: 12px 0;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+      <div class="main-container">
+        <div class="row welcoming">
+          <p>Selamat datang kembali, Cordian!</p>
+        </div>
+        <div class="row container-login">
+          <div class="login-heading">
+            <h5>Masuk dengan email</h5>
+          </div>
+          <div class="login-form">
+            <input type="email" id="email" placeholder="Email" required />
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="pass"
+                placeholder="Password"
+                required
+              />
+              <span class="toggle-password" onclick="togglePass()">
+                <img
+                  src="./assets/icons/hide-svgrepo-com.svg"
+                  id="eyeIcon"
+                  alt="Show/Hide"
+                />
+              </span>
+            </div>
+            <button class="withemail" onclick="loginWithEmail()">
+              Masuk dengan email
+            </button>
+            <div class="form-divider">
+              <span>atau</span>
+            </div>
+            <button class="google" onclick="signInWithGoogle()">
+              Lanjutkan dengan Google
+            </button>
+            <p>
+              Belum punya akun?
+              <a href="register.html" style="color: #7f620b; font-weight: 500"
+                >Daftar sekarang</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
 
-    .email-btn {
-      background: #e67e22;
-      color: white;
-    }
+    <!-- Link custom JS -->
+    <script type="module" src="/js/login.js"></script>
 
-    .google-btn {
-      background: white;
-      color: #333;
-      border: 2px solid #e67e22;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
+    <script>
+      // GUNAKAN PORT YANG BENAR-BENAR KAMU PAKAI
+      const baseUrl = "http://127.0.0.1:8000"; // Backend FastAPI
+      // const baseUrl = "http://localhost:8000"; // kalau pakai ini juga boleh
 
-    .google-btn img {
-      width: 22px;
-    }
+      const firebaseConfig = {
+        apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
+        authDomain: "petricord-f8c54.firebaseapp.com",
+        projectId: "petricord-f8c54",
+        storageBucket: "petricord-f8c54.firebasestorage.app",
+        messagingSenderId: "814472267558",
+        appId: "1:814472267558:web:d97ddfd93757a7fe5f63e7",
+      };
 
-    .divider {
-      margin: 20px 0;
-      color: #888;
-      position: relative;
-    }
+      // Firebase v9 Compat (sama kayak v8 tapi lebih baru & nggak bikin warning)
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const provider = new firebase.auth.GoogleAuthProvider();
 
-    .divider::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: #ddd;
-    }
+      // Scope tambahan biar ambil nama + foto (optional)
+      provider.addScope("profile");
+      provider.addScope("email");
 
-    .divider span {
-      background: white;
-      padding: 0 15px;
-    }
+      // ==================== LOGIN EMAIL ====================
+      async function loginWithEmail() {
+        const email = document.getElementById("email").value.trim();
+        const pass = document.getElementById("pass").value;
+        if (!email || !pass) return alert("Isi email dan password dulu ya!");
 
-    a {
-      color: #e67e22;
-      text-decoration: underline;
-      font-weight: bold;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="box">
-    <h1>Selamat datang kembali, Cordian!</h1>
-
-    <input type="email" id="email" placeholder="Email" required />
-    <input type="password" id="pass" placeholder="Password" required />
-    <button class="email-btn" onclick="loginWithEmail()">Masuk dengan Email</button>
-
-    <div class="divider"><span>atau</span></div>
-
-    <button class="google-btn" onclick="signInWithGoogle()">
-      <img src="https://www.google.com/favicon.ico" alt="G">
-      Lanjutkan dengan Google
-    </button>
-
-    <p style="margin-top:25px;">
-      Belum punya akun? <a href="register.html">Daftar sekarang</a>
-    </p>
-  </div>
-
-  <script>
-    // GUNAKAN PORT YANG BENAR-BENAR KAMU PAKAI
-    const baseUrl = "http://127.0.0.1:8000";   // Backend FastAPI
-    // const baseUrl = "http://localhost:8000"; // kalau pakai ini juga boleh
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
-      authDomain: "petricord-f8c54.firebaseapp.com",
-      projectId: "petricord-f8c54",
-      storageBucket: "petricord-f8c54.firebasestorage.app",
-      messagingSenderId: "814472267558",
-      appId: "1:814472267558:web:d97ddfd93757a7fe5f63e7"
-    };
-
-    // Firebase v9 Compat (sama kayak v8 tapi lebih baru & nggak bikin warning)
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    // Scope tambahan biar ambil nama + foto (optional)
-    provider.addScope('profile');
-    provider.addScope('email');
-
-    // ==================== LOGIN EMAIL ====================
-    async function loginWithEmail() {
-      const email = document.getElementById("email").value.trim();
-      const pass = document.getElementById("pass").value;
-      if (!email || !pass) return alert("Isi email dan password dulu ya!");
-
-      try {
-        const result = await auth.signInWithEmailAndPassword(email, pass);
-        const token = await result.user.getIdToken();
-        await syncToBackend(token);
-      } catch (err) {
-        alert("Login gagal: " + err.message);
-      }
-    }
-
-    // ==================== LOGIN GOOGLE (POPUP) ====================
-    async function signInWithGoogle() {
-      try {
-        // Ini yang paling penting: pakai signInWithPopup yang baru
-        const result = await auth.signInWithPopup(provider);
-        // Kalau masih error COOP, ganti jadi signInWithRedirect (lihat catatan bawah)
-
-        const token = await result.user.getIdToken();
-        await syncToBackend(token);
-
-      } catch (err) {
-        // Error biasa: user cancel, popup blocked, dll
-        if (err.code === 'auth/popup-blocked') {
-          alert("Popup diblokir browser. Izinkan popup untuk situs ini ya!");
-        } else if (err.code === 'auth/popup-closed-by-user') {
-          console.log("User batalin login");
-        } else {
-          alert("Login Google gagal: " + err.message);
-        }
-        console.error(err);
-      }
-    }
-
-    // ==================== SYNC TOKEN KE BACKEND ====================
-    async function syncToBackend(firebaseToken) {
-      try {
-        const resp = await fetch(`${baseUrl}/api/auth/google-login`, {
-          method: "POST",
-          credentials: "include",                    // penting kalau nanti pakai cookie
-          headers: {
-            "Content-Type": "application/json",
-            // "Authorization": `Bearer ${firebaseToken}` // kalau mau pakai header
-          },
-          body: JSON.stringify({ token: firebaseToken })
-        });
-
-        // Kalau backend error 4xx/5xx
-        if (!resp.ok) {
-          const err = await resp.text();
-          throw new Error(`HTTP ${resp.status}: ${err}`);
-        }
-
-        const data = await resp.json();
-
-        if (data.success && data.access_token) {
-          localStorage.setItem("access_token", data.access_token);
-          localStorage.setItem("user_name", data.user.nama || "Cordian");
-          localStorage.setItem("user_email", data.user.email || "");
-
-          alert(`Selamat datang${data.user.nama ? ", " + data.user.nama : ""}!`);
-
-          // KALAU KAMU BUKA DARI localhost:8080 (Vite/Live Server)
-          // pindah ke dashboard yang diserve FastAPI
-          window.location.href = "/pages/dashboard/owner-dashboard";
-
-          // Kalau semua file di-serve dari FastAPI (127.0.0.1:8000), pakai ini aja:
-          // window.location.href = "/pages/dashboard/owner-dashboard.html";
-        } else {
-          alert("Gagal sync: " + (data.detail || JSON.stringify(data)));
-        }
-      } catch (err) {
-        console.error("Sync ke backend gagal:", err);
-        alert("Koneksi ke server gagal atau token ditolak");
-      }
-    }
-
-    // ==================== KALAU MASIH ERROR POPUP (COOP) ====================
-    // Ganti signInWithGoogle() jadi ini (100% bebas error popup):
-    /*
-    async function signInWithGoogle() {
-      await auth.signInWithRedirect(provider);
-    }
-
-    // Taruh di semua halaman (termasuk dashboard) supaya tangkap hasil redirect
-    auth.getRedirectResult()
-      .then(async (result) => {
-        if (result?.user) {
+        try {
+          const result = await auth.signInWithEmailAndPassword(email, pass);
           const token = await result.user.getIdToken();
           await syncToBackend(token);
+        } catch (err) {
+          alert("Login gagal: " + err.message);
         }
-      })
-      .catch(err => console.error(err));
-    */
-  </script>
-</body>
+      }
 
+      // ==================== LOGIN GOOGLE (POPUP) ====================
+      async function signInWithGoogle() {
+        try {
+          // Ini yang paling penting: pakai signInWithPopup yang baru
+          const result = await auth.signInWithPopup(provider);
+          // Kalau masih error COOP, ganti jadi signInWithRedirect (lihat catatan bawah)
+
+          const token = await result.user.getIdToken();
+          await syncToBackend(token);
+        } catch (err) {
+          // Error biasa: user cancel, popup blocked, dll
+          if (err.code === "auth/popup-blocked") {
+            alert("Popup diblokir browser. Izinkan popup untuk situs ini ya!");
+          } else if (err.code === "auth/popup-closed-by-user") {
+            console.log("User batalin login");
+          } else {
+            alert("Login Google gagal: " + err.message);
+          }
+          console.error(err);
+        }
+      }
+
+      // ==================== SYNC TOKEN KE BACKEND ====================
+      async function syncToBackend(firebaseToken) {
+        try {
+          const resp = await fetch(`${baseUrl}/api/auth/google-login`, {
+            method: "POST",
+            credentials: "include", // penting kalau nanti pakai cookie
+            headers: {
+              "Content-Type": "application/json",
+              // "Authorization": `Bearer ${firebaseToken}` // kalau mau pakai header
+            },
+            body: JSON.stringify({ token: firebaseToken }),
+          });
+
+          // Kalau backend error 4xx/5xx
+          if (!resp.ok) {
+            const err = await resp.text();
+            throw new Error(`HTTP ${resp.status}: ${err}`);
+          }
+
+          const data = await resp.json();
+
+          if (data.success && data.access_token) {
+            localStorage.setItem("access_token", data.access_token);
+            localStorage.setItem("user_name", data.user.nama || "Cordian");
+            localStorage.setItem("user_email", data.user.email || "");
+
+            alert(
+              `Selamat datang${data.user.nama ? ", " + data.user.nama : ""}!`
+            );
+
+            // KALAU KAMU BUKA DARI localhost:8080 (Vite/Live Server)
+            // pindah ke dashboard yang diserve FastAPI
+            window.location.href = "/pages/dashboard/owner-dashboard";
+
+            // Kalau semua file di-serve dari FastAPI (127.0.0.1:8000), pakai ini aja:
+            // window.location.href = "/pages/dashboard/owner-dashboard.html";
+          } else {
+            alert("Gagal sync: " + (data.detail || JSON.stringify(data)));
+          }
+        } catch (err) {
+          console.error("Sync ke backend gagal:", err);
+          alert("Koneksi ke server gagal atau token ditolak");
+        }
+      }
+
+      // Show / Hide Password (tetap jalan)
+      function togglePass() {
+        const pass = document.getElementById("pass");
+        const eye = document.getElementById("eyeIcon");
+        if (pass.type === "password") {
+          pass.type = "text";
+          eye.src = "./assets/icons/show-svgrepo-com.svg";
+        } else {
+          pass.type = "password";
+          eye.src = "./assets/icons/hide-svgrepo-com.svg";
+        }
+      }
+
+      // Validasi Real-time
+      document.getElementById("email").addEventListener("input", function () {
+        const email = this.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email === "") {
+          this.classList.remove("input-valid", "input-invalid");
+        } else if (emailRegex.test(email)) {
+          this.classList.remove("input-invalid");
+          this.classList.add("input-valid");
+        } else {
+          this.classList.remove("input-valid");
+          this.classList.add("input-invalid");
+        }
+      });
+
+      document.getElementById("pass").addEventListener("input", function () {
+        const pass = this.value;
+        if (pass.length === 0) {
+          this.classList.remove("input-valid", "input-invalid");
+        } else if (pass.length >= 6) {
+          this.classList.remove("input-invalid");
+          this.classList.add("input-valid");
+        } else {
+          this.classList.remove("input-valid");
+          this.classList.add("input-invalid");
+        }
+      });
+
+      // Tombol login tetap pakai fungsi asli kamu
+      function loginWithEmail() {
+        const email = document.getElementById("email");
+        const pass = document.getElementById("pass");
+
+        // Cek terakhir sebelum login
+        if (
+          !email.classList.contains("input-valid") ||
+          !pass.classList.contains("input-valid")
+        ) {
+          alert("Mohon perbaiki email atau password terlebih dahulu");
+          return;
+        }
+
+        // Lanjut ke Firebase (fungsi kamu yang sudah ada)
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(email.value, pass.value)
+          .then((cred) => cred.user.getIdToken())
+          .then((token) => syncToBackend(token))
+          .catch((err) => {
+            alert("Email atau password salah!");
+            email.classList.add("input-invalid");
+            pass.classList.add("input-invalid");
+          });
+      }
+    </script>
+  </body>
 </html>

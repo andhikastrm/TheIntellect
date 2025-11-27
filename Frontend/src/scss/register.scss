@@ -1,0 +1,384 @@
+* {
+  font-family: Poppins, sans-serif;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+//  BUTTONS
+
+.backbtn {
+  display: flex;
+  height: 40px;
+  width: 40px;
+  background: linear-gradient(0deg, #cba83d, #4d3b04);
+  background-size: 200% 200%;
+  background-position: left center;
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-icon {
+  height: 25px;
+  filter: brightness(0) invert(1);
+}
+
+.btn-cta {
+  margin-bottom: 20px;
+}
+
+// NAVBAR
+
+.navbar {
+  padding: 15px 20px;
+  margin: 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+// MAIN
+
+.main {
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  margin: 100px 20px;
+  z-index: 1;
+}
+
+.container-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.container-bg .paw {
+  position: absolute;
+  opacity: 0.03;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+.paw1 {
+  width: 150px;
+  top: 30%;
+  left: 23%;
+  transform: rotate(-25deg);
+}
+
+.paw2 {
+  width: 240px;
+  top: 65%;
+  right: 20%;
+  transform: rotate(15deg);
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* rata tengah horizontal */ /* rata tengah vertikal */
+  padding: 50px 50px 90px; /* atas lebih besar karena navbar fixed */
+  margin: 0 auto;
+  max-width: 1200px; /* opsional: batas lebar maksimal */
+}
+
+// REGISTER FORM
+
+.container-register {
+  max-width: 600px;
+  padding: 50px 30px;
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px);
+  box-shadow: #00000020 0px 2px 12px;
+  border-radius: 16px;
+  border: 0.4px solid rgba(77, 59, 4, 0.3);
+}
+
+.register-heading {
+  display: flex;
+  justify-content: center;
+  margin-bottom:20px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: rgba(230, 230, 230, 0.3);
+}
+
+input:focus {
+  outline: none;
+  border-color: #cba83d;
+  box-shadow: 0 0 5px rgba(203, 168, 61, 0.5);
+  background-color: #fff;
+}
+
+.withemail {
+  color: #fff;
+  width: 100%;
+  padding: 12px;
+  margin: 20px 0;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(to right, #cba83d, #7f620b);
+  background-size: 200% 200%;
+  background-position: left center;
+  box-shadow: #00000020 0px 7px 12px;
+  transition: background-position 0.5s ease, transform 0.2s ease;
+}
+
+.withemail:hover {
+  color: white !important;
+  background-position: right center;
+  transform: translateY(-3px);
+}
+
+// DIVIDER
+.form-divider {
+  position: relative;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 15px;
+  color: #000000;
+  font-weight: 400;
+}
+
+.form-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(to right, 
+    transparent 0%, 
+    #000000 20%, 
+    #000000 80%, 
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+.form-divider span {
+  background: #ffffff;           /* warna background halaman */
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.google {
+  color: #444;
+  width: 100%;
+  padding: 12px;
+  margin: 20px 0;
+  border-radius: 50px;
+  border: 0.4px solid rgba(77, 59, 4, 0.3);
+  background-color: #fff;
+  box-shadow: #00000010 0px 7px 12px;
+  transition: transform 0.2s ease;
+}
+
+.google::before {
+  content: url("../assets/icons/google.svg");
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  height: 20px;
+  width: 20px;
+}
+
+.google:hover {
+  transform: translateY(-3px);
+}
+
+.register-form p {
+  text-align: center;
+}
+
+.welcoming p {
+  text-align: center;
+}
+
+.main-container p {
+  margin: 0 0;
+}
+
+.register-heading h5 {
+  margin: 0 auto;
+}
+
+
+// KETENTUAN DAN VALIDASI
+
+/* Wrapper untuk setiap input */
+.input-group {
+  position: relative;
+  width: 100%;
+  margin: 16px 0;
+}
+
+/* Label yang muncul saat focus */
+.floating-label {
+  position: absolute;
+  left: 12px;
+  top: -15px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0 0;
+  font-size: 0.8rem;
+  color: #7f620b;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 14px 14px 14px;   /* atas sedikit lebih besar biar label nggak potong */
+  border-radius: 8px !important; /* pakai !important biar menang dari CSS lama */
+  border: 1px solid #ddd;
+  background-color: rgba(230, 230, 230, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Muncul saat input focus */
+.input-group:focus-within .floating-label {
+  opacity: 1;
+}
+
+/* Ikon ceklis / silang */
+.input-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Valid */
+.input-valid ~ .input-icon::after {
+  color: #27ae60;
+  opacity: 1;
+}
+
+/* Invalid */
+.input-invalid ~ .input-icon::after {
+  color: #e74c3c;
+  opacity: 1;
+}
+
+/* Border real-time */
+input.input-valid {
+  border: 0.8px solid #27ae60 !important;
+  box-shadow: 0 0 6px rgba(39, 174, 96, 0.25);
+}
+
+input.input-invalid {
+  border: 0.8px solid #e74c3c !important;
+  box-shadow: 0 0 6px rgba(231, 76, 60, 0.25);
+}
+
+// MOBILE
+
+/* HP Kecil: Semua jadi lebih compact & kecil (max 520px) */
+@media (max-width: 520px) {
+  /* 1. Container utama jadi lebih kecil */
+  .container-register {
+    max-width: 100%;
+    width: 88%; /* lebih sempit dari layar */
+    padding: 32px 20px !important; /* dikecilin dari 50px → 32px */
+    margin: 0 auto;
+    border-radius: 14px;
+  }
+
+  /* 2. Heading "Buat Akun Baru" jadi lebih kecil */
+  .register-heading h5 {
+    font-size: 1.25rem !important; /* dari ~1.5rem jadi lebih kecil */
+    margin-bottom: 16px;
+  }
+
+  /* 3. Input & button dikecilin semua */
+  input,
+  button {
+    padding: 11px 12px !important; /* dari 12px → 11px (lebih ramping) */
+    font-size: 0.95rem !important; /* teks di dalam juga mengecil */
+    margin: 8px 0 !important; /* jarak antar elemen lebih rapat */
+    border-radius: 10px !important;
+  }
+
+  /* Khusus tombol "Daftar dengan email" & Google */
+  button {
+    padding: 12px !important; /* tetep sedikit lebih besar biar enak diklik */
+    border-radius: 50px !important;
+    font-weight: 400;
+  }
+
+  .backbtn {
+    display: none !important;   /* ← langsung ilang total */
+  }
+
+  /* 4. Teks "atau", "Sudah punya akun?" dll */
+  .register-form p {
+    font-size: 0.9rem;
+    margin: 12px 0 !important;
+  }
+
+  /* 5. Welcoming text di atas */
+  .welcoming p {
+    font-size: 1.15rem;
+    padding: 0 15px;
+  }
+
+  /* 6. Main container atas dikurangin biar nggak terlalu ke bawah */
+  .main-container {
+    padding-top: 70px !important; /* dari 100px+ jadi lebih atas */
+  }
+}
+
+/* Bonus: HP super mini (iPhone SE, Galaxy Fold < 380px) */
+@media (max-width: 380px) {
+  .container-register {
+    width: 92%;
+    padding: 28px 16px !important;
+  }
+  input,
+  button {
+    padding: 10px 11px !important;
+    font-size: 0.9rem !important;
+  }
+  .register-heading h5 {
+    font-size: 1.2rem !important;
+  }
+}

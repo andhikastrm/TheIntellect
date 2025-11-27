@@ -5,11 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pusat Bantuan</title>
 
-    <!-- Link Swiper JS CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
-    />
     <!-- Link Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -133,9 +128,9 @@
               <div class="error-text" id="kategori-error"></div>
 
               <!-- Field Masalah Produk -->
-              <div id="produk-fields">
+              <div id="produk-fields" style="display: none">
                 <label>Alamat email <span>*</span></label>
-                <input type="email" id="email" placeholder="contoh@email.com" />
+                <input type="email" id="email" placeholder="example@petricord.co" />
                 <div class="error-text" id="email-error"></div>
 
                 <label>Subjek <span>*</span></label>
@@ -149,10 +144,9 @@
                 <label>Pilih jenis produk <span>*</span></label>
                 <select id="jenis-produk">
                   <option value="" disabled selected>- Pilih produk -</option>
-                  <option>Petricord Alpha</option>
-                  <option>Petricord Beta</option>
-                  <option>Petricord Pro</option>
-                  <option>Petricord Enterprise</option>
+                  <option>Petricord Feeder</option>
+                  <option>Petricord Camera</option>
+                  <option>Petricord Tracker</option>
                 </select>
                 <div class="error-text" id="jenis-produk-error"></div>
 
@@ -166,12 +160,23 @@
               </div>
 
               <!-- Field Lainnya -->
-              <div id="lainnya-fields">
+              <div id="lainnya-fields" style="display: none">
+                <label>Alamat email <span>*</span></label>
+                <input type="email" id="email" placeholder="example@petricord.co" />
+                <div class="error-text" id="email-error"></div>
+
+                <label>Subjek <span>*</span></label>
+                <input
+                  type="text"
+                  id="subjek"
+                  placeholder="Masalah produk saya..."
+                />
+                <div class="error-text" id="deskripsi-error"></div>
                 <!-- Deskripsi Umum -->
                 <label>Deskripsikan masalahmu <span>*</span></label>
                 <textarea
                   id="deskripsi"
-                  placeholder="Jelaskan secara detail apa yang terjadi..."
+                  placeholder="Jelaskan secara detail apa yang terjadi"
                   required
                 ></textarea>
                 <div class="error-text" id="deskripsi-error"></div>
@@ -193,14 +198,14 @@
                   />
 
                   <!-- Button submit -->
-                  <div
-                    class="success-text"
-                    id="success-message"
-                    style="display: none"
-                  >
-                    Terima kasih! Laporanmu telah kami terima. Tim kami akan
-                    segera menghubungimu.
-                  </div>
+                </div>
+                <div
+                  class="success-text"
+                  id="success-message"
+                  style="display: none"
+                >
+                  Terima kasih! Laporanmu telah kami terima. Tim kami akan
+                  segera menghubungimu melalui email
                 </div>
               </div>
               <button type="submit" class="submit-btn" id="submit-btn">
@@ -248,9 +253,9 @@
           <div class="col-6 col-lg-3 offset-lg-1 text-start">
             <p class="article-title">Brand</p>
             <ul class="article-links list-unstyled">
-              <li><a href="#">Toko Kami di E-Commerce</a></li>
-              <li><a href="#">Tentang</a></li>
-              <li><a href="#">Fitur</a></li>
+              <li><a href="temukan-kami.html">Toko Kami di E-Commerce</a></li>
+              <li><a href="index.html#about">Tentang</a></li>
+              <li><a href="index.html#fitur">Fitur</a></li>
             </ul>
           </div>
 
@@ -258,10 +263,12 @@
           <div class="col-6 col-lg-3 text-start">
             <p class="article-title">Dukungan</p>
             <ul class="article-links list-unstyled">
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Pusat Bantuan</a></li>
+              <li><a href="faqs.html">FAQs</a></li>
+              <li><a href="call-center.html">Pusat Bantuan</a></li>
+              <li><a href="#">Hotline: +62 812-3456-7890</a></li>
             </ul>
           </div>
+          
         </div>
       </div>
     </article>
@@ -274,7 +281,7 @@
         </div>
       </div>
     </footer>
-    
+
     <!-- Link custom JS -->
     <script type="module" src="/js/call-center.js"></script>
     <script>
@@ -294,10 +301,67 @@
       const successMsg = document.getElementById("success-message");
 
       // Sembunyikan semua field saat pertama kali buka halaman
-      window.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", function () {
+        const kategori = document.getElementById("kategori");
+        const produkFields = document.getElementById("produk-fields");
+        const lainnyaFields = document.getElementById("lainnya-fields");
+        const submitBtn = document.getElementById("submit-btn");
+
+        // Sembunyikan semua + reset form saat pertama load
         produkFields.style.display = "none";
         lainnyaFields.style.display = "none";
         submitBtn.style.display = "none";
+
+        // Reset semua input saat ganti kategori
+        function resetForm() {
+          document
+            .querySelectorAll(
+              "#produk-fields input, #lainnya-fields input, #lainnya-fields textarea"
+            )
+            .forEach((input) => {
+              input.value = "";
+              input.classList.remove("error");
+            });
+          document
+            .querySelectorAll(".error-text")
+            .forEach((el) => (el.textContent = ""));
+        }
+      });
+
+      // Event saat pilih kategori
+      kategori.addEventListener("change", function () {
+        // Sembunyikan semua dulu
+        produkFields.style.display = "none";
+        lainnyaFields.style.display = "none";
+        submitBtn.style.display = "none";
+        resetForm();
+
+        if (this.value === "produk") {
+          produkFields.style.display = "block";
+          lainnyaFields.style.display = "block"; // deskripsi + lampiran
+          submitBtn.style.display = "block";
+        } else if (this.value === "lainnya") {
+          lainnyaFields.style.display = "block";
+          submitBtn.style.display = "block";
+        }
+      });
+
+      // Event saat pilih kategori
+      kategori.addEventListener("change", function () {
+        // Sembunyikan semua dulu
+        produkFields.style.display = "none";
+        lainnyaFields.style.display = "none";
+        submitBtn.style.display = "none";
+        resetForm();
+
+        if (this.value === "produk") {
+          produkFields.style.display = "block";
+          lainnyaFields.style.display = "block"; // deskripsi + lampiran
+          submitBtn.style.display = "block";
+        } else if (this.value === "lainnya") {
+          lainnyaFields.style.display = "block";
+          submitBtn.style.display = "block";
+        }
       });
 
       // Conditional field visibility
