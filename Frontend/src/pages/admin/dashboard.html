@@ -1,23 +1,63 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Petricord - Admin Panel</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
-    body { background: linear-gradient(135deg, #1e1b4b, #4c1d95); min-height: 100vh; font-family: 'Poppins', sans-serif; color: white; }
-    .sidebar { width: 280px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); box-shadow: 10px 0 30px rgba(0,0,0,0.3); position: fixed; height: 100%; top: 0; left: 0; z-index: 10; }
-    .content { margin-left: 280px; padding: 40px; }
-    .card { background: rgba(255,255,255,0.15); border-radius: 24px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
-    .btn-red { background: #ef4444; }
-    .btn-red:hover { background: #dc2626; }
-    .btn-gold { background: linear-gradient(45deg, #f59e0b, #d97706); }
-    .btn-gold:hover { background: linear-gradient(45deg, #d97706, #b45309); }
+    body {
+      background: linear-gradient(135deg, #1e1b4b, #4c1d95);
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+      position: fixed;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    .content {
+      margin-left: 280px;
+      padding: 40px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-red {
+      background: #ef4444;
+    }
+
+    .btn-red:hover {
+      background: #dc2626;
+    }
+
+    .btn-gold {
+      background: linear-gradient(45deg, #f59e0b, #d97706);
+    }
+
+    .btn-gold:hover {
+      background: linear-gradient(45deg, #d97706, #b45309);
+    }
   </style>
 </head>
+
 <body class="text-white">
 
   <!-- SIDEBAR -->
@@ -30,10 +70,12 @@
         <a href="#" class="flex items-center gap-4 text-yellow-300 bg-white/20 py-3 px-4 rounded-xl font-bold">
           <i class="bi bi-speedometer2 text-xl"></i> Dashboard
         </a>
-        <a href="owner-dashboard.html" class="flex items-center gap-4 text-gray-300 hover:text-white py-3 px-4 rounded-xl transition">
+        <a href="owner-dashboard.html"
+          class="flex items-center gap-4 text-gray-300 hover:text-white py-3 px-4 rounded-xl transition">
           <i class="bi bi-house-door text-xl"></i> Mode User
         </a>
-        <a href="jurnal-hewan.html" class="flex items-center gap-4 text-gray-300 hover:text-white py-3 px-4 rounded-xl transition">
+        <a href="jurnal-hewan.html"
+          class="flex items-center gap-4 text-gray-300 hover:text-white py-3 px-4 rounded-xl transition">
           <i class="bi bi-journal-text text-xl"></i> Jurnal Hewan
         </a>
       </nav>
@@ -182,4 +224,5 @@
     window.onload = checkAdmin;
   </script>
 </body>
+
 </html>
