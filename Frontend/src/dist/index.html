@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Selamat Datang di Petricord!</title>
+
+    <!-- Link Swiper JS CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+    <!-- Link Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Link Favicon -->
+    <link
+      rel="icon"
+      href="/assets/petricord-logo-B8spjawa.svg"
+      type="image/x-icon"
+    />
+    <script type="module" crossorigin src="/assets/index-DvqSHaym.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-tUYEEk8m.css">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg fixed-top">
+        <div
+          class="container-fluid d-flex align-items-center justify-content-between"
+        >
+          <!-- Brand -->
+          <a class="navbar-brand" href="#">
+            <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMzA3NSA5MDAiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZvbnQtZmFtaWx5OiBQb3BwaW5zLVNlbWlCb2xkLCBQb3BwaW5zOwogICAgICAgIGZvbnQtc2l6ZTogNjcyLjEzcHg7CiAgICAgICAgZm9udC13ZWlnaHQ6IDYwMDsKICAgICAgfQoKICAgICAgLmNscy0yIHsKICAgICAgICBmaWxsOiBub25lOwogICAgICAgIHN0cm9rZTogIzAwMDsKICAgICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTA7CiAgICAgICAgc3Ryb2tlLXdpZHRoOiAxMC45cHg7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDx0ZXh0IGNsYXNzPSJjbHMtMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLjE4IDY2NS4xOCkiPjx0c3BhbiB4PSIwIiB5PSIwIj5QZXRyaWM8L3RzcGFuPjwvdGV4dD4KICA8dGV4dCBjbGFzcz0iY2xzLTEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzMjMuNDYgNjY1LjE4KSI+PHRzcGFuIHg9IjAiIHk9IjAiPnJkPC90c3Bhbj48L3RleHQ+CiAgPGc+CiAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjIxNDUuNzIiIGN5PSI0ODIuNjQiIHI9IjE4Ni4yOSIvPgogICAgPGc+CiAgICAgIDxwYXRoIGQ9Ik0yMjE3LjYsNjE2LjYyYy0zMC4wMywxNC4wNS0zOS40NiwzLjQtNzEuODgsMi41Ny0zMi40Mi44Mi00MS44NSwxMS40OC03MS44OC0yLjU3LTQ1LjExLTIxLjExLTI5LjgyLTgwLjMzLTUuMjktOTAuNTQsMzguNjYtMTUuMzYsMTIuODktODIuODksNzYuOTMtODIuODlzMzguNzQsNjcuNTMsNzcuNCw4Mi44OWMyNC41NCwxMC4yMSwzOS44Miw2OS40My01LjI5LDkwLjU0WiIvPgogICAgICA8Zz4KICAgICAgICA8cGF0aCBkPSJNMjEzNy41LDQxMC4yOWMtMy44MywxMS4yNy05LjE5LDIwLjU0LTE4LjIyLDI3LjMxLTEzLjA5LDkuODItMjkuMTIsOC40Ny00MC4yMy0zLjU2LTkuMTgtOS45NC0xMi45Mi0yMi4xNC0xMy4zMi0zNS4zNC0uNTQtMTcuNTIsMy45OC0zMy41LDE2LjM1LTQ2LjQ4LDEwLjEyLTEwLjYyLDIzLjI1LTEzLjU3LDM1LjExLTguMDIsOC45NSw0LjE5LDE0LjYxLDExLjU4LDE4LjM4LDIwLjQ2LDYuNDcsMTUuMjMsNi4yOCwzMC43NSwxLjkzLDQ1LjYzWiIvPgogICAgICAgIDxwYXRoIGQ9Ik0yMTU2LjE0LDQxMC4yOWMzLjgzLDExLjI3LDkuMTksMjAuNTQsMTguMjIsMjcuMzEsMTMuMDksOS44MiwyOS4xMiw4LjQ3LDQwLjIzLTMuNTYsOS4xOC05Ljk0LDEyLjkyLTIyLjE0LDEzLjMyLTM1LjM0LjU0LTE3LjUyLTMuOTgtMzMuNS0xNi4zNS00Ni40OC0xMC4xMi0xMC42Mi0yMy4yNS0xMy41Ny0zNS4xMS04LjAyLTguOTUsNC4xOS0xNC42MSwxMS41OC0xOC4zOCwyMC40Ni02LjQ3LDE1LjIzLTYuMjgsMzAuNzUtMS45Myw0NS42M1oiLz4KICAgICAgICA8cGF0aCBkPSJNMjI4MS42Nyw0NjAuOTVjLS4yNiwxOC43Ny02LjI3LDM0LjUtMjAuNzksNDYuMDQtMjEuMTEsMTYuNzktNDcuMTEsNi44LTUxLjUzLTE5LjgzLTMuMzQtMjAuMDgsMi43OC0zNy4zMSwxNy41Ni01MS4zMiw1LjI1LTQuOTgsMTEuNTEtOC4zMSwxOC43My05LjQ5LDE2LjM4LTIuNjksMzAuNTgsNy42OCwzNC41MSwyNS4xOS43MywzLjI1LDEuMDgsNi41OSwxLjUyLDkuNDFaIi8+CiAgICAgICAgPHBhdGggZD0iTTIwMDkuNzgsNDYwLjk1Yy4yNiwxOC43Nyw2LjI3LDM0LjUsMjAuNzksNDYuMDQsMjEuMTEsMTYuNzksNDcuMTEsNi44LDUxLjUzLTE5LjgzLDMuMzQtMjAuMDgtMi43OC0zNy4zMS0xNy41Ni01MS4zMi01LjI1LTQuOTgtMTEuNTEtOC4zMS0xOC43My05LjQ5LTE2LjM4LTIuNjktMzAuNTgsNy42OC0zNC41MSwyNS4xOS0uNzMsMy4yNS0xLjA4LDYuNTktMS41Miw5LjQxWiIvPgogICAgICA8L2c+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4=" height="30" />
+          </a>
+          <!-- Toggle button mobile -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span>
+              <img
+                src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M5%2012H18'%20stroke='%23000000'%20stroke-width='2'%20stroke-linecap='round'/%3e%3cpath%20d='M5%2017H11'%20stroke='%23000000'%20stroke-width='2'%20stroke-linecap='round'/%3e%3cpath%20d='M5%207H15'%20stroke='%23000000'%20stroke-width='2'%20stroke-linecap='round'/%3e%3c/svg%3e"
+                alt="Menu"
+                height="25"
+              />
+            </span>
+          </button>
+          <!-- Collapsible content -->
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <!-- Nav links tengah -->
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Beranda</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#about">Tentang</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#fitur">Fitur</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M12.7071%2014.7071C12.3166%2015.0976%2011.6834%2015.0976%2011.2929%2014.7071L6.29289%209.70711C5.90237%209.31658%205.90237%208.68342%206.29289%208.29289C6.68342%207.90237%207.31658%207.90237%207.70711%208.29289L12%2012.5858L16.2929%208.29289C16.6834%207.90237%2017.3166%207.90237%2017.7071%208.29289C18.0976%208.68342%2018.0976%209.31658%2017.7071%209.70711L12.7071%2014.7071Z'%20fill='%23000000'/%3e%3c/svg%3e"
+                    height="15"
+                    style="transform: rotate(-90deg); margin-right: 5px"
+                  />
+                  Dukungan
+                </a>
+                <ul
+                  class="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <li>
+                    <a class="dropdown-item" href="temukan-kami.html"
+                      >Temukan Kami</a
+                    >
+                  </li>
+                  <li><a class="dropdown-item" href="faqs.html">FAQs</a></li>
+                  <li>
+                    <a class="dropdown-item" href="call-center.html"
+                      >Pusat Bantuan</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <!-- Button Masuk -->
+            <div class="d-flex ms-lg-auto mt-2 mt-lg-0">
+              <a class="btn btn-mainbtn loginbtn" href="login.html"> Masuk </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO SECTION -->
+      <section id="hero">
+        <!-- Background SVG -->
+        <div class="hero-bg-svg">
+          <svg viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice">
+            <path fill="#faefcb" fill-opacity="0.8">
+              <rect width="1440" height="600" />
+            </path>
+            <path
+              fill="#edc86a"
+              fill-opacity="0.4"
+              d="M0,600 Q720,200 1440,400 L1440,600 Z"
+            />
+            <path
+              fill="#cba83d"
+              fill-opacity="0.25"
+              d="M0,600 Q720,350 1440,500 L1440,600 Z"
+            />
+          </svg>
+        </div>
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="hero-content col-md-8" style="padding-left: 0px">
+              <h1 class="hero-title">
+                Ketika <span style="color: #7f620b">Teknologi </span>Belajar
+                <span style="color: #7f620b">Peduli</span>
+              </h1>
+              <p class="hero-subtitle">
+                Pantau dan kenali perilaku hewan peliharaan Anda secara
+                real-time dengan Petricord.
+              </p>
+              <div class="cta mt-4 text-start">
+                <a href="#about" class="btn btn-cta btn-mainbtn"
+                  >Pelajari lebih lanjut</a
+                >
+              </div>
+            </div>
+            <div class="hero-image col-md-4 ms-auto">
+              <img
+                src="/assets/hero-image-DIHxJJ9d.png"
+                alt="Hero Image"
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="cta"></div>
+      </section>
+
+      <!-- ABOUT SECTION -->
+      <section id="about">
+        <div class="about-bg-svg">
+          <img src="/assets/paw-BGBK_SE-.png" class="paw paw1" alt="" />
+          <img src="/assets/paw-BGBK_SE-.png" class="paw paw2" alt="" />
+          <img src="/assets/paw-BGBK_SE-.png" class="paw paw3" alt="" />
+          <img src="/assets/paw-BGBK_SE-.png" class="paw paw4" alt="" />
+          <img src="/assets/paw-BGBK_SE-.png" class="paw paw5" alt="" />
+        </div>
+        <div class="container position-relative">
+          <div class="section-title">
+            <span>Tentang</span>
+          </div>
+          <div class="about-content">
+            <div class="row">
+              <h4 class="heading mb-0">Apa itu Petricord?</h4>
+            </div>
+            <div class="about-text">
+              <p class="mb-0">
+                Petricord merupakan sistem pemantauan dan pengenalan perilaku
+                kucing berbasis web yang terintegrasi dengan deep-learning.
+                Sistem ini dirancang untuk membantu pemilik kucing memahami
+                aktivitas hewan peliharaannya secara real-time melalui tampilan
+                yang informatif dan mudah diakses.
+              </p>
+            </div>
+            <div class="container-fluid">
+              <div class="row mb-4">
+                <div class="visimisi-box">
+                  <div class="row box-title-1">
+                    <p class="mb-0">Visi</p>
+                  </div>
+                  <div class="box-content">
+                    <p class="mb-0">
+                      Menjadi sistem berbasis kecerdasan buatan yang
+                      memungkinkan pemantauan hewan peliharaan secara jarak
+                      jauh, dengan kemampuan membaca perilaku serta mencatat log
+                      aktivitas abnormal untuk meningkatkan pemahaman dan
+                      perawatan hewan secara efisien.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="visimisi-box mb-4">
+                  <div class="row box-title-1">
+                    <p class="mb-0">Misi</p>
+                  </div>
+                  <div class="box-content">
+                    <ul style="padding-left: 15px">
+                      <li>
+                        Menghadirkan sistem pemantauan hewan peliharaan yang
+                        dapat diakses secara jarak jauh melalui platform
+                        berbasis web.
+                      </li>
+                      <li>
+                        Memanfaatkan kecerdasan buatan untuk membaca perilaku
+                        hewan peliharaan secara real-time.
+                      </li>
+                      <li>
+                        Mencatat dan menyimpan log aktivitas abnormal sebagai
+                        bentuk pemantauan yang efisien dan berkelanjutan.
+                      </li>
+                      <li>
+                        Meningkatkan kualitas hidup hewan peliharaan melalui
+                        pemantauan yang efektif dan responsif.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- TEKNOLOGI DI BALIK PETRICORD -->
+            <div class="container">
+              <div class="row mb-4">
+                <h4 class="heading text-center mb-4 mt-4">
+                  Teknologi di Balik Petricord
+                </h4>
+              </div>
+
+              <div
+                class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 g-lg-5 justify-content-center teknologi"
+              >
+                <!-- Card 1 -->
+                <div class="col">
+                  <div class="teknologi-card text-center">
+                    <div class="teknologi-icon">
+                      <img src="/assets/brain-C3r_Phsi.png" height="80" />
+                    </div>
+                    <p class="small">
+                      Model kecerdasan buatan untuk klasifikasi aktivitas dan
+                      deteksi anomali
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col">
+                  <div class="teknologi-card text-center">
+                    <div class="teknologi-icon">
+                      <img src="/assets/click-to-tap-BaMJV4ec.png" height="80" />
+                    </div>
+                    <p class="small">
+                      Dashboard interaktif sebagai pusat pemantauan dan
+                      manajemen perangkat
+                    </p>
+                  </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col">
+                  <div class="teknologi-card text-center">
+                    <div class="teknologi-icon">
+                      <img src="/assets/IoT-77ifhrI5.png" height="80" />
+                    </div>
+                    <p class="small">
+                      Konektivitas perangkat kamera dan sensor dalam ekosistem
+                      Petricord
+                    </p>
+                  </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="col">
+                  <div class="teknologi-card text-center">
+                    <div class="teknologi-icon">
+                      <img src="/assets/cloud-B2OJO0dM.png" height="80" />
+                    </div>
+                    <p class="small">
+                      Layanan komputasi terdistribusi untuk penyimpanan data dan
+                      eksekusi model AI
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="section-title" id="fitur">
+            <span>Fitur</span>
+          </div>
+          <!-- FITUR SECTION – GANTI DENGAN INI -->
+          <div class="fitur-content mt-5">
+            <div class="container">
+              <div class="row mb-4">
+                <h4 class="heading mb-0 text-center">
+                  Karena mereka nggak bisa chat kamu, biar Petricord yang kasih
+                  update tentang apa yang mereka lakukan hari ini!
+                </h4>
+              </div>
+              <p class="text-center mb-4">
+                Petricord hadir dengan berbagai fitur yang bikin kamu tetap
+                terhubung dengan hewan kesayangan
+              </p>
+
+              <!-- SWIPER -->
+              <div class="swiper fitur-swiper">
+                <div class="swiper-wrapper">
+                  <!-- Slide 1 -->
+                  <div class="swiper-slide">
+                    <div class="fitur-cards">
+                      <div class="cards-icon">
+                        <img
+                          src="/assets/live-DWTrIPN9.png"
+                          alt="Deteksi perilaku hewan"
+                          class="fitur-cards-icon"
+                        />
+                      </div>
+                      <h6 class="fitur-cards-title">Real-time Monitoring</h6>
+                      <p class="fitur-cards-description">
+                        Menampilkan aktivitas hewan secara langsung melalui
+                        kamera yang terhubung ke sistem
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Slide 2 -->
+                  <div class="swiper-slide">
+                    <div class="fitur-cards">
+                      <div class="cards-icon">
+                        <img
+                          src="/assets/computervision-CkItboSN.png"
+                          alt="Deteksi perilaku hewan"
+                          class="fitur-cards-icon"
+                        />
+                      </div>
+                      <h6 class="fitur-cards-title">Deteksi Perilaku Hewan</h6>
+                      <p class="fitur-cards-description">
+                        Mengenali dan menampilkan perilaku utama seperti makan,
+                        tidur, dan buang air dengan bantuan deep learning
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Slide 3 -->
+                  <div class="swiper-slide">
+                    <div class="fitur-cards">
+                      <div class="cards-icon">
+                        <img
+                          src="/assets/alert-28HKFM6U.png"
+                          alt="Notifikasi Perilaku Abnormal"
+                          class="fitur-cards-icon"
+                        />
+                      </div>
+                      <h6 class="fitur-cards-title">
+                        Notifikasi Perilaku Abnormal
+                      </h6>
+                      <p class="fitur-cards-description">
+                        Mengirim peringatan otomatis saat terdeteksi aktivitas
+                        di luar kebiasaan, seperti muntah atau kejang
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Slide 4 -->
+                  <div class="swiper-slide">
+                    <div class="fitur-cards">
+                      <div class="cards-icon">
+                        <img
+                          src="/assets/log-BQ-paVAy.png"
+                          alt="Log Aktivitas Utama"
+                          class="fitur-cards-icon"
+                        />
+                      </div>
+                      <h6 class="fitur-cards-title">Log Aktivitas Utama</h6>
+                      <p class="fitur-cards-description">
+                        Menyimpan riwayat perilaku penting yang terdeteksi,
+                        seperti makan, buang air, dan perilaku abnormal
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Slide 5 -->
+                  <div class="swiper-slide">
+                    <div class="fitur-cards">
+                      <div class="cards-icon">
+                        <img
+                          src="/assets/petjournal-4Gb7Ythr.png"
+                          alt="Jurnal Hewan"
+                          class="fitur-cards-icon"
+                        />
+                      </div>
+                      <h6 class="fitur-cards-title">Jurnal Hewan</h6>
+                      <p class="fitur-cards-description">
+                        Memberi ruang bagi pengguna untuk mencatat aktivitas
+                        harian dan perkembangan hewan peliharaan secara personal
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Pagination & Navigation – WAJIB di luar wrapper -->
+                <div
+                  class="swiper-pagination swiper-pagination-bullets mt-4"
+                ></div>
+                <div class="swiper-slide-button swiper-button-prev"></div>
+                <div class="swiper-slide-button swiper-button-next"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <h4 class="heading mb-0">
+              Biar jarak nggak bikin khawatir, mulai pantau hewan kesayanganmu
+              bareng Petricord sekarang!
+            </h4>
+          </div>
+          <div class="cta mt-4">
+            <a href="login.html" class="btn btn-cta btn-mainbtn"
+              >Coba Petricord</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- BAGIAN ATAS FOOTER (Logo + Link) -->
+    <article class="petricord-article">
+      <div class="container">
+        <div class="row gy-5 gy-lg-0 px-3">
+          <!-- Kolom Kiri - Logo & Deskripsi -->
+          <div class="col-12 col-lg-5">
+            <div class="article-brand text-start">
+              <h3 class="mb-3">Petricord</h3>
+              <p class="article-desc">
+                Tetap terhubung dengan hewan peliharaan Anda melalui sistem
+                pemantauan dan pengenalan perilaku real-time berbasis web dari
+                Petricord.
+              </p>
+              <div class="social-icons mt-4">
+                <a href="#" class="me-3">
+                  <img
+                    src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20id='Layer_1'%20data-name='Layer%201'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3cstyle%3e.cls-1{fill:none;stroke:%23020202;stroke-miterlimit:10;stroke-width:1.91px;}.cls-2{fill:%23020202;}%3c/style%3e%3c/defs%3e%3crect%20class='cls-1'%20x='1.5'%20y='1.5'%20width='21'%20height='21'%20rx='3.82'/%3e%3ccircle%20class='cls-1'%20cx='12'%20cy='12'%20r='4.77'/%3e%3ccircle%20class='cls-2'%20cx='18.2'%20cy='5.8'%20r='1.43'/%3e%3c/svg%3e"
+                    alt="Instagram"
+                    width="24"
+                  />
+                </a>
+                <a href="#">
+                  <img
+                    src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%20-4%2032%2032'%20xmlns='http://www.w3.org/2000/svg'%20preserveAspectRatio='xMidYMid'%3e%3cpath%20d='M30.722,20.579%20C30.137,21.894%2028.628,23.085%2027.211,23.348%20C27.066,23.375%2023.603,24.000%2016.010,24.000%20L15.990,24.000%20C8.398,24.000%204.932,23.375%204.788,23.349%20C3.371,23.085%201.861,21.894%201.275,20.578%20C1.223,20.461%200.001,17.647%200.001,12.000%20C0.001,6.353%201.223,3.538%201.275,3.421%20C1.861,2.105%203.371,0.915%204.788,0.652%20C4.932,0.625%208.398,-0.000%2015.990,-0.000%20C23.603,-0.000%2027.066,0.625%2027.210,0.651%20C28.628,0.915%2030.137,2.105%2030.723,3.420%20C30.775,3.538%2032.000,6.353%2032.000,12.000%20C32.000,17.647%2030.775,20.461%2030.722,20.579%20ZM28.893,4.230%20C28.581,3.529%2027.603,2.759%2026.845,2.618%20C26.813,2.612%2023.386,2.000%2016.010,2.000%20C8.615,2.000%205.185,2.612%205.152,2.618%20C4.394,2.759%203.417,3.529%203.104,4.234%20C3.094,4.255%202.002,6.829%202.002,12.000%20C2.002,17.170%203.094,19.744%203.106,19.770%20C3.417,20.471%204.394,21.241%205.153,21.382%20C5.185,21.388%208.615,22.000%2015.990,22.000%20L16.010,22.000%20C23.386,22.000%2026.813,21.388%2026.846,21.382%20C27.604,21.241%2028.581,20.471%2028.894,19.766%20C28.904,19.744%2029.998,17.170%2029.998,12.000%20C29.998,6.830%2028.904,4.255%2028.893,4.230%20ZM13.541,17.846%20C13.379,17.949%2013.193,18.000%2013.008,18.000%20C12.842,18.000%2012.676,17.959%2012.525,17.875%20C12.206,17.699%2012.008,17.364%2012.008,17.000%20L12.008,7.000%20C12.008,6.637%2012.204,6.303%2012.521,6.127%20C12.838,5.950%2013.227,5.958%2013.534,6.149%20L21.553,11.105%20C21.846,11.286%2022.026,11.606%2022.027,11.951%20C22.028,12.296%2021.852,12.618%2021.560,12.801%20L13.541,17.846%20ZM14.009,8.794%20L14.009,15.189%20L19.137,11.963%20L14.009,8.794%20Z'/%3e%3c/svg%3e"
+                    alt="YouTube"
+                    width="30"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kolom Tengah - Brand -->
+          <div class="col-6 col-lg-3 offset-lg-1 text-start">
+            <p class="article-title">Brand</p>
+            <ul class="article-links list-unstyled">
+              <li><a href="temukan-kami.html">Toko Kami di E-Commerce</a></li>
+              <li><a href="index.html#about">Tentang</a></li>
+              <li><a href="index.html#fitur">Fitur</a></li>
+            </ul>
+          </div>
+
+          <!-- Kolom Kanan - Dukungan -->
+          <div class="col-6 col-lg-3 text-start">
+            <p class="article-title">Dukungan</p>
+            <ul class="article-links list-unstyled">
+              <li><a href="faqs.html">FAQs</a></li>
+              <li><a href="call-center.html">Pusat Bantuan</a></li>
+              <li><a href="#">Hotline: +62 812-3456-7890</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- BAGIAN FOOTER SEBENARNYA (Copyright only) -->
+    <footer class="petricord-footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <p class="mb-0 text-center">© 2025 Petricord – All Right Reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <!-- Link Swiper JS script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <!-- Link custom script -->
+    <script src="/js/slider.js"></script>
+    <!-- Smooth scroll behavior -->
+    <!-- Taruh sebelum </body> di index.html saja (nggak perlu di halaman lain) -->
+    <script>
+      // Auto smooth scroll kalau masuk dengan #fitur, #tentang, dll
+      window.addEventListener("load", () => {
+        if (location.hash) {
+          const el = document.querySelector(location.hash);
+          if (el) {
+            setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 150);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
