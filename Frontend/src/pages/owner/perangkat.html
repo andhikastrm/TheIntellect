@@ -1,264 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perangkat</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <nav id="sidebar">
-      <ul>
-        <li>
-          <span class="logo">
-            <img
-              src="../../assets/images/petricord-logo.svg"
-              style="width: 100px"
-            />
-          </span>
-          <button onclick="toggleSidebar()" id="toggle-btn">
-            <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
-          </button>
-        </li>
-        <li class="active">
-          <a href="perangkat.html">
-            <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
-            <span>Perangkat</span>
-          </a>
-        </li>
-        <li>
-          <a href="notifikasi.html">
-            <img
-              src="../../assets/icons/notification-alert-2-svgrepo-com.svg"
-            />
-            <span>Notifikasi</span>
-          </a>
-        </li>
-        <li>
-          <a href="riwayat.html">
-            <img src="../../assets/icons/log.svg" />
-            <span>Riwayat</span>
-          </a>
-        </li>
-        <li>
-          <a href="jurnal-hewan.html">
-            <img src="../../assets/icons/health-svgrepo-com.svg" />
-            <span>Jurnal Hewan</span>
-          </a>
-        </li>
-        <li>
-          <a href="pengaturan.html">
-            <img src="../../assets/icons/settings-svgrepo-com.svg" />
-            <span>Pengaturan</span>
-          </a>
-        </li>
-        <li>
-          <a href="profil.html">
-            <img src="../../assets/icons/user-svgrepo-com.svg" />
-            <span>Profil</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perangkat</title>
 
-    <main>
-      <div class="paw-bg">
-        <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
-        <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
-      </div>
-      <div class="header-section">
-        <h2>Perangkatmu</h2>
-        <div class="header-controls">
-          <a class="btn-tambah"> + Tambah </a>
-          <div class="search-box">
-            <input type="text" placeholder="Cari" />
-          </div>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <nav id="sidebar">
+    <ul>
+      <li>
+        <span class="logo">
+          <img src="../../assets/images/petricord-logo.svg" style="width: 100px" />
+        </span>
+        <button onclick="toggleSidebar()" id="toggle-btn">
+          <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
+        </button>
+      </li>
+      <li class="active">
+        <a href="perangkat.html">
+          <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
+          <span>Perangkat</span>
+        </a>
+      </li>
+      <li>
+        <a href="notifikasi.html">
+          <img src="../../assets/icons/notification-alert-2-svgrepo-com.svg" />
+          <span>Notifikasi</span>
+        </a>
+      </li>
+      <li>
+        <a href="riwayat.html">
+          <img src="../../assets/icons/log.svg" />
+          <span>Riwayat</span>
+        </a>
+      </li>
+      <li>
+        <a href="jurnal-hewan.html">
+          <img src="../../assets/icons/health-svgrepo-com.svg" />
+          <span>Jurnal Hewan</span>
+        </a>
+      </li>
+      <li>
+        <a href="pengaturan.html">
+          <img src="../../assets/icons/settings-svgrepo-com.svg" />
+          <span>Pengaturan</span>
+        </a>
+      </li>
+      <li>
+        <a href="profil.html">
+          <img src="../../assets/icons/user-svgrepo-com.svg" />
+          <span>Profil</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="paw-bg">
+      <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
+      <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
+    </div>
+    <div class="header-section">
+      <h2>Perangkatmu</h2>
+      <div class="header-controls">
+        <a class="btn-tambah"> + Tambah </a>
+        <div class="search-box">
+          <input type="text" placeholder="Cari" />
         </div>
       </div>
+    </div>
 
-      <p class="text-gray-500">
-        Hi, <span id="user-name">Cordian</span>! Siap memantau kesayanganmu?
-      </p>
+    <p class="text-gray-500">
+      Hi, <span id="user-name">Cordian</span>! Siap memantau kesayanganmu?
+    </p>
 
-      <div class="stats-container">
-        <div class="stat-card">
-          <div class="stat-content">
-            <h3>Total Perangkat</h3>
-            <div class="stat-number" id="total-devices">3</div>
-          </div>
-          <div class="stat-icon">
-            <img
-              src="../../assets/icons/devices-svgrepo-com-outline.svg"
-              style="width: 30px"
-            />
-          </div>
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-content">
+          <h3>Total Perangkat</h3>
+          <div class="stat-number" id="total-devices">3</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-content">
-            <h3>Perangkat Aktif</h3>
-            <div class="stat-number" id="total-active-devices">1</div>
-          </div>
-          <div class="stat-icon">
-            <img
-              src="../../assets/icons/activity-svgrepo-com.svg"
-              style="width: 30px"
-            />
-          </div>
+        <div class="stat-icon">
+          <img src="../../assets/icons/devices-svgrepo-com-outline.svg" style="width: 30px" />
         </div>
       </div>
+      <div class="stat-card">
+        <div class="stat-content">
+          <h3>Perangkat Aktif</h3>
+          <div class="stat-number" id="total-active-devices">1</div>
+        </div>
+        <div class="stat-icon">
+          <img src="../../assets/icons/activity-svgrepo-com.svg" style="width: 30px" />
+        </div>
+      </div>
+    </div>
 
-      <div class="devices-grid">
-        <div class="device-card">
-          <div class="device-image"></div>
-          <div class="device-name">Pet Patrol Lt 3</div>
-          <div class="device-status">
-            <div>
-              <div class="status-label">Status</div>
-              <div class="status-value">
-                <span class="status-badge active"></span>
-                <span>Aktif</span>
-              </div>
+    <div class="devices-grid">
+      <div class="device-card">
+        <div class="device-image"></div>
+        <div class="device-name">Pet Patrol Lt 3</div>
+        <div class="device-status">
+          <div>
+            <div class="status-label">Status</div>
+            <div class="status-value">
+              <span class="status-badge active"></span>
+              <span>Aktif</span>
             </div>
-            <div>
-              <div class="battery-label">Baterai</div>
+          </div>
+          <div>
+            <div class="battery-label">Baterai</div>
+            <div class="battery-percentage">
+              <span>90%</span>
+              <img src="../../assets/icons/battery-full-svgrepo-com.svg" alt="Persentasi Baterai" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="device-card">
+        <div class="device-image"></div>
+        <div class="device-name">Pet Patrol Lt 2</div>
+        <div class="device-status">
+          <div>
+            <div class="status-label">Status</div>
+            <div class="status-value">
+              <span class="status-badge inactive"></span>
+              <span>Nonaktif</span>
+            </div>
+          </div>
+          <div>
+            <div class="battery-label">Baterai</div>
+            <div class="battery-percentage">
               <div class="battery-percentage">
-                <span>90%</span>
-                <img
-                  src="../../assets/icons/battery-full-svgrepo-com.svg"
-                  alt="Persentasi Baterai"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="device-card">
-          <div class="device-image"></div>
-          <div class="device-name">Pet Patrol Lt 2</div>
-          <div class="device-status">
-            <div>
-              <div class="status-label">Status</div>
-              <div class="status-value">
-                <span class="status-badge inactive"></span>
-                <span>Nonaktif</span>
-              </div>
-            </div>
-            <div>
-              <div class="battery-label">Baterai</div>
-              <div class="battery-percentage">
-                <div class="battery-percentage">
-                  <span>%</span>
-                  <img
-                    src="../../assets/icons/battery-slash-svgrepo-com.svg"
-                    alt="Persentasi Baterai"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="device-card">
-          <div class="device-image"></div>
-          <div class="device-name">Pet Patrol Lt 1</div>
-          <div class="device-status">
-            <div>
-              <div class="status-label">Status</div>
-              <div class="status-value">
-                <span class="status-badge active"></span>
-                <span>Aktif</span>
-              </div>
-            </div>
-            <div>
-              <div class="battery-label">Baterai</div>
-              <div class="battery-percentage">
-                <div class="battery-percentage">
-                  <span>96%</span>
-                  <img
-                    src="../../assets/icons/battery-full-svgrepo-com.svg"
-                    alt="Persentasi Baterai"
-                  />
-                </div>
+                <span>%</span>
+                <img src="../../assets/icons/battery-slash-svgrepo-com.svg" alt="Persentasi Baterai" />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </main>
 
-    <script type="module" src="/js/perangkat.js"></script>
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-      import {
-        getAuth,
-        onAuthStateChanged,
-      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+      <div class="device-card">
+        <div class="device-image"></div>
+        <div class="device-name">Pet Patrol Lt 1</div>
+        <div class="device-status">
+          <div>
+            <div class="status-label">Status</div>
+            <div class="status-value">
+              <span class="status-badge active"></span>
+              <span>Aktif</span>
+            </div>
+          </div>
+          <div>
+            <div class="battery-label">Baterai</div>
+            <div class="battery-percentage">
+              <div class="battery-percentage">
+                <span>96%</span>
+                <img src="../../assets/icons/battery-full-svgrepo-com.svg" alt="Persentasi Baterai" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
-        authDomain: "petricord-f8c54.firebaseapp.com",
-        projectId: "petricord-f8c54",
-        storageBucket: "petricord-f8c54.firebasestorage.app",
-        messagingSenderId: "814472267558",
-        appId: "1:814472267558:web:d97ddfd93757a7fe5f63e7",
-      };
+  <script type="module" src="/js/perangkat.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
+    const firebaseConfig = {
+      apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
+      authDomain: "petricord-f8c54.firebaseapp.com",
+      projectId: "petricord-f8c54",
+      storageBucket: "petricord-f8c54.firebasestorage.app",
+      messagingSenderId: "814472267558",
+      appId: "1:814472267558:web:d97ddfd93757a7fe5f63e7",
+    };
 
-      onAuthStateChanged(auth, async (user) => {
-        if (!user) {
-          location.href = "/Frontend/login.html";
-          return;
-        }
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-        document.getElementById("user-name").textContent =
-          user.displayName?.split(" ")[0] || "Cordian";
-
-        const token = await user.getIdToken();
-        try {
-          const res = await fetch("/api/devices/", {
-            // ← ganti jadi /api/devices/ atau endpoint perangkatmu
-            headers: { Authorization: `Bearer ${token}` },
-          });
-
-          if (!res.ok) throw new Error("Gagal ambil data perangkat");
-
-          const devices = await res.json();
-
-          // Update angka total & aktif sesuai ID yang sudah ada di HTML
-          const totalEl = document.getElementById("total-devices");
-          const activeEl = document.getElementById("total-active-devices");
-
-          if (totalEl) totalEl.textContent = devices.length;
-
-          // Misal ada field "status": "active" di data perangkat
-          const activeDevices = devices.filter(
-            (d) => d.status === "active" || d.status === "online"
-          ).length;
-          if (activeEl) activeEl.textContent = activeDevices;
-        } catch (err) {
-          console.error("Error loading devices:", err);
-          // Kalau gagal, tetap tampilkan angka statis (biar tidak kosong)
-          const totalEl = document.getElementById("total-devices");
-          const activeEl = document.getElementById("total-active-devices");
-          if (totalEl) totalEl.textContent = "3";
-          if (activeEl) activeEl.textContent = "1";
-        }
-      });
-    </script>
-    <script>
-      const toggleButton = document.getElementById("toggle-btn");
-      const sidebar = document.getElementById("sidebar");
-
-      function toggleSidebar() {
-        sidebar.classList.toggle("close");
-        toggleButton.classList.toggle("rotate");
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        location.href = "/Frontend/login.html";
+        return;
       }
-    </script>
-  </body>
+
+      document.getElementById("user-name").textContent =
+        user.displayName?.split(" ")[0] || "Cordian";
+
+      const token = await user.getIdToken();
+      try {
+        const res = await fetch("/api/devices/", {
+          // ← ganti jadi /api/devices/ atau endpoint perangkatmu
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!res.ok) throw new Error("Gagal ambil data perangkat");
+
+        const devices = await res.json();
+
+        // Update angka total & aktif sesuai ID yang sudah ada di HTML
+        const totalEl = document.getElementById("total-devices");
+        const activeEl = document.getElementById("total-active-devices");
+
+        if (totalEl) totalEl.textContent = devices.length;
+
+        // Misal ada field "status": "active" di data perangkat
+        const activeDevices = devices.filter(
+          (d) => d.status === "active" || d.status === "online"
+        ).length;
+        if (activeEl) activeEl.textContent = activeDevices;
+      } catch (err) {
+        console.error("Error loading devices:", err);
+        // Kalau gagal, tetap tampilkan angka statis (biar tidak kosong)
+        const totalEl = document.getElementById("total-devices");
+        const activeEl = document.getElementById("total-active-devices");
+        if (totalEl) totalEl.textContent = "3";
+        if (activeEl) activeEl.textContent = "1";
+      }
+    });
+  </script>
+  <script>
+    const toggleButton = document.getElementById("toggle-btn");
+    const sidebar = document.getElementById("sidebar");
+
+    function toggleSidebar() {
+      sidebar.classList.toggle("close");
+      toggleButton.classList.toggle("rotate");
+    }
+  </script>
+</body>
+
 </html>
