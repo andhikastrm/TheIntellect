@@ -7,6 +7,7 @@
   <title>Perangkat</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -99,83 +100,16 @@
       </div>
     </div>
 
-    <div class="devices-grid">
-      <div class="device-card">
-        <div class="device-image"></div>
-        <div class="device-name">Pet Patrol Lt 3</div>
-        <div class="device-status">
-          <div>
-            <div class="status-label">Status</div>
-            <div class="status-value">
-              <span class="status-badge active"></span>
-              <span>Aktif</span>
-            </div>
-          </div>
-          <div>
-            <div class="battery-label">Baterai</div>
-            <div class="battery-percentage">
-              <span>90%</span>
-              <img src="../../assets/icons/battery-full-svgrepo-com.svg" alt="Persentasi Baterai" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="device-card">
-        <div class="device-image"></div>
-        <div class="device-name">Pet Patrol Lt 2</div>
-        <div class="device-status">
-          <div>
-            <div class="status-label">Status</div>
-            <div class="status-value">
-              <span class="status-badge inactive"></span>
-              <span>Nonaktif</span>
-            </div>
-          </div>
-          <div>
-            <div class="battery-label">Baterai</div>
-            <div class="battery-percentage">
-              <div class="battery-percentage">
-                <span>%</span>
-                <img src="../../assets/icons/battery-slash-svgrepo-com.svg" alt="Persentasi Baterai" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="device-card">
-        <div class="device-image"></div>
-        <div class="device-name">Pet Patrol Lt 1</div>
-        <div class="device-status">
-          <div>
-            <div class="status-label">Status</div>
-            <div class="status-value">
-              <span class="status-badge active"></span>
-              <span>Aktif</span>
-            </div>
-          </div>
-          <div>
-            <div class="battery-label">Baterai</div>
-            <div class="battery-percentage">
-              <div class="battery-percentage">
-                <span>96%</span>
-                <img src="../../assets/icons/battery-full-svgrepo-com.svg" alt="Persentasi Baterai" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="devices-grid" id="devices-grid">
+      <!-- Semua card (real + placeholder) akan di-inject di sini -->
     </div>
+
   </main>
 
   <script type="module" src="/js/perangkat.js"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import {
-      getAuth,
-      onAuthStateChanged,
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
@@ -189,55 +123,109 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    onAuthStateChanged(auth, async (user) => {
+    // PUBLIC API — TIDAK PAKAI TOKEN SAMA SEKALI
+    const PUBLIC_API = "http://localhost:8000/api/cats/devices/public";
+
+    const grid = document.querySelector(".devices-grid");
+
+    // Render satu card
+    function createRealCard(device) {
+      const isActive = device.status === "Aktif";
+      const battery = device.battery ?? "-";
+      const batteryIcon = battery === "-"
+        ? "../../assets/icons/battery-slash-svgrepo-com.svg"
+        : battery >= 75 ? "../../assets/icons/battery-full-svgrepo-com.svg"
+          : battery >= 50 ? "../../assets/icons/battery-three-quarters-svgrepo-com.svg"
+            : battery >= 25 ? "../../assets/icons/battery-half-svgrepo-com.svg"
+              : "../../assets/icons/battery-low-svgrepo-com.svg";
+
+      return `
+      <div class="device-card">
+        <div class="device-image"></div>
+        <div class="device-name">${device.nama_perangkat || "Tanpa Nama"}</div>
+        <div class="device-status">
+          <div>
+            <div class="status-label">Status</div>
+            <div class="status-value">
+              <span class="status-badge ${isActive ? 'active' : 'inactive'}"></span>
+              <span>${isActive ? 'Aktif' : 'Nonaktif'}</span>
+            </div>
+          </div>
+          <div>
+            <div class="battery-label">Baterai</div>
+            <div class="battery-percentage">
+              <span>${battery}${battery !== '-' ? '%' : ''}</span>
+              <img src="${batteryIcon}" alt="Battery" />
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    // Load data perangkat dari API publik
+    async function loadDevices() {
+      try {
+        const res = await fetch(PUBLIC_API);
+        if (!res.ok) throw new Error("Server error");
+
+        const devices = await res.json();
+
+        // Update stats
+        document.getElementById("total-devices").textContent = devices.length;
+        const active = devices.filter(d => d.status === "Aktif").length;
+        document.getElementById("total-active-devices").textContent = active;
+
+        // Kosongkan grid dulu
+        grid.innerHTML = "";
+
+        if (devices.length === 0) {
+          grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:4rem;color:#999;">
+                            Belum ada perangkat terdaftar.
+                          </p>`;
+          return;
+        }
+
+        // Inject card
+        grid.innerHTML = devices.map(createRealCard).join("");
+
+      } catch (err) {
+        console.error(err);
+        grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:4rem;color:#e74c3c;">
+                          Gagal memuat perangkat
+                        </p>`;
+        document.getElementById("total-devices").textContent = "0";
+        document.getElementById("total-active-devices").textContent = "0";
+      }
+    }
+
+    // Firebase hanya untuk cek login & nama user
+    onAuthStateChanged(auth, (user) => {
       if (!user) {
         location.href = "/Frontend/login.html";
         return;
       }
 
+      // Hanya update nama user
       document.getElementById("user-name").textContent =
-        user.displayName?.split(" ")[0] || "Cordian";
+        user.displayName?.split(" ")[0] || user.email.split("@")[0] || "User";
 
-      const token = await user.getIdToken();
-      try {
-        const res = await fetch("/api/devices/", {
-          // ← ganti jadi /api/devices/ atau endpoint perangkatmu
-          headers: { Authorization: `Bearer ${token}` },
-        });
+      // Langsung load data perangkat dari API publik
+      loadDevices();
 
-        if (!res.ok) throw new Error("Gagal ambil data perangkat");
-
-        const devices = await res.json();
-
-        // Update angka total & aktif sesuai ID yang sudah ada di HTML
-        const totalEl = document.getElementById("total-devices");
-        const activeEl = document.getElementById("total-active-devices");
-
-        if (totalEl) totalEl.textContent = devices.length;
-
-        // Misal ada field "status": "active" di data perangkat
-        const activeDevices = devices.filter(
-          (d) => d.status === "active" || d.status === "online"
-        ).length;
-        if (activeEl) activeEl.textContent = activeDevices;
-      } catch (err) {
-        console.error("Error loading devices:", err);
-        // Kalau gagal, tetap tampilkan angka statis (biar tidak kosong)
-        const totalEl = document.getElementById("total-devices");
-        const activeEl = document.getElementById("total-active-devices");
-        if (totalEl) totalEl.textContent = "3";
-        if (activeEl) activeEl.textContent = "1";
-      }
+      // Optional: refresh tiap 20 detik
+      setInterval(loadDevices, 20000);
     });
   </script>
+
+  <!-- Toggle Sidebar -->
   <script>
     const toggleButton = document.getElementById("toggle-btn");
     const sidebar = document.getElementById("sidebar");
 
-    function toggleSidebar() {
+    toggleButton?.addEventListener("click", () => {
       sidebar.classList.toggle("close");
       toggleButton.classList.toggle("rotate");
-    }
+    });
   </script>
 </body>
 

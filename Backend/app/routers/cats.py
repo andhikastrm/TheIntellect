@@ -76,6 +76,21 @@ def hapus_kucing(cat_id: int, db: Session = Depends(get_db), user: User = Depend
 
 # ==================== PERANGKAT ====================
 
+@router.get("/devices/public")
+async def get_all_devices_public(db: Session = Depends(get_db)):
+    devices = db.query(Device).all()
+    return [
+        {
+            "id": d.id,
+            "nama_perangkat": d.nama_perangkat,
+            "serial_number": d.serial_number,
+            "tipe": d.tipe.value if hasattr(d.tipe, "value") else str(d.tipe),
+            "status": d.status.value if hasattr(d.status, "value") else str(d.status),
+            # tambah field lain kalau perlu
+        }
+        for d in devices
+    ]
+
 @router.post("/devices")
 def tambah_perangkat(
     nama_perangkat: str = Form(...),
@@ -101,9 +116,9 @@ def tambah_perangkat(
 
 
 @router.get("/devices")
-def daftar_perangkat(db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+def daftar_perangkat(db: Session = Depends(get_db), user=Depends(get_current_user)):
     devices = db.query(Device).all()
-    return {"devices": [d.__dict__ for d in devices]}
+    return [d.__dict__ for d in devices]
 
 
 @router.delete("/devices/{device_id}")
