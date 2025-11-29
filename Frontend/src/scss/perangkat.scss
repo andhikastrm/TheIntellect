@@ -103,6 +103,10 @@ body {
   fill: #000000;
 }
 
+#sidebar a img {
+  width: 24px;
+}
+
 #sidebar a:hover {
   background-color: #ddd;
 }
@@ -130,14 +134,47 @@ body {
   background-color: #ddd;
 }
 
+.paw-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.paw.deco {
+  position: absolute;
+  opacity: 0.05;
+  width: 90px;
+  height: auto;
+  user-select: none;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+}
+
+.paw-1 {
+  top: 55%;
+  right: 15%;
+  width: 300px !important;
+  transform: rotate(10deg);
+}
+
+.paw-2 {
+  top: 50%;
+  right: 65%;
+  width: 200px !important;
+  transform: rotate(-15deg);
+}
+
 main {
   padding: min(30px, 7%);
+  position: relative;
+  z-index: 1;
 }
 
 main p {
   color: #000000;
   margin-top: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 .container {
@@ -156,7 +193,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
   gap: 1rem;
 }
@@ -189,7 +226,6 @@ p {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  
 }
 
 .btn-tambah:hover {
@@ -207,9 +243,9 @@ p {
   border: 1px solid #ddd;
   border-radius: 2rem;
   outline: none;
-  min-width: 120px;
+  min-width: 0;
   min-height: 20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .greeting-text {
@@ -231,7 +267,8 @@ p {
   border: 1px solid #ddd;
   border-radius: 1rem;
   padding: 1.5rem;
-  background: white;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -271,7 +308,8 @@ p {
   border: 1px solid #ddd;
   border-radius: 1rem;
   padding: 1.5rem;
-  background: white;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
   transition: box-shadow 0.3s ease;
 }
 
@@ -359,6 +397,13 @@ p {
   .stat-number {
     font-size: 1.75rem;
   }
+
+  .paw.deco.paw-1 {
+    width: 200px !important;
+  }
+  .paw.deco.paw-2 {
+    width: 150px !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -424,9 +469,29 @@ p {
   .greeting-text {
     font-size: 0.9rem;
   }
+
+  .paw.deco.paw-1 {
+    display: none !important;
+  }
+  .paw.deco.paw-2 {
+    display: none !important;
+  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 375px) {
+  #sidebar span {
+    font-size: 14px;
+  }
+
+  #sidebar a img {
+    justify-content: flex-start;
+    width: 18px;
+  }
+
+  .paw.deco {
+    width: 50px;
+  }
+
   main {
     padding: min(15px, 3%);
   }
@@ -436,9 +501,8 @@ p {
   }
 
   .header-controls {
-    width: 100%;
     flex-direction: column;
-    gap: 0.75rem;
+    width: 100% !important;
   }
 
   .btn-tambah {
@@ -454,7 +518,7 @@ p {
     flex: 1;
     min-width: unset;
   }
-  
+
   .stat-card {
     flex-direction: column;
     text-align: center;
@@ -485,5 +549,185 @@ p {
     flex-direction: column;
     gap: 0.75rem;
     align-items: flex-start;
+  }
+
+  .paw.deco.paw-1 {
+    display: none !important;
+  }
+  .paw.deco.paw-2 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 374px) {
+  /* Pastikan tidak ada overflow horizontal sama sekali */
+  body,
+  html {
+    overflow-x: hidden;
+  }
+
+  #sidebar span {
+    font-size: 14px;
+  }
+
+  #sidebar a img {
+    justify-content: flex-start;
+    width: 18px;
+  }
+
+  main {
+    padding: 12px 8px !important;
+  }
+
+  /* Header atas */
+  .header-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .header-section h2 {
+    font-size: 1.35rem !important;
+    text-align: center;
+  }
+
+  .header-controls {
+    flex-direction: column;
+    width: 100% !important;
+  }
+
+  .btn-tambah {
+    width: 50%;
+    justify-content: center;
+    padding: 5px 0;
+    font-size: 13px;
+  }
+
+  .search-box {
+    width: 50%;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 13px;
+  }
+
+  /* ==== STAT CARDS ==== */
+  .stats-container {
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 0.9rem !important;
+    border-radius: 0.75rem;
+    gap: 0.5rem;
+    border: 1px solid #ddd !important;
+    box-shadow: none;
+  }
+
+  .stat-content {
+    order: 2;
+  }
+
+  .stat-content h3 {
+    font-size: 0.78rem !important;
+    margin-bottom: 0.2rem;
+    color: #666;
+  }
+
+  .stat-number {
+    font-size: 1.5rem !important;
+    font-weight: 700;
+  }
+
+  .stat-icon {
+    order: 1;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 0.6rem;
+  }
+
+  .stat-icon img {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  /* ==== DEVICE CARDS ==== */
+  .devices-grid {
+    gap: 1rem;
+  }
+
+  .device-card {
+    padding: 1rem !important;
+    border-radius: 0.75rem;
+    border: 1px solid #ddd !important;
+  }
+
+  .device-image {
+    height: 130px !important;
+    border-radius: 0.6rem;
+  }
+
+  .device-name {
+    font-size: 1rem !important;
+    margin-bottom: 0.75rem;
+  }
+
+  .device-status {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+  }
+
+  .status-value,
+  .battery-percentage {
+    justify-content: flex-start !important;
+  }
+
+  .battery-percentage img {
+    width: 20px !important;
+  }
+
+  /* Greeting text */
+  main > p {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  /* Sidebar kalau masih terbuka di HP kecil */
+  #sidebar.close {
+    width: 58px;
+  }
+
+  #sidebar:not(.close) {
+    width: 100% !important;
+    position: fixed;
+    z-index: 999;
+    height: 100vh;
+  }
+}
+
+/* Ekstra aman untuk HP lipat (240–260px) */
+@media (max-width: 260px) {
+  .stat-number {
+    font-size: 1.35rem !important;
+  }
+  .stat-content h3 {
+    font-size: 0.73rem !important;
+  }
+  .stat-icon {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .stat-icon img {
+    width: 20px !important;
+  }
+  .device-image {
+    height: 110px !important;
   }
 }
