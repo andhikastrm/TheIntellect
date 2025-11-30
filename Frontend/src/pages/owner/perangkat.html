@@ -5,91 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perangkat</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perangkat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 
-  <body>
-    <nav id="sidebar">
-      <ul>
-        <li>
-          <span class="logo">
-            <img
-              src="../../assets/images/petricord-logo.svg"
-              style="width: 100px"
-            />
-          </span>
-          <button onclick="toggleSidebar()" id="toggle-btn">
-            <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
-          </button>
-        </li>
-        <li class="active">
-          <a href="#">
-            <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
-            <span>Perangkat</span>
-          </a>
-        </li>
-        <li>
-          <a href="notifikasi.html">
-            <img
-              src="../../assets/icons/notification-alert-2-svgrepo-com.svg"
-            />
-            <span>Notifikasi</span>
-          </a>
-        </li>
-        <li>
-          <a href="riwayat.html">
-            <img src="../../assets/icons/log.svg" />
-            <span>Riwayat</span>
-          </a>
-        </li>
-        <li>
-          <a href="jurnal-hewan.html">
-            <img src="../../assets/icons/health-svgrepo-com.svg" />
-            <span>Jurnal Hewan</span>
-          </a>
-        </li>
-        <li>
-          <a href="profil.html">
-            <img src="../../assets/icons/user-svgrepo-com.svg" />
-            <span>Profil</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <main>
-      <div class="paw-bg">
-        <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
-        <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
-      </div>
-      <div class="header-section">
-        <h2>Perangkatmu</h2>
-        <div class="header-controls">
-          <a class="btn-tambah" href="monitoring.html"> + Tambah </a>
-          <div class="search-box">
-            <input type="text" placeholder="Cari" />
-          </div>
+</head>
+
+<body>
+  <nav id="sidebar">
+    <ul>
+      <li>
+        <span class="logo">
+          <img src="../../assets/images/petricord-logo.svg" style="width: 100px" />
+        </span>
+        <button onclick="toggleSidebar()" id="toggle-btn">
+          <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
+        </button>
+      </li>
+      <li class="active">
+        <a href="perangkat.html">
+          <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
+          <span>Perangkat</span>
+        </a>
+      </li>
+      <li><a href="notifikasi.html"><img
+            src="../../assets/icons/notification-alert-2-svgrepo-com.svg" /><span>Notifikasi</span></a></li>
+      <li><a href="riwayat.html"><img src="../../assets/icons/log.svg" /><span>Riwayat</span></a></li>
+      <li><a href="jurnal-hewan.html"><img src="../../assets/icons/health-svgrepo-com.svg" /><span>Jurnal
+            Hewan</span></a></li>
+      <li><a href="profil.html"><img src="../../assets/icons/user-svgrepo-com.svg" /><span>Profil</span></a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="paw-bg">
+      <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
+      <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
+    </div>
+
+    <div class="header-section">
+      <h2 class="text-3xl font-bold text-[#6b4e31]">Perangkatmu</h2>
+      <div class="header-controls">
+        <a class="btn-tambah">+ Tambah</a>
+        <div class="search-box">
+          <input type="text" placeholder="Cari" />
         </div>
       </div>
 
-      <p class="text-gray-500">
-        Hi, <span id="user-name">Cordian</span>! Siap memantau kesayanganmu?
-      </p>
+    <p class="text-gray-600 text-lg mb-8">
+      Hi, <span id="user-name" class="font-bold text-[#f4a261]">Cordian</span>! Siap memantau kesayanganmu?
+    </p>
 
-      <div class="stats-container">
-        <div class="stat-card">
-          <div class="stat-content">
-            <h3>Total Perangkat</h3>
-            <div class="stat-number" id="total-devices">3</div>
-          </div>
-          <div class="stat-icon">
-            <img
-              src="../../assets/icons/devices-svgrepo-com-outline.svg"
-              style="width: 30px"
-            />
-          </div>
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-content">
+          <h3 class="text-gray-600">Total Perangkat</h3>
+          <div class="stat-number" id="total-devices">0</div>
         </div>
         <div class="stat-card">
           <div class="stat-content">
@@ -104,52 +79,52 @@
           </div>
         </div>
       </div>
-
-      <div class="devices-grid" id="devices-grid">
-        <!-- Semua card (real + placeholder) akan di-inject di sini -->
+      <div class="stat-card">
+        <div class="stat-content">
+          <h3 class="text-gray-600">Perangkat Aktif</h3>
+          <div class="stat-number text-green-600" id="total-active-devices">0</div>
+        </div>
+        <div class="stat-icon">
+          <img src="../../assets/icons/activity-svgrepo-com.svg" style="width: 30px" />
+        </div>
       </div>
     </main>
 
-    <script type="module" src="/js/perangkat.js"></script>
-    <script>
-      // Toggle sidebar – versi anti-gagal
-      document.addEventListener("DOMContentLoaded", () => {
-        const toggleButton = document.getElementById("toggle-btn");
-        const sidebar = document.getElementById("sidebar");
+    <div class="devices-grid" id="devices-grid">
+      <!-- Card akan muncul otomatis di sini -->
+    </div>
+  </main>
 
-        if (!toggleButton || !sidebar) {
-          console.warn("Tombol atau sidebar nggak ketemu!");
-          return;
-        }
-
-        toggleButton.addEventListener("click", () => {
-          sidebar.classList.toggle("close");
-          toggleButton.classList.toggle("rotate");
+  <!-- POPUP EDIT NAMA PERANGKAT -->
+  <div id="editDeviceModal" class="fixed inset-0 bg-black bg-opacity-70 items-center justify-center z-50 hidden flex">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-96 max-w-full mx-4">
+      <h3 class="text-2xl font-bold text-[#6b4e31] mb-6 text-center">Ganti Nama Perangkat</h3>
+      <input type="text" id="editDeviceNameInput"
+        class="w-full px-5 py-4 border-2 border-[#f4a261] rounded-xl text-lg focus:outline-none focus:border-orange-600"
+        placeholder="Masukkan nama baru..." />
+      <div class="flex gap-4 mt-8">
+        <button onclick="saveDeviceName()"
+          class="flex-1 bg-[#f4a261] hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition">
+          Simpan
+        </button>
+        <button onclick="closeEditModal()"
+          class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-4 rounded-xl transition">
+          Batal
+        </button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/js/perangkat.js">
+  </script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
           // optional: simpan status ke localStorage biar ingat saat refresh
           localStorage.setItem(
             "sidebarClosed",
             sidebar.classList.contains("close")
           );
-        });
-
-        // ingat posisi terakhir saat reload
-        if (
-          localStorage !== "undefined" &&
-          localStorage.getItem("sidebarClosed") === "true"
-        ) {
-          sidebar.classList.add("close");
-          toggleButton.classList.add("rotate");
-        }
-      });
-    </script>
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-      import {
-        getAuth,
-        onAuthStateChanged,
-      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
       const firebaseConfig = {
         apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
         authDomain: "petricord-f8c54.firebaseapp.com",
@@ -157,113 +132,156 @@
         storageBucket: "petricord-f8c54.firebasestorage.app",
         messagingSenderId: "814472267558",
         appId: "1:814472267558:web:d97ddfd93757a7fe5f63e7",
-      };
+      };
 
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const PUBLIC_API = "http://localhost:8000/api/cats/devices/public";
+    const grid = document.querySelector(".devices-grid");
+    let currentDeviceSerial = "";
 
-      // PUBLIC API — TIDAK PAKAI TOKEN SAMA SEKALI
-      const PUBLIC_API = "http://localhost:8000/api/cats/devices/public";
+    function createRealCard(device) {
+      const isActive = device.status === "Aktif";
+      const battery = device.battery ?? "-";
+      const batteryIcon = battery === "-"
+        ? "../../assets/icons/battery-slash-svgrepo-com.svg"
+        : battery >= 75 ? "../../assets/icons/battery-full-svgrepo-com.svg"
+          : battery >= 50 ? "../../assets/icons/battery-three-quarters-svgrepo-com.svg"
+            : battery >= 25 ? "../../assets/icons/battery-half-svgrepo-com.svg"
+              : "../../assets/icons/battery-low-svgrepo-com.svg";
 
-      const grid = document.querySelector(".devices-grid");
+      const savedNames = JSON.parse(localStorage.getItem("device_names") || "{}");
+      const displayName = savedNames[device.serial] || device.nama_perangkat || "Tanpa Nama";
 
-      // Render satu card
-      function createRealCard(device) {
-        const isActive = device.status === "Aktif";
-        const battery = device.battery ?? "-";
-        const batteryIcon =
-          battery === "-"
-            ? "../../assets/icons/battery-slash-svgrepo-com.svg"
-            : battery >= 75
-            ? "../../assets/icons/battery-full-svgrepo-com.svg"
-            : battery >= 50
-            ? "../../assets/icons/battery-three-quarters-svgrepo-com.svg"
-            : battery >= 25
-            ? "../../assets/icons/battery-half-svgrepo-com.svg"
-            : "../../assets/icons/battery-low-svgrepo-com.svg";
+      return `
+  <div class="device-card relative group">
+    <!-- TOMBOL EDIT & HAPUS DI KANAN ATAS (hanya muncul saat hover) -->
+    <div class="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+      <button onclick="openEditModal('${device.serial}', '${displayName.replace(/'/g, "\\'")}')" 
+              class="bg-white p-2 rounded-full shadow-lg hover:bg-orange-100">
+        <i class="ri-pencil-line text-[#6b4e31] text-lg"></i>
+      </button>
+      <button onclick="deleteDevice('${device.serial}')" 
+              class="bg-white p-2 rounded-full shadow-lg hover:bg-red-100">
+        <i class="ri-delete-bin-line text-red-600 text-lg"></i>
+      </button>
+    </div>
 
-        return `
-      <div class="device-card">
-        <div class="device-image"></div>
-        <div class="device-name">${device.nama_perangkat || "Tanpa Nama"}
+    <div class="device-image"></div>
+    <div class="device-name">${displayName}</div>
+
+    <!-- BUTTON LIHAT DETAIL -->
+    <div class="device-info" style="text-align: center; padding: 10px 20px;">
+      <a href="/pages/owner/monitoring.html?serial=${device.serial}" 
+         class="inline-block bg-[#6b4e31] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#5a3f28] transition">
+        Lihat Detail
+      </a>
+    </div>
+
+    <div class="device-status">
+      <div>
+        <div class="status-label text-gray-600">Status</div>
+        <div class="status-value">
+          <span class="status-badge ${isActive ? 'active' : 'inactive'}"></span>
+          <span>${isActive ? 'Aktif' : 'Nonaktif'}</span>
         </div>
-        <div class="device-info">
-          <a class="btn-detail" href="/pages/owner/monitoring.html">Lihat Detail</a>
-          <a class="btn-edit" onclick="openEditModal(this)">Edit</a>
+      </div>
+      <div>
+        <div class="battery-label text-gray-600">Baterai</div>
+        <div class="battery-percentage">
+          <span>${battery}${battery !== '-' ? '%' : ''}</span>
+          <img src="${batteryIcon}" alt="Battery" />
         </div>
-        <div class="device-status">
-          <div>
-            <div class="status-label">Status</div>
-            <div class="status-value">
-              <span class="status-badge ${
-                isActive ? "active" : "inactive"
-              }"></span>
-              <span>${isActive ? "Aktif" : "Nonaktif"}</span>
-            </div>
-          </div>
-          <div>
-            <div class="battery-label">Baterai</div>
-            <div class="battery-percentage">
-              <span>${battery}${battery !== "-" ? "%" : ""}</span>
-              <img src="${batteryIcon}" alt="Battery" />
-            </div>
-          </div>
-        </div>
-      </div>`;
+      </div>
+    </div>
+  </div>`;
+}
+    async function loadDevices() {
+      try {
+        const res = await fetch(PUBLIC_API);
+        if (!res.ok) throw new Error("Server error");
+        const devices = await res.json();
+
+        document.getElementById("total-devices").textContent = devices.length;
+        const active = devices.filter(d => d.status === "Aktif").length;
+        document.getElementById("total-active-devices").textContent = active;
+
+        grid.innerHTML = devices.length === 0
+          ? `<p style="grid-column:1/-1;text-align:center;padding:4rem;color:#999;">Belum ada perangkat terdaftar.</p>`
+          : devices.map(createRealCard).join("");
+
+      } catch (err) {
+        console.error(err);
+        grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:4rem;color:#e74c3c;">Gagal memuat perangkat</p>`;
+        document.getElementById("total-devices").textContent = "0";
+        document.getElementById("total-active-devices").textContent = "0";
       }
+    }
 
-      // Load data perangkat dari API publik
-      async function loadDevices() {
-        try {
-          const res = await fetch(PUBLIC_API);
-          if (!res.ok) throw new Error("Server error");
+    onAuthStateChanged(auth, (user) => {
+      if (!user) { location.href = "/Frontend/login.html"; return; }
+      document.getElementById("user-name").textContent = user.displayName?.split(" ")[0] || user.email.split("@")[0] || "User";
+      loadDevices();
+      setInterval(loadDevices, 20000);
+    });
 
-          const devices = await res.json();
+    window.openEditModal = function (serial, currentName) {
+      currentDeviceSerial = serial;
+      document.getElementById("editDeviceNameInput").value = currentName;
+      document.getElementById("editDeviceModal").classList.remove("hidden");
+    };
 
-          // Update stats
-          document.getElementById("total-devices").textContent = devices.length;
-          const active = devices.filter((d) => d.status === "Aktif").length;
-          document.getElementById("total-active-devices").textContent = active;
+    window.closeEditModal = function () {
+      document.getElementById("editDeviceModal").classList.add("hidden");
+    };
 
-          // Kosongkan grid dulu
-          grid.innerHTML = "";
+    window.saveDeviceName = function () {
+      const newName = document.getElementById("editDeviceNameInput").value.trim();
+      if (!newName) { alert("Nama tidak boleh kosong!"); return; }
+      const savedNames = JSON.parse(localStorage.getItem("device_names") || "{}");
+      savedNames[currentDeviceSerial] = newName;
+      localStorage.setItem("device_names", JSON.stringify(savedNames));
+      loadDevices();
+      closeEditModal();
 
-          if (devices.length === 0) {
-            grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:4rem;color:#999;">
-                            Belum ada perangkat terdaftar.
-                          </p>`;
-            return;
-          }
 
-          // Inject card
-          grid.innerHTML = devices.map(createRealCard).join("");
-        } catch (err) {
-          console.error(err);
-          grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:4rem;color:#e74c3c;">
-                          Gagal memuat perangkat
-                        </p>`;
-          document.getElementById("total-devices").textContent = "0";
-          document.getElementById("total-active-devices").textContent = "0";
-        }
-      }
+      const toast = document.createElement("div");
+      toast.className = "fixed bottom-8 left-1/2 -translate-x-1/2 bg-green-600 text-white px-8 py-4 rounded-full shadow-2xl z-50";
+      toast.textContent = "Nama perangkat berhasil diubah!";
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    };
 
-      // Firebase hanya untuk cek login & nama user
-      onAuthStateChanged(auth, (user) => {
-        if (!user) {
-          location.href = "/Frontend/login.html";
-          return;
-        }
+    // HAPUS PERANGKAT DARI LOCAL & TAMPILAN
+    window.deleteDevice = function (serial) {
+      if (!confirm("Yakin ingin menghapus perangkat ini dari daftar?")) return;
 
-        // Hanya update nama user
-        document.getElementById("user-name").textContent =
-          user.displayName?.split(" ")[0] || user.email.split("@")[0] || "User";
+      const saved = JSON.parse(localStorage.getItem("device_names") || "{}");
+      delete saved[serial];
+      localStorage.setItem("device_names", JSON.stringify(saved));
 
-        // Langsung load data perangkat dari API publik
-        loadDevices();
+      loadDevices(); // refresh semua card + statistik
 
-        // Optional: refresh tiap 20 detik
-        setInterval(loadDevices, 20000);
-      });
-    </script>
-  </body>
+      // Toast sukses
+      const toast = document.createElement("div");
+      toast.textContent = "Perangkat berhasil dihapus!";
+      toast.className = "fixed bottom-8 left-1/2 -translate-x-1/2 bg-red-600 text-white px-8 py-4 rounded-full shadow-2xl z-50";
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    };
+
+    document.getElementById("editDeviceModal").addEventListener("click", (e) => {
+      if (e.target === document.getElementById("editDeviceModal")) closeEditModal();
+    });
+
+    window.toggleSidebar = function () {
+      const sidebar = document.getElementById("sidebar");
+      const main = document.querySelector("main");
+      sidebar.classList.toggle("close");
+      document.getElementById("toggle-btn").classList.toggle("rotate");
+      main.style.marginLeft = sidebar.classList.contains("close") ? "78px" : "250px";
+    };
+  </script>
+</body>
+
 </html>

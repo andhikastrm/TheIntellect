@@ -9,13 +9,36 @@ from app.database.db import get_db
 from app.models.user import User
 from app.models.cat import Cat, Device
 from app.core.security import get_current_user
+from datetime import datetime, timezone, timedelta
+from sqlalchemy import func, and_
 import shutil
 import os
+
+WIB_OFFSET = timedelta(hours=7)
+WIB_TZ = timezone(WIB_OFFSET, name="WIB")
 
 router = APIRouter(tags=["Cats & Devices"])
 
 UPLOAD_DIR = "static/uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+def time_ago(dt: datetime) -> str:
+    if not dt:
+        return "tidak diketahui"
+    
+    now = datetime.now(WIB_TZ)
+    diff = now - dt
+
+    if diff.days > 0:
+        return f"{diff.days} hari lalu" if diff.days <= 7 else dt.strftime("%d %b %Y")
+    hours = diff.seconds // 3600
+    minutes = (diff.seconds % 3600) // 60
+
+    if hours > 0:
+        return f"{hours} jam lalu"
+    if minutes > 0:
+        return f"{minutes} menit lalu"
+    return "baru saja"
 
 
 # ==================== KUCING ====================
@@ -185,6 +208,8 @@ def get_or_create_device_by_serial(
             "assigned_at": None
         }
     }
+
+
 # ==================== API DETEKSI TANPA CAT_ID (PAKAI DEVICE SERIAL) ====================
 
 
@@ -249,4 +274,111 @@ async def detect_behavior_only(
         "image": result["image_result"],
         "timestamp": datetime.utcnow().isoformat(),
         "device_serial": serial_number
+    }
+
+# ==================== API UNTUK NOTIFIKASI (SEMUA AKTIVITAS KECUALI "TIDAK TERDETEKSI") ====================
+def time_ago(dt: datetime) -> str:
+    if not dt:
+        return "tidak diketahui"
+    
+    now = datetime.now(WIB_TZ)
+    diff = now - dt
+
+    if diff.days > 0:
+        return f"{diff.days} hari lalu" if diff.days <= 7 else dt.strftime("%d %b %Y")
+    hours = diff.seconds // 3600
+    minutes = (diff.seconds % 3600) // 60
+
+    if hours > 0:
+        return f"{hours} jam lalu"
+    if minutes > 0:
+        return f"{minutes} menit lalu"
+    return "baru saja"
+
+@router.get("/activities/latest-by-behavior")
+async def get_latest_activity_per_behavior(db: Session = Depends(get_db)):
+    try:
+        # Step 1: Ambil ID dari record terbaru per behavior (paling aman!)
+        subq = (
+            db.query(
+                CatActivity.behavior,
+                func.max(CatActivity.id).label("max_id")  # pakai ID, bukan timestamp!
+            )
+            .filter(CatActivity.behavior != "tidak terdeteksi")
+            .group_by(CatActivity.behavior)
+            .subquery()
+        )
+
+        # Step 2: Join balik pakai ID (pasti unik!)
+        activities = (
+            db.query(CatActivity)
+            .join(
+                subq,
+                and_(
+                    CatActivity.behavior == subq.c.behavior,
+                    CatActivity.id == subq.c.max_id
+                )
+            )
+            .order_by(CatActivity.created_at.desc())
+            .all()
+        )
+
+        result = []
+        for act in activities:
+            # Konversi ke WIB
+            ts = act.created_at
+            if ts.tzinfo is None:
+                ts = ts.replace(tzinfo=timezone.utc)
+            ts_wib = ts.astimezone(WIB_TZ)
+
+            result.append({
+                "id": act.id,
+                "behavior": act.behavior.capitalize(),
+                "confidence": round(act.confidence * 100, 1),
+                "timestamp": ts_wib.isoformat(),  # ISO dengan +07:00
+                "timestamp_display": ts_wib.strftime("%d %b %Y, %H:%M WIB"),
+                "custom_name": "Kamera Utama",  # nanti diganti kalau sudah ada device_serial
+                "time_ago": time_ago(ts_wib)
+            })
+
+        return {"activities": result}
+
+    except Exception as e:
+        # Biar lo tau error apa di terminal
+        print(f"Error di latest-by-behavior: {e}")
+        raise HTTPException(status_code=500, detail="Gagal mengambil data aktivitas terbaru")
+
+
+# ==================== API UNTUK RIWAYAT (HANYA KEJANG & MUNTAH + STATISTIK) ====================
+@router.get("/activities/critical")
+async def get_critical_activities(db: Session = Depends(get_db)):
+    critical = db.query(CatActivity)\
+        .filter(CatActivity.behavior.in_(["kejang", "muntah"]))\
+        .order_by(CatActivity.created_at.desc())\
+        .all()
+
+    count_kejang = len([a for a in critical if a.behavior == "kejang"])
+    count_muntah = len([a for a in critical if a.behavior == "muntah"])
+
+    result = []
+    for act in critical:
+        device = db.query(Device).filter(Device.serial_number == getattr(act, 'device_serial', None)).first()
+        custom_name = device.nama_perangkat if device else None
+
+        result.append({
+            "id": act.id,
+            "behavior": act.behavior,
+            "confidence": round(act.confidence * 100, 1),
+            "timestamp": act.created_at.isoformat(),
+            "device_serial": getattr(act, 'device_serial', 'Unknown'),
+            "custom_name": custom_name or "Unknown Device"
+        })
+
+    return {
+        "stats": {
+            "kejang_count": count_kejang,
+            "muntah_count": count_muntah,
+            "total_critical": len(critical)
+        },
+        "activities": result
     }

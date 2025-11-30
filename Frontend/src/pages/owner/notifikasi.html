@@ -1,259 +1,215 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notifikasi</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notifikasi Kucing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
 
-  <body>
-    <nav id="sidebar">
-      <ul>
-        <li>
-          <span class="logo">
-            <img
-              src="../../assets/images/petricord-logo.svg"
-              style="width: 100px"
-            />
-          </span>
-          <button onclick="toggleSidebar()" id="toggle-btn">
-            <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
-          </button>
-        </li>
-        <li>
-          <a href="perangkat.html">
-            <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
-            <span>Perangkat</span>
-          </a>
-        </li>
-        <li class="active">
-          <a href="#">
-            <img
-              src="../../assets/icons/notification-alert-2-svgrepo-com.svg"
-            />
-            <span>Notifikasi</span>
-          </a>
-        </li>
-        <li>
-          <a href="riwayat.html">
-            <img src="../../assets/icons/log.svg" />
-            <span>Riwayat</span>
-          </a>
-        </li>
-        <li>
-          <a href="jurnal-hewan.html">
-            <img src="../../assets/icons/health-svgrepo-com.svg" />
-            <span>Jurnal Hewan</span>
-          </a>
-        </li>
-        <li>
-          <a href="profil.html">
-            <img src="../../assets/icons/user-svgrepo-com.svg" />
-            <span>Profil</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+</head>
+<body class="bg-[#fdfcf9] text-gray-800">
 
-    <main>
-      <div class="paw-bg">
-        <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
-        <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
-      </div>
-      <div class="paw-background" id="pawBackground"></div>
-      <div class="content-wrapper">
-        <div class="header-section">
-          <h2>Notifikasi</h2>
-          <div class="header-controls">
-            <label for="kategori">Kategori:</label>
-            <select id="kategori" required>
-              <option value="semua">Semua</option>
-              <option value="peringatan">Peringatan</option>
-              <option value="informasi">Informasi</option>
-              <option value="penting">Penting</option>
-            </select>
-          </div>
+  <nav id="sidebar">
+    <!-- sidebar lo tetap -->
+    <ul>
+      <li>
+        <span class="logo"><img src="../../assets/images/petricord-logo.svg" style="width: 100px"/></span>
+        <button onclick="toggleSidebar()" id="toggle-btn"><img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" /></button>
+      </li>
+      <li><a href="perangkat.html"><img src="../../assets/icons/devices-svgrepo-com-outline.svg" /><span>Perangkat</span></a></li>
+      <li class="active"><a href="notifikasi.html"><img src="../../assets/icons/notification-alert-2-svgrepo-com.svg" /><span>Notifikasi</span></a></li>
+      <li><a href="riwayat.html"><img src="../../assets/icons/log.svg" /><span>Riwayat</span></a></li>
+      <li><a href="jurnal-hewan.html"><img src="../../assets/icons/health-svgrepo-com.svg" /><span>Jurnal Hewan</span></a></li>
+      <li><a href="profil.html"><img src="../../assets/icons/user-svgrepo-com.svg" /><span>Profil</span></a></li>
+    </ul>
+  </nav>
+
+  <main class="p-8 min-h-screen">
+    <div class="paw-bg">
+      <img src="../../assets/images/paw.png" class="paw deco paw-1" alt=""/>
+      <img src="../../assets/images/paw.png" class="paw deco paw-2" alt=""/>
+    </div>
+
+    <div class="header-section flex justify-between items-center mb-8">
+      <div class="max-w-7xl mx-auto content-wrap">
+        <div>
+          <h2 class="text-4xl font-bold text-[#6b4e31]">Notifikasi Terkini</h2>
+          <p class="text-gray-600 mt-1">Status aktivitas kucing kesayanganmu • Update otomatis</p>
         </div>
-
-        <div class="notifikasi-container">
-          <!-- Notifikasi 1: Peringatan -->
-          <div class="notifikasi-item" data-category="peringatan">
-            <div class="notifikasi-content">
-              <div class="notifikasi-content-header">
-                <div class="notifikasi-badge badge-peringatan">
-                  <svg
-                    width="23"
-                    height="23"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span class="notifikasi-label label-peringatan"
-                    >Peringatan</span
-                  >
-                </div>
-                <span class="notifikasi-time">5 menit yang lalu</span>
-              </div>
-              <h3 class="notifikasi-title">Aktivitas abnormal terdeteksi</h3>
-              <p class="notifikasi-description">
-                Lihat detail atau periksa riwayat pada perangkatmu sekarang.
-              </p>
-              <div class="notifikasi-footer">
-                <div class="device-tag">
-                  <span>Pet Patrol Lt 1</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Notifikasi 2: Informasi -->
-          <div class="notifikasi-item" data-category="informasi">
-            <div class="notifikasi-content">
-              <div class="notifikasi-content-header">
-                <div class="notifikasi-badge badge-informasi">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M22 11.0857V12.0057C21.9988 14.1621 21.3005 16.2604 20.0093 17.9875C18.7182 19.7147 16.9033 20.9782 14.8354 21.5896C12.7674 22.201 10.5573 22.1276 8.53447 21.3803C6.51168 20.633 4.78465 19.2518 3.61096 17.4428C2.43727 15.6338 1.87979 13.4938 2.02168 11.342C2.16356 9.19029 2.99721 7.14205 4.39828 5.5028C5.79935 3.86354 7.69279 2.72111 9.79619 2.24587C11.8996 1.77063 14.1003 1.98806 16.07 2.86572M22 4L12 14.01L9 11.01"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span class="notifikasi-label label-informasi"
-                    >Informasi</span
-                  >
-                </div>
-                <span class="notifikasi-time">15 menit yang lalu</span>
-              </div>
-              <h3 class="notifikasi-title">
-                Kucing kamu lagi fokus sama makanannya! 😋🍴
-              </h3>
-              <p class="notifikasi-description">
-                Lihat detail atau periksa riwayat pada perangkatmu sekarang.
-              </p>
-              <div class="notifikasi-footer">
-                <div class="device-tag">
-                  <span>Pet Patrol Lt 3</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Notifikasi 3: Penting -->
-          <div class="notifikasi-item" data-category="penting">
-            <div class="notifikasi-content">
-              <div class="notifikasi-content-header">
-                <div class="notifikasi-badge badge-penting">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6 18V14M6 14H8L13 17V7L8 10H5C3.89543 10 3 10.8954 3 12V12C3 13.1046 3.89543 14 5 14H6ZM17 7L19 5M17 17L19 19M19 12H21"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span class="notifikasi-label label-penting">Penting</span>
-                </div>
-                <span class="notifikasi-time"> 3 jam yang lalu</span>
-              </div>
-              <h3 class="notifikasi-title">Baterai perangkatmu habis 🪫</h3>
-              <p class="notifikasi-description">
-                Isi daya pernagkatmu segera agar tetap terhubung.
-              </p>
-              <div class="notifikasi-footer">
-                <div class="device-tag">
-                  <span>Pet Patrol Lt 3</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <select id="kategori" class="px-5 py-3 rounded-xl border border-gray-300 bg-white shadow-md text-sm font-medium">
+          <option value="semua">Semua Kategori</option>
+          <option value="peringatan">Peringatan</option>
+          <option value="informasi">Informasi</option>
+        </select>
       </div>
-    </main>
+    </div>
 
-    <script type="module" src="/js/notifikasi.js"></script>
-    <script>
-      // Toggle sidebar – versi anti-gagal
-      document.addEventListener("DOMContentLoaded", () => {
-        const toggleButton = document.getElementById("toggle-btn");
-        const sidebar = document.getElementById("sidebar");
+    <div class="max-w-7xl mx-auto content-wrap">
 
-        if (!toggleButton || !sidebar) {
-          console.warn("Tombol atau sidebar nggak ketemu!");
-          return;
-        }
+      <div class="notifikasi-container" id="notifikasi-container">
+        <!-- Notifikasi akan di-inject otomatis -->
+      </div>
 
-        toggleButton.addEventListener("click", () => {
-          sidebar.classList.toggle("close");
-          toggleButton.classList.toggle("rotate");
+      <div id="empty-state" class="text-center py-20 hidden">
+        <i class="ri-emotion-happy-line text-8xl text-gray-300 mb-6"></i>
+        <p class="text-2xl font-semibold text-gray-600">Semua aman!</p>
+        <p class="text-gray-500">Belum ada aktivitas terdeteksi saat ini.</p>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="/js/notifikasi.js"></script>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const toggleButton = document.getElementById("toggle-btn");
+      const main = document.querySelector('main');
+      sidebar.classList.toggle("close");
+      if (toggleButton) toggleButton.classList.toggle("rotate");
+      if (main) main.style.marginLeft = sidebar.classList.contains("close") ? "78px" : "250px";
+    }
 
-          // optional: simpan status ke localStorage biar ingat saat refresh
-          localStorage.setItem(
-            "sidebarClosed",
-            sidebar.classList.contains("close")
-          );
-        });
+    // Ensure main margin matches sidebar initial state
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebar = document.getElementById('sidebar');
+      const main = document.querySelector('main');
+      if (main && sidebar) main.style.marginLeft = sidebar.classList.contains('close') ? '78px' : '250px';
+    });
 
-        // ingat posisi terakhir saat reload
-        if (
-          localStorage !== "undefined" &&
-          localStorage.getItem("sidebarClosed") === "true"
-        ) {
-          sidebar.classList.add("close");
-          toggleButton.classList.add("rotate");
-        }
-      });
-    </script>
-    <script>
-      // REVISI TOTAL: script filter kategori yang benar
-      document.addEventListener("DOMContentLoaded", function () {
-        const kategoriSelect = document.getElementById("kategori"); // ID sudah sesuai
-        const notifikasiItems = document.querySelectorAll(".notifikasi-item");
+    // Mapping ikon & judul cerdas
+    const behaviorConfig = {
+      "kejang": { icon: "ri-alert-fill", title: "Gejala Kejang Terdeteksi!", color: "red", critical: true },
+      "muntah": { icon: "ri-emotion-unhappy-line", title: "Kucing Muntah!", color: "red", critical: true },
+      "makan": { icon: "ri-restaurant-line", title: "Kucing Sedang Makan", color: "green" },
+      "minum": { icon: "ri-cup-line", title: "Kucing Sedang Minum", color: "blue" },
+      "tidur": { icon: "ri-hotel-bed-line", title: "Kucing Tidur Nyenyak", color: "purple" },
+      "bermain": { icon: "ri-gamepad-line", title: "Kucing Sedang Bermain", color: "yellow" },
+      "buang air": { icon: "ri-recycle-line", title: "Kucing Buang Air", color: "orange" },
+      "grooming": { icon: "ri-sparkling-2-line", title: "Kucing Membersihkan Diri", color: "pink" },
+      "default": { icon: "ri-paw-line", title: (b) => `${b} Terdeteksi`, color: "gray" }
+    };
 
-        kategoriSelect.addEventListener("change", function () {
-          const selected = this.value; // "semua" | "peringatan" | "informasi" | "penting"
+    async function loadNotifikasi() {
+    try {
+      const res = await fetch("http://localhost:8000/api/cats/activities/latest-by-behavior");
+      if (!res.ok) throw new Error("Server mati bro");
+      const data = await res.json();
+      const logs = data.activities || [];
 
-          notifikasiItems.forEach((item) => {
-            const category = item.getAttribute("data-category");
+      const container = document.getElementById("notifikasi-container");
+      container.innerHTML = "";
+      container.className = "space-y-6"; // ini yang bikin rapi!
 
-            if (selected === "semua" || selected === category) {
-              item.style.display = "flex"; // tampilkan
-            } else {
-              item.style.display = "none"; // sembunyikan
+      if (logs.length === 0) {
+        container.innerHTML = `<div class="text-center py-20 text-gray-500 text-xl">Belum ada aktivitas terdeteksi</div>`;
+        return;
+      }
+
+      // Urutkan: critical dulu, lalu terbaru
+      logs
+        .sort((a, b) => {
+          const aCrit = ["kejang", "muntah"].includes(a.behavior.toLowerCase());
+          const bCrit = ["kejang", "muntah"].includes(b.behavior.toLowerCase());
+          if (aCrit && !bCrit) return -1;
+          if (!aCrit && bCrit) return 1;
+          return new Date(b.timestamp) - new Date(a.timestamp);
+        })
+        .forEach(log => {
+          const behavior = log.behavior.toLowerCase();
+          const isCritical = ["kejang", "muntah"].includes(behavior);
+
+          // Judul cerdas
+          let title = log.behavior;
+          if (behavior === "kejang") title = "Gejala kejang terdeteksi!";
+          else if (behavior === "muntah") title = "Kucing muntah!";
+          else if (behavior === "makan") title = "Kucing sedang makan";
+          else if (behavior === "buang air") title = "Kucing buang air";
+          else if (behavior === "minum") title = "Kucing sedang minum";
+          else title = `${log.behavior} terdeteksi`;
+
+          const timeAgo = timeSince(new Date(log.timestamp));
+
+          const card = document.createElement("div");
+          card.className = `notifikasi-item bg-white rounded-2xl shadow-lg overflow-hidden border-l-4 ${
+            isCritical ? "border-red-500" : "border-[#f4a261]"
+          }`;
+
+          card.dataset.category = isCritical ? "peringatan" : "informasi";
+
+          card.innerHTML = `
+            <div class="p-6">
+              <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="text-3xl">
+                    <i class="ri-${isCritical ? "alert-fill text-red-500" : "checkbox-circle-fill text-green-500"}"></i>
+                  </div>
+                  <div>
+                    <div class="text-xs font-bold uppercase tracking-wider text-gray-500">
+                      ${isCritical ? "PERINGATAN" : "INFORMASI"}
+                    </div>
+                    <h3 class="text-xl font-bold text-[#6b4e31] mt-1">${title}</h3>
+                  </div>
+                </div>
+                <span class="text-sm text-gray-500">${timeAgo}</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <i class="ri-device-line"></i>
+                <span>${log.custom_name || "Kamera Utama"}</span>
+              </div>
+
+              <div class="mt-3 text-sm">
+                <span class="text-gray-600">Confidence:</span>
+                <span class="font-bold text-[#6b4e31] ml-1">${log.confidence.toFixed(1)}%</span>
+              </div>
+            </div>
+          `;
+
+          container.appendChild(card); // append biar urutan bener (critical di atas)
+
+          // Alarm cuma sekali
+          if (isCritical) {
+            if (!localStorage.getItem("alerted_" + log.id)) {
+              new Audio("https://assets.mixkit.co/sfx/preview/mixkit-alarm-tone-1077.mp3")
+                .play().catch(() => {});
+              localStorage.setItem("alerted_" + log.id, "true");
             }
-          });
+          }
         });
 
-        // Optional: jalankan sekali saat load agar default "Semua" langsung aktif
-        kategoriSelect.value = "semua";
-        kategoriSelect.dispatchEvent(new Event("change"));
-      });
-    </script>
-  </body>
+    } catch (e) {
+      console.error("Error:", e);
+      document.getElementById("notifikasi-container").innerHTML = 
+        `<div class="text-center py-10 text-red-600">Gagal memuat data</div>`;
+    }
+  }
+
+  function timeSince(date) {
+    const seconds = Math.floor((new Date() - date) / 1000);
+    const intervals = [
+      [31536000, "tahun"], [2592000, "bulan"], [86400, "hari"],
+      [3600, "jam"], [60, "menit"]
+    ];
+    for (const [secs, unit] of intervals) {
+      const count = Math.floor(seconds / secs);
+      if (count >= 1) return count === 1 ? `1 ${unit} lalu` : `${count} ${unit} lalu`;
+    }
+    return "baru saja";
+  }
+
+  // Filter kategori
+  document.getElementById("kategori").addEventListener("change", function () {
+    const val = this.value;
+    document.querySelectorAll(".notifikasi-item").forEach(item => {
+      item.style.display = 
+        val === "semua" || item.dataset.category === val ? "block" : "none";
+    });
+  });
+
+  // Auto refresh
+  loadNotifikasi();
+  setInterval(loadNotifikasi, 10000); // setiap 10 detik
+</script>
+</body>
 </html>
