@@ -239,12 +239,25 @@ p {
   color: #333;
 }
 
+.btn-logout {
+  font-family: "Poppins", sans-serif;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  background: #eee;
+  color: #333;
+  cursor: pointer;
+  background: #d90707;
+  color: #ffffff;
+}
+
 .btn-primary,
 .btn-cancel-cat,
 .btn-delete-cat,
 .btn-edit-cat,
 .btn-add-cat,
-.btn-edit-profile {
+.btn-edit-profile,
+.btn-logout {
   background-size: 200% 200%;
   background-position: left center;
   transition: background-position 0.5s ease, transform 0.2s ease,
@@ -257,7 +270,8 @@ p {
 .btn-edit-cat:hover,
 .btn-delete-cat:hover,
 .btn-add-cat:hover,
-.btn-edit-profile:hover {
+.btn-edit-profile:hover,
+.btn-logout:hover {
   background-position: right center;
   transform: translateY(-3px);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);

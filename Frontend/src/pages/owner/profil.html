@@ -77,6 +77,7 @@
               <button id="btn-edit-profile" class="btn-edit-profile">
                 Edit Profil
               </button>
+              <button id="btn-logout" class="btn-logout">Logout</button>
             </div>
           </div>
           <div class="profile-card" id="profile-card">
@@ -528,6 +529,25 @@
               renderCats();
             }
           });
+
+        // Logout button: calls API.logout (if available), clears storage and redirects
+        const logoutBtn = document.getElementById('btn-logout');
+        if (logoutBtn) {
+          logoutBtn.addEventListener('click', async () => {
+            if (!confirm('Keluar dari akun?')) return;
+            try {
+              if (API.logout) await API.logout();
+            } catch (err) {
+              console.error('API.logout failed', err);
+            }
+            try {
+              localStorage.removeItem('authToken');
+              sessionStorage.clear();
+            } catch (e) { /* ignore */ }
+            // Redirect to login page (adjust path if your login page differs)
+            window.location.href = '/login.html';
+          });
+        }
       });
     </script>
   </body>
