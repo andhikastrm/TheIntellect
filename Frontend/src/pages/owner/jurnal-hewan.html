@@ -6,6 +6,7 @@
     <title>Jurnal Hewan</title>
   </head>
   <title>Perangkat</title>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
     rel="stylesheet"
@@ -71,31 +72,7 @@
         Simpan catatan kesehatan hewan peliharaanmu dengan mudah di sini!
       </p>
 
-      <!-- Kelola Hewan (CRUD) - Full width -->
-      <section class="kelola-hewan section-full">
-        <div class="section-inner">
-          <div class="section-header">
-            <h3>Kelola Hewan</h3>
-            <div class="actions">
-              <button id="btn-add-cat" class="btn-add-cat">Tambah Hewan</button>
-            </div>
-          </div>
-
-          <div class="kelola-list">
-            <div class="cats-grid" id="cats-container">
-              <!-- Add box -->
-              <div class="add-cat-box" id="add-cat-box" title="Tambah Hewan">
-                <div class="add-icon">
-                  +
-                  <!-- You can replace with an SVG icon -->
-                </div>
-                <div class="add-text">Tambah Hewan</div>
-              </div>
-              <!-- Cards will be inserted here by JS -->
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- Kelola Hewan removed from this page -->
 
       <!-- Rekaman Medis - Full width -->
       <section class="rekaman-medis section-full">
@@ -153,49 +130,7 @@
       <!-- Modals / Forms (hidden by default) -->
       <div id="modal-overlay" class="modal-overlay hidden"></div>
 
-      <!-- Add/Edit Cat Modal -->
-      <div id="modal-cat" class="modal hidden" role="dialog" aria-modal="true">
-        <div class="modal-content">
-          <h4 id="modal-cat-title">Tambah Hewan</h4>
-          <form id="form-cat">
-            <input type="hidden" name="id" />
-            <label
-              >Foto:
-              <input
-                name="photo"
-                id="cat-photo-input"
-                type="file"
-                accept="image/*"
-              />
-            </label>
-            <div
-              class="photo-preview"
-              id="cat-photo-preview"
-              style="display: none; margin-bottom: 8px"
-            >
-              <img
-                src=""
-                alt="preview"
-                style="max-width: 120px; max-height: 120px; border-radius: 8px"
-              />
-            </div>
-            <label>Nama:<input name="name" required /></label>
-            <label>Ras:<input name="breed" /></label>
-            <label
-              >Usia (bulan):<input name="ageMonths" type="number" min="0"
-            /></label>
-            <label
-              >Berat (kg):<input name="weight" type="number" step="0.1" min="0"
-            /></label>
-            <div class="modal-actions">
-              <button type="submit" class="btn-primary">Simpan</button>
-              <button type="button" id="btn-cancel-cat" class="btn-cancel-cat">
-                Batal
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+      <!-- Cat modal removed (Kelola Hewan removed) -->
 
       <!-- Add Medical Record Modal -->
       <div
@@ -305,393 +240,81 @@
 
     <!-- App logic for jurnal-hewan: UI + placeholder API handlers -->
     <script>
-      /*
-            Placeholder API functions.
-            Replace the bodies with real fetch calls to your backend endpoints.
-            Example endpoints (placeholders):
-              GET  /api/cats
-              POST /api/cats
-              PUT  /api/cats/:id
-              DELETE /api/cats/:id
-
-              GET  /api/medical-records
-              POST /api/medical-records
-
-              GET  /api/activities
-              POST /api/activities
-          */
+      // Placeholder API functions (records & activities). Replace with real calls.
       const API = {
-        async fetchCats() {
-          // TODO: implement API call
-          return [];
-        },
-        async createCat(cat) {
-          // TODO: implement API call
-          return cat; // return created object (with id)
-        },
-        async updateCat(id, cat) {
-          // TODO: implement API call
-          return cat;
-        },
-        async deleteCat(id) {
-          // TODO: implement API call
-          return true;
-        },
-        async fetchRecords() {
-          // TODO: implement API call
-          return [];
-        },
-        async createRecord(record) {
-          // TODO: implement API call
-          return record;
-        },
-        async fetchActivities() {
-          // TODO: implement API call
-          return [];
-        },
-        async createActivity(act) {
-          // TODO: implement API call
-          return act;
-        },
+        async fetchCats() { return []; },
+        async fetchRecords() { return []; },
+        async createRecord(r) { return r; },
+        async fetchActivities() { return []; },
+        async createActivity(a) { return a; }
       };
 
-      // Simple in-memory state (works without backend)
-      const state = {
-        cats: [],
-        records: [],
-        activities: [],
-      };
+      const state = { cats: [], records: [], activities: [] };
 
-      // Helpers to open/close modals
-      function showModal(id) {
-        document.getElementById("modal-overlay").classList.remove("hidden");
-        document.getElementById(id).classList.remove("hidden");
-      }
-      function closeModal(id) {
-        document.getElementById("modal-overlay").classList.add("hidden");
-        document.getElementById(id).classList.add("hidden");
-      }
-
-      // Render functions
-      function renderCats() {
-        const container = document.getElementById("cats-container");
-        // keep add box at start
-        const addBoxHtml = `
-              <div class="add-cat-box" id="add-cat-box" title="Tambah Hewan">
-                <div class="add-icon">+
-                </div>
-                <div class="add-text">Tambah Hewan</div>
-              </div>`;
-        container.innerHTML = addBoxHtml;
-
-        state.cats.forEach((cat) => {
-          const card = document.createElement("div");
-          card.className = "cat-card";
-          card.dataset.id = cat.id;
-          const imgSrc = cat.photoData || "../../assets/images/paw.png";
-          card.innerHTML = `
-                <div class="cat-left"><img src="${imgSrc}" alt="${
-            cat.name
-          }" /></div>
-                <div class="cat-right">
-                  <h4 class="cat-name">${cat.name}</h4>
-                  <div class="cat-meta">${
-                    cat.breed ? "Ras: " + cat.breed : ""
-                  }</div>
-                  <div class="cat-meta">${
-                    cat.ageMonths ? cat.ageMonths + " bulan" : ""
-                  } ${cat.weight ? " - " + cat.weight + " kg" : ""}</div>
-                  <div class="card-actions">
-                    <button class="btn-edit-cat" data-id="${
-                      cat.id
-                    }">Edit</button>
-                    <button class="btn-delete-cat" data-id="${
-                      cat.id
-                    }">Hapus</button>
-                  </div>
-                </div>
-              `;
-          container.appendChild(card);
-        });
-
-        // update dropdowns
-        updateCatDropdowns();
-      }
+      function showModal(id) { document.getElementById('modal-overlay').classList.remove('hidden'); document.getElementById(id).classList.remove('hidden'); }
+      function closeModal(id) { document.getElementById('modal-overlay').classList.add('hidden'); document.getElementById(id).classList.add('hidden'); }
 
       function renderRecords() {
-        const tbody = document.getElementById("records-tbody");
-        tbody.innerHTML = "";
-        state.records.forEach((r) => {
-          const cat = state.cats.find((c) => c.id === r.catId) || {
-            name: "Tidak diketahui",
-          };
-          const tr = document.createElement("tr");
-          tr.innerHTML = `<td>${cat.name}</td><td>${r.type}</td><td>${
-            r.date
-          }</td><td>${r.notes || ""}</td>`;
+        const tbody = document.getElementById('records-tbody');
+        tbody.innerHTML = '';
+        state.records.forEach(r => {
+          const cat = state.cats.find(c => c.id === r.catId) || { name: 'Tidak diketahui' };
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${cat.name}</td><td>${r.type}</td><td>${r.date}</td><td>${r.notes||''}</td>`;
           tbody.appendChild(tr);
         });
       }
 
-      function renderActivities(filterCatId = "") {
-        const ul = document.getElementById("activities-ul");
-        ul.innerHTML = "";
-        const list = state.activities.filter(
-          (a) => !filterCatId || a.catId === filterCatId
-        );
-        list.forEach((a) => {
-          const cat = state.cats.find((c) => c.id === a.catId) || {
-            name: "Tidak diketahui",
-          };
-          const li = document.createElement("li");
+      function renderActivities(filterCatId='') {
+        const ul = document.getElementById('activities-ul');
+        ul.innerHTML = '';
+        const list = state.activities.filter(a => !filterCatId || a.catId === filterCatId);
+        list.forEach(a => {
+          const cat = state.cats.find(c => c.id === a.catId) || { name: 'Tidak diketahui' };
+          const li = document.createElement('li');
           li.innerHTML = `<div class="activity-item"><div class="left"><strong>${cat.name}</strong> - ${a.text}</div><div class="right"><button class="btn done" data-id="${a.id}">Selesai</button></div></div>`;
           ul.appendChild(li);
         });
       }
 
       function updateCatDropdowns() {
-        const selects = [
-          document.getElementById("record-cat-select"),
-          document.getElementById("activity-cat-select"),
-          document.getElementById("filter-cat"),
-        ];
-        selects.forEach((sel) => {
+        const selects = [document.getElementById('record-cat-select'), document.getElementById('activity-cat-select'), document.getElementById('filter-cat')];
+        selects.forEach(sel => {
           if (!sel) return;
           const current = sel.value;
-          sel.innerHTML =
-            '<option value="" disabled selected>- Pilih Hewan -</option>';
-          state.cats.forEach((c) => {
-            const opt = document.createElement("option");
-            opt.value = c.id;
-            opt.textContent = c.name;
-            sel.appendChild(opt);
+          sel.innerHTML = '<option value="" disabled selected>- Pilih Hewan -</option>';
+          state.cats.forEach(c => {
+            const opt = document.createElement('option'); opt.value = c.id; opt.textContent = c.name; sel.appendChild(opt);
           });
           sel.value = current;
         });
       }
 
-      // Simple id generator
-      function genId(prefix = "id") {
-        return prefix + "_" + Math.random().toString(36).slice(2, 9);
-      }
+      function genId(prefix='id'){ return prefix + '_' + Math.random().toString(36).slice(2,9); }
 
-      // Wire up UI
-      document.addEventListener("DOMContentLoaded", async () => {
-        // load initial data from API placeholders
+      document.addEventListener('DOMContentLoaded', async () => {
         state.cats = await API.fetchCats();
         state.records = await API.fetchRecords();
         state.activities = await API.fetchActivities();
 
-        renderCats();
         renderRecords();
         renderActivities();
 
-        // Add cat (button and add-box)
-        const openAddCatModal = () => {
-          const form = document.getElementById("form-cat");
-          form.reset();
-          form.id.value = "";
-          const preview = document.getElementById("cat-photo-preview");
-          preview.style.display = "none";
-          preview.querySelector("img").src = "";
-          document.getElementById("modal-cat-title").textContent =
-            "Tambah Hewan";
-          showModal("modal-cat");
-        };
-        document
-          .getElementById("btn-add-cat")
-          .addEventListener("click", openAddCatModal);
-        // add-box click (delegated as it may be re-rendered)
-        document
-          .getElementById("cats-container")
-          .addEventListener("click", (e) => {
-            const add = e.target.closest("#add-cat-box");
-            if (add) openAddCatModal();
-          });
-
-        document
-          .getElementById("btn-cancel-cat")
-          .addEventListener("click", () => closeModal("modal-cat"));
-
-        // helper to read file as data URL
-        function readFileAsDataURL(file) {
-          return new Promise((res, rej) => {
-            const fr = new FileReader();
-            fr.onload = () => res(fr.result);
-            fr.onerror = rej;
-            fr.readAsDataURL(file);
-          });
-        }
-
-        // preview photo when selected
-        const photoInput = document.getElementById("cat-photo-input");
-        if (photoInput) {
-          photoInput.addEventListener("change", (ev) => {
-            const f = ev.target.files && ev.target.files[0];
-            const preview = document.getElementById("cat-photo-preview");
-            const img = preview.querySelector("img");
-            if (f) {
-              const url = URL.createObjectURL(f);
-              img.src = url;
-              preview.style.display = "";
-            } else {
-              img.src = "";
-              preview.style.display = "none";
-            }
-          });
-        }
-
-        document
-          .getElementById("form-cat")
-          .addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const fd = new FormData(form);
-            const id = fd.get("id");
-            const file = form.photo.files && form.photo.files[0];
-            let photoData = null;
-            if (file) {
-              photoData = await readFileAsDataURL(file);
-            }
-
-            if (id) {
-              // edit existing
-              const cat = state.cats.find((c) => c.id === id);
-              if (!cat) return;
-              cat.name = fd.get("name");
-              cat.breed = fd.get("breed");
-              cat.ageMonths = fd.get("ageMonths");
-              cat.weight = fd.get("weight");
-              if (photoData) cat.photoData = photoData;
-              await API.updateCat(cat.id, cat);
-            } else {
-              // create new
-              const cat = {
-                id: genId("cat"),
-                name: fd.get("name"),
-                breed: fd.get("breed"),
-                ageMonths: fd.get("ageMonths"),
-                weight: fd.get("weight"),
-                photoData: photoData,
-              };
-              const created = await API.createCat(cat);
-              state.cats.push(created);
-            }
-            renderCats();
-            closeModal("modal-cat");
-          });
-
-        // Edit / Delete handlers (delegated on cards container)
-        document
-          .getElementById("cats-container")
-          .addEventListener("click", (e) => {
-            const btn = e.target.closest("button");
-            if (!btn) return;
-            const id = btn.dataset.id;
-            if (btn.classList.contains("btn-edit-cat")) {
-              const cat = state.cats.find((c) => c.id === id);
-              if (!cat) return;
-              const form = document.getElementById("form-cat");
-              form.id.value = cat.id;
-              form.name.value = cat.name || "";
-              form.breed.value = cat.breed || "";
-              form.ageMonths.value = cat.ageMonths || "";
-              form.weight.value = cat.weight || "";
-              const preview = document.getElementById("cat-photo-preview");
-              const img = preview.querySelector("img");
-              if (cat.photoData) {
-                img.src = cat.photoData;
-                preview.style.display = "";
-              } else {
-                img.src = "";
-                preview.style.display = "none";
-              }
-              document.getElementById("modal-cat-title").textContent =
-                "Edit Hewan";
-              showModal("modal-cat");
-            }
-            if (btn.classList.contains("btn-delete-cat")) {
-              if (!confirm("Hapus hewan ini?")) return;
-              state.cats = state.cats.filter((c) => c.id !== id);
-              API.deleteCat(id);
-              renderCats();
-              renderRecords();
-              renderActivities();
-            }
-          });
-
         // Records
-        document
-          .getElementById("btn-add-record")
-          .addEventListener("click", () => {
-            document.getElementById("form-record").reset();
-            updateCatDropdowns();
-            showModal("modal-record");
-          });
-        document
-          .getElementById("btn-cancel-record")
-          .addEventListener("click", () => closeModal("modal-record"));
-        document
-          .getElementById("form-record")
-          .addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const fd = new FormData(e.target);
-            const rec = {
-              id: genId("rec"),
-              catId: fd.get("catId"),
-              type: fd.get("type"),
-              date: fd.get("date"),
-              notes: fd.get("notes"),
-            };
-            const created = await API.createRecord(rec);
-            state.records.push(created);
-            renderRecords();
-            closeModal("modal-record");
-          });
+        document.getElementById('btn-add-record')?.addEventListener('click', ()=>{ document.getElementById('form-record').reset(); updateCatDropdowns(); showModal('modal-record'); });
+        document.getElementById('btn-cancel-record')?.addEventListener('click', ()=> closeModal('modal-record'));
+        document.getElementById('form-record')?.addEventListener('submit', async (e)=>{
+          e.preventDefault(); const fd = new FormData(e.target); const rec = { id: genId('rec'), catId: fd.get('catId'), type: fd.get('type'), date: fd.get('date'), notes: fd.get('notes') }; const created = await API.createRecord(rec); state.records.push(created); renderRecords(); closeModal('modal-record');
+        });
 
         // Activities
-        document
-          .getElementById("btn-add-activity")
-          .addEventListener("click", () => {
-            document.getElementById("form-activity").reset();
-            updateCatDropdowns();
-            showModal("modal-activity");
-          });
-        document
-          .getElementById("btn-cancel-activity")
-          .addEventListener("click", () => closeModal("modal-activity"));
-        document
-          .getElementById("form-activity")
-          .addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const fd = new FormData(e.target);
-            const act = {
-              id: genId("act"),
-              catId: fd.get("catId"),
-              text: fd.get("text"),
-              date: fd.get("date"),
-            };
-            const created = await API.createActivity(act);
-            state.activities.push(created);
-            renderActivities(document.getElementById("filter-cat").value);
-            closeModal("modal-activity");
-          });
+        document.getElementById('btn-add-activity')?.addEventListener('click', ()=>{ document.getElementById('form-activity').reset(); updateCatDropdowns(); showModal('modal-activity'); });
+        document.getElementById('btn-cancel-activity')?.addEventListener('click', ()=> closeModal('modal-activity'));
+        document.getElementById('form-activity')?.addEventListener('submit', async (e)=>{ e.preventDefault(); const fd = new FormData(e.target); const act = { id: genId('act'), catId: fd.get('catId'), text: fd.get('text'), date: fd.get('date') }; const created = await API.createActivity(act); state.activities.push(created); renderActivities(document.getElementById('filter-cat').value); closeModal('modal-activity'); });
 
-        document
-          .getElementById("activities-ul")
-          .addEventListener("click", (e) => {
-            const btn = e.target.closest("button.done");
-            if (!btn) return;
-            const id = btn.dataset.id;
-            state.activities = state.activities.filter((a) => a.id !== id);
-            renderActivities(document.getElementById("filter-cat").value);
-          });
+        document.getElementById('activities-ul')?.addEventListener('click', (e)=>{ const btn = e.target.closest('button.done'); if (!btn) return; const id = btn.dataset.id; state.activities = state.activities.filter(a=>a.id !== id); renderActivities(document.getElementById('filter-cat').value); });
 
-        document
-          .getElementById("filter-cat")
-          .addEventListener("change", (e) => {
-            renderActivities(e.target.value);
-          });
+        document.getElementById('filter-cat')?.addEventListener('change', (e)=>{ renderActivities(e.target.value); });
       });
     </script>
   </body>
