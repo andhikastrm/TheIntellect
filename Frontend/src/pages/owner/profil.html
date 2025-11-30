@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jurnal Hewan</title>
+    <title>Perangkat</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <title>Perangkat</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
 
   <body>
     <nav id="sidebar">
@@ -45,14 +46,14 @@
             <span>Riwayat</span>
           </a>
         </li>
-        <li class="active">
-          <a href="#">
+        <li>
+          <a href="jurnal-hewan.html">
             <img src="../../assets/icons/health-svgrepo-com.svg" />
             <span>Jurnal Hewan</span>
           </a>
         </li>
-        <li>
-          <a href="profil.html">
+        <li class="active">
+          <a href="#">
             <img src="../../assets/icons/user-svgrepo-com.svg" />
             <span>Profil</span>
           </a>
@@ -65,11 +66,36 @@
         <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
       </div>
       <div class="header-section">
-        <h2>Jurnal Hewan</h2>
+        <h2>Profil</h2>
       </div>
-      <p class="text-gray-500">
-        Simpan catatan kesehatan hewan peliharaanmu dengan mudah di sini!
-      </p>
+      <!-- Profil User - Full width (placed before Kelola Hewan) -->
+      <section class="profil-user section-full">
+        <div class="section-inner">
+          <div class="section-header">
+            <h3>Profil Saya</h3>
+            <div class="actions">
+              <button id="btn-edit-profile" class="btn-edit-profile">
+                Edit Profil
+              </button>
+            </div>
+          </div>
+          <div class="profile-card" id="profile-card">
+            <div class="profile-photo">
+              <img
+                id="profile-photo-img"
+                src="../../assets/images/petricord-logo.svg"
+                alt="Foto Profil"
+              />
+            </div>
+            <div class="profile-info">
+              <h4 id="profile-name">Nama Pengguna</h4>
+              <div id="profile-email" class="profile-email">
+                email@domain.com
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Kelola Hewan (CRUD) - Full width -->
       <section class="kelola-hewan section-full">
@@ -97,58 +123,7 @@
         </div>
       </section>
 
-      <!-- Rekaman Medis - Full width -->
-      <section class="rekaman-medis section-full">
-        <div class="section-inner">
-          <div class="section-header">
-            <h3>Rekaman Medis</h3>
-            <div class="actions">
-              <button id="btn-add-record" class="btn-add-record">
-                Tambah Rekaman
-              </button>
-            </div>
-          </div>
-
-          <div class="records-list">
-            <table class="records-table">
-              <thead>
-                <tr>
-                  <th>Hewan</th>
-                  <th>Tipe</th>
-                  <th>Tanggal</th>
-                  <th>Catatan</th>
-                </tr>
-              </thead>
-              <tbody id="records-tbody">
-                <!-- Rows populated by JS -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Aktivitas (To-do list) - Full width -->
-      <section class="aktivitas section-full">
-        <div class="section-inner">
-          <div class="section-header">
-            <h3>Aktivitas (To-do list)</h3>
-            <div class="actions">
-              <select id="filter-cat" class="select-cat">
-                <option value="" disabled selected>Pilih hewan</option>
-              </select>
-              <button id="btn-add-activity" class="btn-add-activity">
-                Tambah Aktivitas
-              </button>
-            </div>
-          </div>
-
-          <div class="todo-list">
-            <ul id="activities-ul">
-              <!-- Items populated by JS -->
-            </ul>
-          </div>
-        </div>
-      </section>
+      <!-- Rekaman Medis and Aktivitas removed from this page (handled elsewhere) -->
 
       <!-- Modals / Forms (hidden by default) -->
       <div id="modal-overlay" class="modal-overlay hidden"></div>
@@ -197,70 +172,43 @@
         </div>
       </div>
 
-      <!-- Add Medical Record Modal -->
+      <!-- Profile Edit Modal -->
       <div
-        id="modal-record"
+        id="modal-profile"
         class="modal hidden"
         role="dialog"
         aria-modal="true"
       >
         <div class="modal-content">
-          <h4>Tambah Rekaman Medis</h4>
-          <form id="form-record">
+          <h4>Edit Profil</h4>
+          <form id="form-profile">
             <label
-              >Hewan:
-              <select name="catId" id="record-cat-select" required>
-                <!-- Filled by JS -->
-              </select>
+              >Foto Profil:
+              <input
+                name="photo"
+                id="profile-photo-input"
+                type="file"
+                accept="image/*"
+              />
             </label>
-            <label
-              >Tipe Rekaman:
-              <select name="type" id="record-type" required>
-                <option value="vaksin">Vaksin</option>
-                <option value="grooming">Grooming</option>
-                <option value="checkup">Pemeriksaan Rutin (Check-up)</option>
-              </select>
-            </label>
-            <label>Tanggal:<input name="date" type="date" required /></label>
-            <label>Catatan:<textarea name="notes"></textarea></label>
-            <div class="modal-actions">
-              <button type="submit" class="btn btn-primary">Simpan</button>
-              <button
-                type="button"
-                id="btn-cancel-record"
-                class="btn-cancel-record"
-              >
-                Batal
-              </button>
+            <div
+              class="photo-preview"
+              id="profile-photo-preview"
+              style="display: none; margin-bottom: 8px"
+            >
+              <img
+                src=""
+                alt="preview"
+                style="max-width: 120px; max-height: 120px; border-radius: 50%"
+              />
             </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- Add Activity Modal -->
-      <div
-        id="modal-activity"
-        class="modal hidden"
-        role="dialog"
-        aria-modal="true"
-      >
-        <div class="modal-content">
-          <h4>Tambah Aktivitas</h4>
-          <form id="form-activity">
-            <label
-              >Hewan:
-              <select name="catId" id="activity-cat-select" required>
-                <!-- Filled by JS -->
-              </select>
-            </label>
-            <label>Deskripsi:<input name="text" required /></label>
-            <label>Tanggal:<input name="date" type="date" /></label>
+            <label>Nama:<input name="name" required /></label>
             <div class="modal-actions">
-              <button type="submit" class="btn btn-primary">Simpan</button>
+              <button type="submit" class="btn-primary">Simpan</button>
               <button
                 type="button"
-                id="btn-cancel-activity"
-                class="btn-cancel-activity"
+                id="btn-cancel-profile"
+                class="btn-cancel-cat"
               >
                 Batal
               </button>
@@ -269,7 +217,7 @@
         </div>
       </div>
     </main>
-    <script type="module" src="/js/jurnal-hewan.js"></script>
+    <script type="module" src="/js/profil.js"></script>
     <script>
       // Toggle sidebar – versi anti-gagal
       document.addEventListener("DOMContentLoaded", () => {
@@ -303,66 +251,43 @@
       });
     </script>
 
-    <!-- App logic for jurnal-hewan: UI + placeholder API handlers -->
+    <!-- App logic for profil page: UI + placeholder API handlers -->
     <script>
       /*
-            Placeholder API functions.
-            Replace the bodies with real fetch calls to your backend endpoints.
-            Example endpoints (placeholders):
-              GET  /api/cats
-              POST /api/cats
-              PUT  /api/cats/:id
-              DELETE /api/cats/:id
-
-              GET  /api/medical-records
-              POST /api/medical-records
-
-              GET  /api/activities
-              POST /api/activities
+            Placeholder API functions for profile & cats. Replace with real fetch calls.
+            Profile endpoints examples:
+              GET  /api/profile
+              PUT  /api/profile
           */
       const API = {
         async fetchCats() {
-          // TODO: implement API call
           return [];
         },
         async createCat(cat) {
-          // TODO: implement API call
-          return cat; // return created object (with id)
+          return cat;
         },
         async updateCat(id, cat) {
-          // TODO: implement API call
           return cat;
         },
         async deleteCat(id) {
-          // TODO: implement API call
           return true;
         },
-        async fetchRecords() {
-          // TODO: implement API call
-          return [];
+
+        async fetchProfile() {
+          /* TODO: implement API call */ return {
+            id: "me",
+            name: "Nama Pengguna",
+            email: "email@domain.com",
+            photoData: null,
+          };
         },
-        async createRecord(record) {
-          // TODO: implement API call
-          return record;
-        },
-        async fetchActivities() {
-          // TODO: implement API call
-          return [];
-        },
-        async createActivity(act) {
-          // TODO: implement API call
-          return act;
+        async updateProfile(profile) {
+          /* TODO: implement API call */ return profile;
         },
       };
 
-      // Simple in-memory state (works without backend)
-      const state = {
-        cats: [],
-        records: [],
-        activities: [],
-      };
+      const state = { cats: [], profile: null };
 
-      // Helpers to open/close modals
       function showModal(id) {
         document.getElementById("modal-overlay").classList.remove("hidden");
         document.getElementById(id).classList.remove("hidden");
@@ -372,18 +297,36 @@
         document.getElementById(id).classList.add("hidden");
       }
 
-      // Render functions
+      function readFileAsDataURL(file) {
+        return new Promise((res, rej) => {
+          const fr = new FileReader();
+          fr.onload = () => res(fr.result);
+          fr.onerror = rej;
+          fr.readAsDataURL(file);
+        });
+      }
+
+      function renderProfile() {
+        const p = state.profile || {
+          name: "Nama Pengguna",
+          email: "email@domain.com",
+          photoData: null,
+        };
+        const img = document.getElementById("profile-photo-img");
+        img.src = p.photoData || "../../assets/images/paw.png";
+        img.alt = p.name || "Profil";
+        document.getElementById("profile-name").textContent = p.name || "";
+        document.getElementById("profile-email").textContent = p.email || "";
+      }
+
       function renderCats() {
         const container = document.getElementById("cats-container");
-        // keep add box at start
         const addBoxHtml = `
               <div class="add-cat-box" id="add-cat-box" title="Tambah Hewan">
-                <div class="add-icon">+
-                </div>
+                <div class="add-icon">+</div>
                 <div class="add-text">Tambah Hewan</div>
               </div>`;
         container.innerHTML = addBoxHtml;
-
         state.cats.forEach((cat) => {
           const card = document.createElement("div");
           card.className = "cat-card";
@@ -409,84 +352,70 @@
                       cat.id
                     }">Hapus</button>
                   </div>
-                </div>
-              `;
+                </div>`;
           container.appendChild(card);
         });
-
-        // update dropdowns
-        updateCatDropdowns();
-      }
-
-      function renderRecords() {
-        const tbody = document.getElementById("records-tbody");
-        tbody.innerHTML = "";
-        state.records.forEach((r) => {
-          const cat = state.cats.find((c) => c.id === r.catId) || {
-            name: "Tidak diketahui",
-          };
-          const tr = document.createElement("tr");
-          tr.innerHTML = `<td>${cat.name}</td><td>${r.type}</td><td>${
-            r.date
-          }</td><td>${r.notes || ""}</td>`;
-          tbody.appendChild(tr);
-        });
-      }
-
-      function renderActivities(filterCatId = "") {
-        const ul = document.getElementById("activities-ul");
-        ul.innerHTML = "";
-        const list = state.activities.filter(
-          (a) => !filterCatId || a.catId === filterCatId
-        );
-        list.forEach((a) => {
-          const cat = state.cats.find((c) => c.id === a.catId) || {
-            name: "Tidak diketahui",
-          };
-          const li = document.createElement("li");
-          li.innerHTML = `<div class="activity-item"><div class="left"><strong>${cat.name}</strong> - ${a.text}</div><div class="right"><button class="btn done" data-id="${a.id}">Selesai</button></div></div>`;
-          ul.appendChild(li);
-        });
-      }
-
-      function updateCatDropdowns() {
-        const selects = [
-          document.getElementById("record-cat-select"),
-          document.getElementById("activity-cat-select"),
-          document.getElementById("filter-cat"),
-        ];
-        selects.forEach((sel) => {
-          if (!sel) return;
-          const current = sel.value;
-          sel.innerHTML =
-            '<option value="" disabled selected>- Pilih Hewan -</option>';
-          state.cats.forEach((c) => {
-            const opt = document.createElement("option");
-            opt.value = c.id;
-            opt.textContent = c.name;
-            sel.appendChild(opt);
-          });
-          sel.value = current;
-        });
-      }
-
-      // Simple id generator
-      function genId(prefix = "id") {
-        return prefix + "_" + Math.random().toString(36).slice(2, 9);
       }
 
       // Wire up UI
       document.addEventListener("DOMContentLoaded", async () => {
-        // load initial data from API placeholders
         state.cats = await API.fetchCats();
-        state.records = await API.fetchRecords();
-        state.activities = await API.fetchActivities();
-
+        state.profile = await API.fetchProfile();
+        renderProfile();
         renderCats();
-        renderRecords();
-        renderActivities();
 
-        // Add cat (button and add-box)
+        // Profile edit
+        document
+          .getElementById("btn-edit-profile")
+          .addEventListener("click", () => {
+            const form = document.getElementById("form-profile");
+            form.reset();
+            const preview = document.getElementById("profile-photo-preview");
+            preview.style.display = "none";
+            preview.querySelector("img").src = "";
+            if (state.profile) form.name.value = state.profile.name || "";
+            showModal("modal-profile");
+          });
+        document
+          .getElementById("btn-cancel-profile")
+          .addEventListener("click", () => closeModal("modal-profile"));
+
+        const pInput = document.getElementById("profile-photo-input");
+        if (pInput)
+          pInput.addEventListener("change", (ev) => {
+            const f = ev.target.files && ev.target.files[0];
+            const preview = document.getElementById("profile-photo-preview");
+            const img = preview.querySelector("img");
+            if (f) {
+              img.src = URL.createObjectURL(f);
+              preview.style.display = "";
+            } else {
+              img.src = "";
+              preview.style.display = "none";
+            }
+          });
+
+        document
+          .getElementById("form-profile")
+          .addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const fd = new FormData(form);
+            const file = form.photo.files && form.photo.files[0];
+            let photoData = (state.profile && state.profile.photoData) || null;
+            if (file) photoData = await readFileAsDataURL(file);
+            const updated = {
+              ...(state.profile || {}),
+              name: fd.get("name"),
+              photoData,
+            };
+            await API.updateProfile(updated);
+            state.profile = updated;
+            renderProfile();
+            closeModal("modal-profile");
+          });
+
+        // Add cat handling (kept)
         const openAddCatModal = () => {
           const form = document.getElementById("form-cat");
           form.reset();
@@ -501,7 +430,6 @@
         document
           .getElementById("btn-add-cat")
           .addEventListener("click", openAddCatModal);
-        // add-box click (delegated as it may be re-rendered)
         document
           .getElementById("cats-container")
           .addEventListener("click", (e) => {
@@ -513,33 +441,21 @@
           .getElementById("btn-cancel-cat")
           .addEventListener("click", () => closeModal("modal-cat"));
 
-        // helper to read file as data URL
-        function readFileAsDataURL(file) {
-          return new Promise((res, rej) => {
-            const fr = new FileReader();
-            fr.onload = () => res(fr.result);
-            fr.onerror = rej;
-            fr.readAsDataURL(file);
-          });
-        }
-
-        // preview photo when selected
+        // Cat photo preview
         const photoInput = document.getElementById("cat-photo-input");
-        if (photoInput) {
+        if (photoInput)
           photoInput.addEventListener("change", (ev) => {
             const f = ev.target.files && ev.target.files[0];
             const preview = document.getElementById("cat-photo-preview");
             const img = preview.querySelector("img");
             if (f) {
-              const url = URL.createObjectURL(f);
-              img.src = url;
+              img.src = URL.createObjectURL(f);
               preview.style.display = "";
             } else {
               img.src = "";
               preview.style.display = "none";
             }
           });
-        }
 
         document
           .getElementById("form-cat")
@@ -550,12 +466,8 @@
             const id = fd.get("id");
             const file = form.photo.files && form.photo.files[0];
             let photoData = null;
-            if (file) {
-              photoData = await readFileAsDataURL(file);
-            }
-
+            if (file) photoData = await readFileAsDataURL(file);
             if (id) {
-              // edit existing
               const cat = state.cats.find((c) => c.id === id);
               if (!cat) return;
               cat.name = fd.get("name");
@@ -565,14 +477,13 @@
               if (photoData) cat.photoData = photoData;
               await API.updateCat(cat.id, cat);
             } else {
-              // create new
               const cat = {
                 id: genId("cat"),
                 name: fd.get("name"),
                 breed: fd.get("breed"),
                 ageMonths: fd.get("ageMonths"),
                 weight: fd.get("weight"),
-                photoData: photoData,
+                photoData,
               };
               const created = await API.createCat(cat);
               state.cats.push(created);
@@ -581,7 +492,7 @@
             closeModal("modal-cat");
           });
 
-        // Edit / Delete handlers (delegated on cards container)
+        // Edit/Delete cats
         document
           .getElementById("cats-container")
           .addEventListener("click", (e) => {
@@ -615,82 +526,7 @@
               state.cats = state.cats.filter((c) => c.id !== id);
               API.deleteCat(id);
               renderCats();
-              renderRecords();
-              renderActivities();
             }
-          });
-
-        // Records
-        document
-          .getElementById("btn-add-record")
-          .addEventListener("click", () => {
-            document.getElementById("form-record").reset();
-            updateCatDropdowns();
-            showModal("modal-record");
-          });
-        document
-          .getElementById("btn-cancel-record")
-          .addEventListener("click", () => closeModal("modal-record"));
-        document
-          .getElementById("form-record")
-          .addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const fd = new FormData(e.target);
-            const rec = {
-              id: genId("rec"),
-              catId: fd.get("catId"),
-              type: fd.get("type"),
-              date: fd.get("date"),
-              notes: fd.get("notes"),
-            };
-            const created = await API.createRecord(rec);
-            state.records.push(created);
-            renderRecords();
-            closeModal("modal-record");
-          });
-
-        // Activities
-        document
-          .getElementById("btn-add-activity")
-          .addEventListener("click", () => {
-            document.getElementById("form-activity").reset();
-            updateCatDropdowns();
-            showModal("modal-activity");
-          });
-        document
-          .getElementById("btn-cancel-activity")
-          .addEventListener("click", () => closeModal("modal-activity"));
-        document
-          .getElementById("form-activity")
-          .addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const fd = new FormData(e.target);
-            const act = {
-              id: genId("act"),
-              catId: fd.get("catId"),
-              text: fd.get("text"),
-              date: fd.get("date"),
-            };
-            const created = await API.createActivity(act);
-            state.activities.push(created);
-            renderActivities(document.getElementById("filter-cat").value);
-            closeModal("modal-activity");
-          });
-
-        document
-          .getElementById("activities-ul")
-          .addEventListener("click", (e) => {
-            const btn = e.target.closest("button.done");
-            if (!btn) return;
-            const id = btn.dataset.id;
-            state.activities = state.activities.filter((a) => a.id !== id);
-            renderActivities(document.getElementById("filter-cat").value);
-          });
-
-        document
-          .getElementById("filter-cat")
-          .addEventListener("change", (e) => {
-            renderActivities(e.target.value);
           });
       });
     </script>

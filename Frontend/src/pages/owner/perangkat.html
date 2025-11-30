@@ -26,7 +26,7 @@
           </button>
         </li>
         <li class="active">
-          <a href="perangkat.html">
+          <a href="#">
             <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
             <span>Perangkat</span>
           </a>
@@ -111,6 +111,38 @@
     </main>
 
     <script type="module" src="/js/perangkat.js"></script>
+    <script>
+      // Toggle sidebar – versi anti-gagal
+      document.addEventListener("DOMContentLoaded", () => {
+        const toggleButton = document.getElementById("toggle-btn");
+        const sidebar = document.getElementById("sidebar");
+
+        if (!toggleButton || !sidebar) {
+          console.warn("Tombol atau sidebar nggak ketemu!");
+          return;
+        }
+
+        toggleButton.addEventListener("click", () => {
+          sidebar.classList.toggle("close");
+          toggleButton.classList.toggle("rotate");
+
+          // optional: simpan status ke localStorage biar ingat saat refresh
+          localStorage.setItem(
+            "sidebarClosed",
+            sidebar.classList.contains("close")
+          );
+        });
+
+        // ingat posisi terakhir saat reload
+        if (
+          localStorage !== "undefined" &&
+          localStorage.getItem("sidebarClosed") === "true"
+        ) {
+          sidebar.classList.add("close");
+          toggleButton.classList.add("rotate");
+        }
+      });
+    </script>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
       import {
@@ -233,18 +265,5 @@
         setInterval(loadDevices, 20000);
       });
     </script>
-
-    <!-- Toggle Sidebar -->
-    <script>
-      const toggleButton = document.getElementById("toggle-btn");
-      const sidebar = document.getElementById("sidebar");
-
-      toggleButton?.addEventListener("click", () => {
-        sidebar.classList.toggle("close");
-        toggleButton.classList.toggle("rotate");
-      });
-    </script>
-
-    <!-- Pop-up edit perangkat-->
   </body>
 </html>
