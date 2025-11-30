@@ -288,10 +288,10 @@ hr {
   box-shadow: #00000020 0px 11px 20px;
 }
 .timeline-item.peringatan::before {
-  background: linear-gradient(to right, #f80000, #ff8585);
+  background: linear-gradient(180deg, #f80000, #be0505);
 }
 .timeline-item.informasi::before {
-  background-color: #4cd707;
+  background: linear-gradient(180deg,  #4cd707, #0a8e00);
 }
 
 .timeline-date {
@@ -305,8 +305,10 @@ hr {
   margin-bottom: 0.25rem;
 }
 .timeline-device {
-  background: #f1f1f1;
-  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(30px);
+  box-shadow: #00000020 0px 2px 12px;
+  border-radius: 50px;
   padding: 0.35rem 0.75rem;
   font-size: 0.85rem;
   display: inline-block;
