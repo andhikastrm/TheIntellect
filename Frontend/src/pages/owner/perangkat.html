@@ -1,226 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perangkat</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Perangkat</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-</head>
-
-<body>
-  <nav id="sidebar">
-    <ul>
-      <li>
-        <span class="logo">
-          <img src="../../assets/images/petricord-logo.svg" style="width: 100px" />
-        </span>
-        <button onclick="toggleSidebar()" id="toggle-btn">
-          <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
-        </button>
-      </li>
-      <li class="active">
-        <a href="perangkat.html">
-          <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
-          <span>Perangkat</span>
-        </a>
-      </li>
-      <li>
-        <a href="notifikasi.html">
-          <img src="../../assets/icons/notification-alert-2-svgrepo-com.svg" />
-          <span>Notifikasi</span>
-        </a>
-      </li>
-      <li>
-        <a href="riwayat.html">
-          <img src="../../assets/icons/log.svg" />
-          <span>Riwayat</span>
-        </a>
-      </li>
-      <li>
-        <a href="jurnal-hewan.html">
-          <img src="../../assets/icons/health-svgrepo-com.svg" />
-          <span>Jurnal Hewan</span>
-        </a>
-      </li>
-      <li>
-        <a href="profil.html">
-          <img src="../../assets/icons/user-svgrepo-com.svg" />
-          <span>Profil</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-
-  <main>
-    <div class="paw-bg">
-      <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
-      <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
-    </div>
-    <div class="header-section">
-      <h2>Perangkatmu</h2>
-      <div class="header-controls">
-        <a class="btn-tambah"> + Tambah </a>
-        <div class="search-box">
-          <input type="text" placeholder="Cari" />
+  <body>
+    <nav id="sidebar">
+      <ul>
+        <li>
+          <span class="logo">
+            <img
+              src="../../assets/images/petricord-logo.svg"
+              style="width: 100px"
+            />
+          </span>
+          <button onclick="toggleSidebar()" id="toggle-btn">
+            <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
+          </button>
+        </li>
+        <li class="active">
+          <a href="perangkat.html">
+            <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
+            <span>Perangkat</span>
+          </a>
+        </li>
+        <li>
+          <a href="notifikasi.html">
+            <img
+              src="../../assets/icons/notification-alert-2-svgrepo-com.svg"
+            />
+            <span>Notifikasi</span>
+          </a>
+        </li>
+        <li>
+          <a href="riwayat.html">
+            <img src="../../assets/icons/log.svg" />
+            <span>Riwayat</span>
+          </a>
+        </li>
+        <li>
+          <a href="jurnal-hewan.html">
+            <img src="../../assets/icons/health-svgrepo-com.svg" />
+            <span>Jurnal Hewan</span>
+          </a>
+        </li>
+        <li>
+          <a href="profil.html">
+            <img src="../../assets/icons/user-svgrepo-com.svg" />
+            <span>Profil</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <div class="paw-bg">
+        <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
+        <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
+      </div>
+      <div class="header-section">
+        <h2>Perangkatmu</h2>
+        <div class="header-controls">
+          <a class="btn-tambah" href="monitoring.html"> + Tambah </a>
+          <div class="search-box">
+            <input type="text" placeholder="Cari" />
+          </div>
         </div>
       </div>
-    </div>
 
-    <p class="text-gray-500">
-      Hi, <span id="user-name">Cordian</span>! Siap memantau kesayanganmu?
-    </p>
+      <p class="text-gray-500">
+        Hi, <span id="user-name">Cordian</span>! Siap memantau kesayanganmu?
+      </p>
 
-    <div class="stats-container">
-      <div class="stat-card">
-        <div class="stat-content">
-          <h3>Total Perangkat</h3>
-          <div class="stat-number" id="total-devices">3</div>
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-content">
+            <h3>Total Perangkat</h3>
+            <div class="stat-number" id="total-devices">3</div>
+          </div>
+          <div class="stat-icon">
+            <img
+              src="../../assets/icons/devices-svgrepo-com-outline.svg"
+              style="width: 30px"
+            />
+          </div>
         </div>
-        <div class="stat-icon">
-          <img src="../../assets/icons/devices-svgrepo-com-outline.svg" style="width: 30px" />
+        <div class="stat-card">
+          <div class="stat-content">
+            <h3>Perangkat Aktif</h3>
+            <div class="stat-number" id="total-active-devices">1</div>
+          </div>
+          <div class="stat-icon">
+            <img
+              src="../../assets/icons/activity-svgrepo-com.svg"
+              style="width: 30px"
+            />
+          </div>
         </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-content">
-          <h3>Perangkat Aktif</h3>
-          <div class="stat-number" id="total-active-devices">1</div>
-        </div>
-        <div class="stat-icon">
-          <img src="../../assets/icons/activity-svgrepo-com.svg" style="width: 30px" />
-        </div>
+
+      <div class="devices-grid" id="devices-grid">
+        <!-- Semua card (real + placeholder) akan di-inject di sini -->
       </div>
-    </div>
+    </main>
 
-    <div class="devices-grid" id="devices-grid">
-      <!-- Semua card (real + placeholder) akan di-inject di sini -->
-    </div>
+    <script type="module" src="/js/perangkat.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-  </main>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
+        authDomain: "petricord-f8c54.firebaseapp.com",
+        projectId: "petricord-f8c54",
+        storageBucket: "petricord-f8c54.firebasestorage.app",
+        messagingSenderId: "814472267558",
+        appId: "1:814472267558:web:d97ddfd93757a7fe5f63e7",
+      };
 
-  <script type="module" src="/js/perangkat.js"></script>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
-      authDomain: "petricord-f8c54.firebaseapp.com",
-      projectId: "petricord-f8c54",
-      storageBucket: "petricord-f8c54.firebasestorage.app",
-      messagingSenderId: "814472267558",
-      appId: "1:814472267558:web:d97ddfd93757a7fe5f63e7",
-    };
+      // PUBLIC API — TIDAK PAKAI TOKEN SAMA SEKALI
+      const PUBLIC_API = "http://localhost:8000/api/cats/devices/public";
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+      const grid = document.querySelector(".devices-grid");
 
-    // PUBLIC API — TIDAK PAKAI TOKEN SAMA SEKALI
-    const PUBLIC_API = "http://localhost:8000/api/cats/devices/public";
+      // Render satu card
+      function createRealCard(device) {
+        const isActive = device.status === "Aktif";
+        const battery = device.battery ?? "-";
+        const batteryIcon =
+          battery === "-"
+            ? "../../assets/icons/battery-slash-svgrepo-com.svg"
+            : battery >= 75
+            ? "../../assets/icons/battery-full-svgrepo-com.svg"
+            : battery >= 50
+            ? "../../assets/icons/battery-three-quarters-svgrepo-com.svg"
+            : battery >= 25
+            ? "../../assets/icons/battery-half-svgrepo-com.svg"
+            : "../../assets/icons/battery-low-svgrepo-com.svg";
 
-    const grid = document.querySelector(".devices-grid");
-
-    // Render satu card
-    function createRealCard(device) {
-      const isActive = device.status === "Aktif";
-      const battery = device.battery ?? "-";
-      const batteryIcon = battery === "-"
-        ? "../../assets/icons/battery-slash-svgrepo-com.svg"
-        : battery >= 75 ? "../../assets/icons/battery-full-svgrepo-com.svg"
-          : battery >= 50 ? "../../assets/icons/battery-three-quarters-svgrepo-com.svg"
-            : battery >= 25 ? "../../assets/icons/battery-half-svgrepo-com.svg"
-              : "../../assets/icons/battery-low-svgrepo-com.svg";
-
-      return `
+        return `
       <div class="device-card">
         <div class="device-image"></div>
-        <div class="device-name">${device.nama_perangkat || "Tanpa Nama"}</div>
+        <div class="device-name">${device.nama_perangkat || "Tanpa Nama"}
+        </div>
+        <div class="device-info">
+          <a class="btn-detail" href="/pages/owner/monitoring.html">Lihat Detail</a>
+          <a class="btn-edit" onclick="openEditModal(this)">Edit</a>
+        </div>
         <div class="device-status">
           <div>
             <div class="status-label">Status</div>
             <div class="status-value">
-              <span class="status-badge ${isActive ? 'active' : 'inactive'}"></span>
-              <span>${isActive ? 'Aktif' : 'Nonaktif'}</span>
+              <span class="status-badge ${
+                isActive ? "active" : "inactive"
+              }"></span>
+              <span>${isActive ? "Aktif" : "Nonaktif"}</span>
             </div>
           </div>
           <div>
             <div class="battery-label">Baterai</div>
             <div class="battery-percentage">
-              <span>${battery}${battery !== '-' ? '%' : ''}</span>
+              <span>${battery}${battery !== "-" ? "%" : ""}</span>
               <img src="${batteryIcon}" alt="Battery" />
             </div>
           </div>
         </div>
       </div>`;
-    }
+      }
 
-    // Load data perangkat dari API publik
-    async function loadDevices() {
-      try {
-        const res = await fetch(PUBLIC_API);
-        if (!res.ok) throw new Error("Server error");
+      // Load data perangkat dari API publik
+      async function loadDevices() {
+        try {
+          const res = await fetch(PUBLIC_API);
+          if (!res.ok) throw new Error("Server error");
 
-        const devices = await res.json();
+          const devices = await res.json();
 
-        // Update stats
-        document.getElementById("total-devices").textContent = devices.length;
-        const active = devices.filter(d => d.status === "Aktif").length;
-        document.getElementById("total-active-devices").textContent = active;
+          // Update stats
+          document.getElementById("total-devices").textContent = devices.length;
+          const active = devices.filter((d) => d.status === "Aktif").length;
+          document.getElementById("total-active-devices").textContent = active;
 
-        // Kosongkan grid dulu
-        grid.innerHTML = "";
+          // Kosongkan grid dulu
+          grid.innerHTML = "";
 
-        if (devices.length === 0) {
-          grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:4rem;color:#999;">
+          if (devices.length === 0) {
+            grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:4rem;color:#999;">
                             Belum ada perangkat terdaftar.
                           </p>`;
+            return;
+          }
+
+          // Inject card
+          grid.innerHTML = devices.map(createRealCard).join("");
+        } catch (err) {
+          console.error(err);
+          grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:4rem;color:#e74c3c;">
+                          Gagal memuat perangkat
+                        </p>`;
+          document.getElementById("total-devices").textContent = "0";
+          document.getElementById("total-active-devices").textContent = "0";
+        }
+      }
+
+      // Firebase hanya untuk cek login & nama user
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          location.href = "/Frontend/login.html";
           return;
         }
 
-        // Inject card
-        grid.innerHTML = devices.map(createRealCard).join("");
+        // Hanya update nama user
+        document.getElementById("user-name").textContent =
+          user.displayName?.split(" ")[0] || user.email.split("@")[0] || "User";
 
-      } catch (err) {
-        console.error(err);
-        grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:4rem;color:#e74c3c;">
-                          Gagal memuat perangkat
-                        </p>`;
-        document.getElementById("total-devices").textContent = "0";
-        document.getElementById("total-active-devices").textContent = "0";
-      }
-    }
+        // Langsung load data perangkat dari API publik
+        loadDevices();
 
-    // Firebase hanya untuk cek login & nama user
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        location.href = "/Frontend/login.html";
-        return;
-      }
+        // Optional: refresh tiap 20 detik
+        setInterval(loadDevices, 20000);
+      });
+    </script>
 
-      // Hanya update nama user
-      document.getElementById("user-name").textContent =
-        user.displayName?.split(" ")[0] || user.email.split("@")[0] || "User";
+    <!-- Toggle Sidebar -->
+    <script>
+      const toggleButton = document.getElementById("toggle-btn");
+      const sidebar = document.getElementById("sidebar");
 
-      // Langsung load data perangkat dari API publik
-      loadDevices();
+      toggleButton?.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+        toggleButton.classList.toggle("rotate");
+      });
+    </script>
 
-      // Optional: refresh tiap 20 detik
-      setInterval(loadDevices, 20000);
-    });
-  </script>
-
-  <!-- Toggle Sidebar -->
-  <script>
-    const toggleButton = document.getElementById("toggle-btn");
-    const sidebar = document.getElementById("sidebar");
-
-    toggleButton?.addEventListener("click", () => {
-      sidebar.classList.toggle("close");
-      toggleButton.classList.toggle("rotate");
-    });
-  </script>
-</body>
-
+    <!-- Pop-up edit perangkat-->
+  </body>
 </html>
