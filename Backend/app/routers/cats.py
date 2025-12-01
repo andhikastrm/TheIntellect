@@ -329,16 +329,24 @@ async def detect_behavior_only(
 
     result = detect_behavior(raw_path)
 
+    # Get user_id from device
+    user_id = device.user_id if device else None
+    print(f"DEBUG: Creating CatActivity with user_id: {user_id} from device: {serial_number}")
     
+    # Simpan aktivitas dengan user_id
     activity = CatActivity(
         behavior=result["behavior"],
         confidence=result["confidence"],
         image_path=f"/static/uploads_raw/{raw_filename}",
         detected_image=result["image_result"],
-        created_at=datetime.utcnow()
+        created_at=datetime.utcnow(),
+        user_id=user_id
     )
     db.add(activity)
     db.commit()
+    db.refresh(activity)
+    
+    print(f"DEBUG: CatActivity created with ID: {activity.id}, user_id: {activity.user_id}")
 
     return {
         "success": True,
@@ -346,7 +354,8 @@ async def detect_behavior_only(
         "confidence": result["confidence"],
         "image": result["image_result"],
         "timestamp": datetime.utcnow().isoformat(),
-        "device_serial": serial_number
+        "device_serial": serial_number,
+        "user_id": user_id
     }
 
 
