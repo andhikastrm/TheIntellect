@@ -140,7 +140,7 @@ def daftar_perangkat(db: Session = Depends(get_db), user=Depends(get_current_use
     return [d.__dict__ for d in devices]
 
 
-@router.delete("/devices/{device_id}")
+@router.delete("/devicesdevices/{device_id}")
 def hapus_perangkat(device_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     device = db.query(Device).filter(Device.id == device_id).first()
     if not device:
@@ -148,6 +148,83 @@ def hapus_perangkat(device_id: int, db: Session = Depends(get_db), user: User = 
     db.delete(device)
     db.commit()
     return {"success": True}
+
+
+@router.delete("/devices/serial/{serial_number}")
+async def delete_device_by_serial(
+    serial_number: str,
+    db: Session = Depends(get_db)
+):
+    """
+    Delete device by serial number
+    """
+    print(f"DEBUG: Attempting to delete device with serial: {serial_number}")
+    
+    device = db.query(Device).filter(Device.serial_number == serial_number).first()
+    if not device:
+        print(f"DEBUG: Device not found: {serial_number}")
+        raise HTTPException(404, "Perangkat tidak ditemukan")
+    
+    print(f"DEBUG: Deleting device: {device.nama_perangkat} (ID: {device.id})")
+    db.delete(device)
+    db.commit()
+    
+    print(f"DEBUG: Device deleted successfully")
+    return {
+        "success": True,
+        "message": "Perangkat berhasil dihapus"
+    }
+
+
+
+@router.put("/devices/{serial_number}")
+async def update_device(
+    serial_number: str,
+    nama_perangkat: str = Form(...),
+    user_email: str = Form(None),
+    db: Session = Depends(get_db)
+):
+    """
+    Update device name and assign user_id based on email
+    """
+    print(f"DEBUG: Updating device {serial_number}")
+    print(f"DEBUG: New name: {nama_perangkat}")
+    print(f"DEBUG: User email received: {user_email}")
+    
+    device = db.query(Device).filter(Device.serial_number == serial_number).first()
+    if not device:
+        raise HTTPException(404, "Perangkat tidak ditemukan")
+    
+    device.nama_perangkat = nama_perangkat
+    
+    if user_email:
+        print(f"DEBUG: Looking for user with email: {user_email}")
+        user = db.query(User).filter(User.email == user_email).first()
+        print("user" , user)
+        if user:
+            print(f"DEBUG: User found! ID: {user.id}, Email: {user.email}")
+            device.user_id = user.id
+        else:
+            print(f"DEBUG: WARNING - No user found with email: {user_email}")
+    else:
+        print("DEBUG: No user_email provided in request")
+    
+    db.commit()
+    db.refresh(device)
+    
+    print(f"DEBUG: Device updated. user_id is now: {device.user_id}")
+    
+    return {
+        "success": True,
+        "message": "Perangkat berhasil diupdate",
+        "device": {
+            "id": device.id,
+            "nama_perangkat": device.nama_perangkat,
+            "serial_number": device.serial_number,
+            "user_id": device.user_id
+        }
+    }
+
 
 
 
