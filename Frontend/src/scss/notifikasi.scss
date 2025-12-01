@@ -138,6 +138,7 @@ main {
   padding: min(30px, 7%);
   position: relative;
   z-index: 1;
+  margin-left: 0;
 }
 
 .paw-bg {
@@ -188,8 +189,10 @@ main {
 
 .header-controls {
   display: flex;
+  gap: 0.75rem;
   align-items: center;
-  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   label {
     font-weight: 400;
     font-size: 15px;
@@ -207,7 +210,7 @@ main {
   border-radius: 50px;
   border: 1px solid #ddd;
   font-family: "Poppins", sans-serif;
-  font-size: 15px;
+  font-size: 13px;
   appearance: none; /* hilangkan style default browser */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -230,8 +233,16 @@ main {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  align-items: center; /* center the cards */
+  align-items: stretch; /* cards take full width */
   padding-top: 8px;
+  width: 100%;
+}
+
+/* keep cards constrained to the main/content width */
+.notifikasi-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .notifikasi-item {
@@ -248,12 +259,21 @@ main {
   gap: 1rem;
   transition: background-color 300ms;
   width: 100%;
-  max-width: 980px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+  max-width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
 }
 
 .notifikasi-item:hover {
   background-color: #f9f9f9;
+}
+
+/* left border color indicates severity */
+.notifikasi-item {
+  border-left: 4px solid #4ec911;
+}
+.notifikasi-item.critical {
+  border-left-color: #e55353;
 }
 
 .notifikasi-content {
@@ -342,6 +362,51 @@ main {
   font-size: 12px;
   color: #000000;
   font-weight: 400;
+}
+
+/* helpers to replace small Tailwind utilities used in markup */
+.content-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* small utilities (replacing a few Tailwind helpers we removed) */
+.hidden {
+  display: none !important;
+}
+.py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.big-emoji {
+  font-size: 4rem;
+  color: #e0e0e0;
+  margin-bottom: 0.5rem;
+}
+
+.empty-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 6px;
+}
+.empty-sub {
+  color: #888;
+}
+
+/* small spacing utility used by injected markup */
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+/* ensure icons inside badge-icon are sized */
+.badge-icon.large i {
+  font-size: 1.6rem;
 }
 
 // RESPONSIVE

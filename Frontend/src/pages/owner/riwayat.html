@@ -1,222 +1,268 @@
 <!DOCTYPE html>
 <html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riwayat</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Riwayat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-</head>
+  <body>
+    <nav id="sidebar">
+      <ul>
+        <li>
+          <span class="logo">
+            <img
+              src="../../assets/images/petricord-logo.svg"
+              style="width: 100px"
+            />
+          </span>
+          <button onclick="toggleSidebar()" id="toggle-btn">
+            <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
+          </button>
+        </li>
+        <li>
+          <a href="perangkat.html">
+            <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
+            <span>Perangkat</span>
+          </a>
+        </li>
+        <li>
+          <a href="notifikasi.html">
+            <img
+              src="../../assets/icons/notification-alert-2-svgrepo-com.svg"
+            />
+            <span>Notifikasi</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="#">
+            <img src="../../assets/icons/log.svg" />
+            <span>Riwayat</span>
+          </a>
+        </li>
+        <li>
+          <a href="jurnal-hewan.html">
+            <img src="../../assets/icons/health-svgrepo-com.svg" />
+            <span>Jurnal Hewan</span>
+          </a>
+        </li>
+        <li>
+          <a href="profil.html">
+            <img src="../../assets/icons/user-svgrepo-com.svg" />
+            <span>Profil</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
 
-<body>
-  <nav id="sidebar">
-    <ul>
-      <li>
-        <span class="logo">
-          <img src="../../assets/images/petricord-logo.svg" style="width: 100px" />
-        </span>
-        <button onclick="toggleSidebar()" id="toggle-btn">
-          <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
-        </button>
-      </li>
-      <li>
-        <a href="perangkat.html">
-          <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
-          <span>Perangkat</span>
-        </a>
-      </li>
-      <li>
-        <a href="notifikasi.html">
-          <img src="../../assets/icons/notification-alert-2-svgrepo-com.svg" />
-          <span>Notifikasi</span>
-        </a>
-      </li>
-      <li class="active">
-        <a href="#">
-          <img src="../../assets/icons/log.svg" />
-          <span>Riwayat</span>
-        </a>
-      </li>
-      <li>
-        <a href="jurnal-hewan.html">
-          <img src="../../assets/icons/health-svgrepo-com.svg" />
-          <span>Jurnal Hewan</span>
-        </a>
-      </li>
-      <li>
-        <a href="profil.html">
-          <img src="../../assets/icons/user-svgrepo-com.svg" />
-          <span>Profil</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-
-  <main>
-    <div class="paw-bg">
-      <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
-      <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
-    </div>
-
-    <div class="header-section">
-      <h2>Perangkatmu</h2>
-      <div class="header-controls">
-        <div class="filterByCategory">
-          <select id="kategori-riwayat" required>
-            <option value="semua-riwayat">Semua riwayat</option>
-            <option value="peringatan">Peringatan</option>
-            <option value="lainnya">Informasi</option>
-          </select>
-        </div>
-
-        <div class="filterByDevice">
-          <select id="kategori-perangkat" required>
-            <option value="semua-perangkat">Semua perangkat</option>
-            <option value="peringatan">Perangkat 1</option>
-            <option value="lainnya">Perangkat 2</option>
-          </select>
-        </div>
+    <main>
+      <div class="paw-bg">
+        <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
+        <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
       </div>
-    </div>
 
-    <div class="stats-container">
-      <div class="stat-card">
-        <div class="stat-content">
-          <h3>Gejala Kejang Terdeteksi</h3>
-          <div class="filterByRange">
-            <select id="filter-range" required>
-              <option value="minggu">Minggu ini</option>
-              <option value="bulan">Bulan ini</option>
-              <option value="tahun">Tahun ini</option>
-            </select>
+      <div class="header-section">
+        <h2>Perangkatmu</h2>
+      </div>
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-content">
+            <h3>Gejala Kejang Terdeteksi</h3>
+            <div class="filterByRange">
+              <select id="filter-range" required>
+                <option value="minggu">Minggu ini</option>
+                <option value="bulan">Bulan ini</option>
+                <option value="tahun">Tahun ini</option>
+              </select>
+            </div>
+            <div class="stat-number" id="kejang">-</div>
           </div>
-          <div class="stat-number" id="kejang">2</div>
         </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-content">
-          <h3>Gejala Muntah Terdeteksi</h3>
-          <div class="filterByRange">
-            <select id="filter-range" required>
-              <option value="minggu">Minggu ini</option>
-              <option value="bulan">Bulan ini</option>
-              <option value="tahun">Tahun ini</option>
-            </select>
+        <div class="stat-card">
+          <div class="stat-content">
+            <h3>Gejala Muntah Terdeteksi</h3>
+            <div class="filterByRange">
+              <select id="filter-range" required>
+                <option value="minggu">Minggu ini</option>
+                <option value="bulan">Bulan ini</option>
+                <option value="tahun">Tahun ini</option>
+              </select>
+            </div>
+            <div class="stat-number" id="muntah">-</div>
           </div>
-          <div class="stat-number" id="muntah">1</div>
         </div>
       </div>
-    </div>
 
-    <div class="timeline" id="riwayat-list">
-      <!-- Riwayat items will be dynamically inserted here -->
-    </div>
-  </main>
+      <div class="timeline" id="riwayat-list">
+        <!-- Riwayat items will be dynamically inserted here -->
+      </div>
+    </main>
 
-  <script type="module" src="/js/riwayat.js"></script>
-  <script>
-    // Toggle sidebar (tetap sama)
-    const toggleButton = document.getElementById("toggle-btn");
-    const sidebar = document.getElementById("sidebar");
-
-    function toggleSidebar() {
-      sidebar.classList.toggle("close");
-      toggleButton.classList.toggle("rotate");
-    }
-
-    // === DATA RIWAYAT DINAMIS DARI SERVER ===
-    let dataRiwayat = [];
-
-    async function loadRiwayat() {
-      try {
-        const res = await fetch("http://localhost:8000/api/cats/activities/critical");
-        const data = await res.json();
-
-        // Update statistik
-        document.getElementById("kejang").textContent = data.stats.kejang_count;
-        document.getElementById("muntah").textContent = data.stats.muntah_count;
-
-        const logs = data.activities;
-        dataRiwayat = logs.map(log => ({
-          time: new Date(log.timestamp).toLocaleString('id-ID'),
-          type: "peringatan",
-          title: log.behavior === "KEJANG" ? "Gejala kejang terdeteksi" : "Gejala muntah terdeteksi",
-          device: log.custom_name,
-          behavior: log.behavior
-        }));
-
-        populateDeviceFilter();
-        renderRiwayat(dataRiwayat);
-      } catch (e) {
-        console.error("Gagal load riwayat:", e);
-      }
-    }
-
-    function updateStats(items) {
-      const kejang = items.filter(i => i.behavior === "KEJANG").length;
-      const muntah = items.filter(i => i.behavior === "MUNTAH").length;
-      document.getElementById("kejang").textContent = kejang;
-      document.getElementById("muntah").textContent = muntah;
-    }
-
-    function populateDeviceFilter() {
-      const select = document.getElementById("kategori-perangkat");
-      select.innerHTML = '<option value="semua-perangkat">Semua perangkat</option>';
-      const devices = [...new Set(dataRiwayat.map(i => i.device))];
-      devices.forEach(d => {
-        const opt = document.createElement("option");
-        opt.value = d; opt.textContent = d;
-        select.appendChild(opt);
-      });
-    }
-
-    function renderRiwayat(items) {
-      const container = document.getElementById("riwayat-list");
-      container.innerHTML = "";
-      const groups = { "Hari Ini": [], "Kemarin": [], "Lebih Lama": [] };
-      const today = new Date().toISOString().slice(0, 10);
-
-      items.forEach(item => {
-        const date = item.time.match(/\d{4}-\d{2}-\d{2}/)[0];
-        const key = date === today ? "Hari Ini" : new Date(date) >= new Date(Date.now() - 86400000) ? "Kemarin" : "Lebih Lama";
-        groups[key].push(item);
-      });
-
-      Object.keys(groups).forEach(group => {
-        if (groups[group].length === 0) return;
-        const div = document.createElement("div");
-        div.className = "riwayat-group";
-        div.innerHTML = `<div class="group-label">${group}</div><hr>`;
-        groups[group].forEach(item => {
-          div.innerHTML += `
-            <div class="timeline-item ${item.type}">
-              <div class="timeline-date">${item.time}</div>
-              <div class="timeline-title">${item.title}</div>
-              <span class="timeline-device">${item.device}</span>
-            </div>`;
+    <script type="module" src="/js/riwayat.js"></script>
+    <script>
+      // Toggle sidebar (tetap sama)
+      document.addEventListener("DOMContentLoaded", () => {
+        const toggleButton = document.getElementById("toggle-btn");
+        const sidebar = document.getElementById("sidebar");
+        if (!toggleButton || !sidebar) return;
+        toggleButton.addEventListener("click", () => {
+          sidebar.classList.toggle("close");
+          toggleButton.classList.toggle("rotate");
+          localStorage.setItem(
+            "sidebarClosed",
+            sidebar.classList.contains("close")
+          );
         });
-        container.appendChild(div);
+        if (localStorage.getItem("sidebarClosed") === "true") {
+          sidebar.classList.add("close");
+          toggleButton.classList.add("rotate");
+        }
       });
-      updateStats(items);
-    }
 
-    function applyFilter() {
-      let filtered = dataRiwayat;
-      const tipe = document.getElementById("kategori-riwayat").value;
-      if (tipe === "peringatan") filtered = filtered.filter(x => x.type === "peringatan");
-      if (tipe === "lainnya") filtered = filtered.filter(x => x.type === "informasi");
-      const device = document.getElementById("kategori-perangkat").value;
-      if (device !== "semua-perangkat") filtered = filtered.filter(x => x.device === device);
-      renderRiwayat(filtered);
-    }
+      let dataRiwayat = [];
 
-    document.getElementById("kategori-riwayat").addEventListener("change", applyFilter);
-    document.getElementById("kategori-perangkat").addEventListener("change", applyFilter);
+      async function loadRiwayat() {
+        try {
+          const res = await fetch(
+            "http://localhost:8000/api/cats/activities/latest-by-behavior"
+          );
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-    // Load pertama + refresh tiap 10 detik
-    loadRiwayat();
-    setInterval(loadRiwayat, 10000);
-  </script>
-</body>
+          const response = await res.json();
+          const logs = response.activities || [];
 
+          // FILTER HANYA 4 BEHAVIOR YANG KITA MAU
+          const allowed = ["kejang", "muntah", "makan", "buang air"];
+          const filteredLogs = logs.filter((log) =>
+            allowed.includes((log.behavior || "").toLowerCase().trim())
+          );
+
+          // === HITUNG STATS SENDIRI DARI DATA YANG SAMA ===
+          let kejangCount = 0;
+          let muntahCount = 0;
+
+          filteredLogs.forEach((log) => {
+            const b = (log.behavior || "").toLowerCase().trim();
+            if (b === "kejang") kejangCount++;
+            if (b === "muntah") muntahCount++;
+          });
+
+          // Update stats (sekarang benar-benar sesuai timeline!)
+          document.getElementById("kejang").textContent = kejangCount;
+          document.getElementById("muntah").textContent = muntahCount;
+
+          // Kosongkan timeline
+          const container = document.getElementById("riwayat-list");
+          container.innerHTML = "";
+
+          if (filteredLogs.length === 0) {
+            container.innerHTML = `<div class="text-center py-10 text-gray-500">Belum ada aktivitas terdeteksi</div>`;
+            return;
+          }
+
+          // Mapping data untuk timeline
+          dataRiwayat = filteredLogs.map((log) => {
+            const b = (log.behavior || "").toLowerCase().trim();
+            let title = "",
+              type = "informasi";
+
+            switch (b) {
+              case "kejang":
+                title = "Gejala kejang terdeteksi";
+                type = "peringatan";
+                break;
+              case "muntah":
+                title = "Gejala muntah terdeteksi";
+                type = "peringatan";
+                break;
+              case "makan":
+                title = "Kucingmu sedang makan! 🍽️";
+                break;
+              case "buang air":
+                title = "Kucingmu sedang buang air! 🚽";
+                break;
+            }
+
+            return {
+              rawDate: new Date(log.timestamp),
+              time: new Date(log.timestamp).toLocaleString("id-ID", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              }),
+              title,
+              device: log.custom_name || "Unknown Device",
+              type,
+              behavior: b.toUpperCase(),
+            };
+          });
+
+          // Urutkan terbaru dulu
+          dataRiwayat.sort((a, b) => b.rawDate - a.rawDate);
+
+          // Render
+          renderRiwayat(dataRiwayat);
+        } catch (e) {
+          console.error("Gagal load riwayat:", e);
+          document.getElementById("kejang").textContent = "?";
+          document.getElementById("muntah").textContent = "?";
+          document.getElementById(
+            "riwayat-list"
+          ).innerHTML = `<div class="text-center py-10 text-red-600">Gagal memuat data</div>`;
+        }
+      }
+      function renderRiwayat(items) {
+        const container = document.getElementById("riwayat-list");
+        container.innerHTML = "";
+
+        const groups = { "Hari Ini": [], Kemarin: [], "Lebih Lama": [] };
+        const today = new Date();
+        const todayStr = today.toISOString().slice(0, 10);
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().slice(0, 10);
+
+        items.forEach((item) => {
+          if (!item.rawDate || isNaN(item.rawDate)) return;
+          const dateStr = item.rawDate.toISOString().slice(0, 10);
+
+          let key = "Lebih Lama";
+          if (dateStr === todayStr) key = "Hari Ini";
+          else if (dateStr === yesterdayStr) key = "Kemarin";
+
+          groups[key].push(item);
+        });
+
+        Object.keys(groups).forEach((group) => {
+          if (groups[group].length === 0) return;
+
+          const div = document.createElement("div");
+          div.className = "riwayat-group";
+          div.innerHTML = `<div class="group-label">${group}</div><hr>`;
+
+          groups[group].forEach((item) => {
+            div.innerHTML += `
+          <div class="timeline-item ${item.type}">
+            <div class="timeline-date">${item.time}</div>
+            <div class="timeline-title">${item.title}</div>
+            <span class="timeline-device">${item.device}</span>
+          </div>`;
+          });
+
+          container.appendChild(div);
+        });
+      }
+
+      // Jalankan
+      loadRiwayat();
+      setInterval(loadRiwayat, 10000);
+    </script>
+  </body>
 </html>

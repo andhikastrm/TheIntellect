@@ -1,0 +1,335 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background: #ffffff;
+  color: #333;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-card {
+  --primary: #cba83d;
+  --primary-dark: #7f620b;
+  --muted: #d5c07c;
+  width: 95vw;
+  max-width: 1400px;
+  height: 92vh;
+  background: none;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  text-align: center;
+  color: var(--primary-dark);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.btn-back {
+  font-family: inherit;
+  display: inline-block;
+  margin-right: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  color: var(--primary-dark);
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+.btn-back:hover {
+  transform: translateY(-1px);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  gap: 24px;
+  min-height: 0;
+}
+
+.camera-section {
+  /* make camera column slightly narrower by default */
+  flex: 0 1 45%;
+  max-width: 900px;
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid #f0f0f0;
+}
+
+.camera-title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.video-container {
+  flex: 1;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.controls {
+  height: 200px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sticks-wrapper {
+  width: 460px;
+  max-width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stick {
+  width: 140px;
+  height: 140px;
+  background: rgba(203, 168, 61, 0.08);
+  border: 4px solid var(--muted);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 6px 18px rgba(203, 168, 61, 0.08),
+    inset 0 0 20px rgba(203, 168, 61, 0.06);
+}
+
+.handle {
+  width: 64px;
+  height: 64px;
+  background: var(--muted);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 8px 24px rgba(127, 98, 11, 0.12);
+  transition: transform 0.08s ease-out;
+}
+
+.dir {
+  position: absolute;
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.up {
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.down {
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.left {
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right {
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* === PERBAIKAN UTAMA: KATA "MENUNGGU..." GAK KELUAR BATAS LAGI === */
+.detection-section {
+  /* detection column is wider to emphasize AI results */
+  flex: 0 0 55%;
+  min-width: 320px;
+  background: var(--muted);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+  .content {
+    gap: 16px;
+  }
+  .camera-section {
+    flex: 0 1 50%;
+  }
+  .detection-section {
+    flex: 0 0 50%;
+  }
+  .sticks-wrapper {
+    width: 380px;
+  }
+}
+
+@media (max-width: 900px) {
+  /* stack vertically on small screens */
+  .content {
+    flex-direction: column;
+    overflow: auto;
+  }
+  .camera-section,
+  .detection-section {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+  }
+  .video-container {
+    min-height: 40vh;
+  }
+  .controls {
+    height: 140px;
+  }
+  .sticks-wrapper {
+    width: 100%;
+    padding: 0 8px;
+  }
+}
+
+.detection-title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--primary-dark);
+}
+
+.result-box {
+  background: #ffffff;
+  color: #333;
+  padding: 28px 16px;
+  border-radius: 12px;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.behavior {
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin: 12px 0;
+  color: var(--primary-dark);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.05;
+  max-width: 100%;
+}
+
+.confidence {
+  font-size: 1rem;
+  margin: 10px 0;
+  color: #1162b9;
+}
+
+.cat-name {
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+.history {
+  margin-top: 16px;
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 12px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.history-title {
+  color: var(--primary-dark);
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.log-item {
+  background: rgba(203, 168, 61, 0.06);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: var(--primary-dark);
+  border-left: 4px solid var(--primary);
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  background: #ffffff;
+  z-index: 9999;
+  transition: opacity 240ms ease;
+}
+.loading-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.loading-spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 6px solid rgba(0, 0, 0, 0.08);
+  border-top-color: var(--primary);
+  animation: spin 1s linear infinite;
+}
+.loading-text {
+  font-size: 1rem;
+  color: var(--primary-dark);
+}
+.loading-overlay.error .loading-text {
+  color: #c0392b;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
