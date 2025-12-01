@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riwayat</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <nav id="sidebar">
+      <ul>
+        <li>
+          <span class="logo">
+            <img
+              src="../../assets/images/petricord-logo.svg"
+              style="width: 100px"
+            />
+          </span>
+          <button onclick="toggleSidebar()" id="toggle-btn">
+            <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
+          </button>
+        </li>
+        <li>
+          <a href="perangkat.html">
+            <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
+            <span>Perangkat</span>
+          </a>
+        </li>
+        <li>
+          <a href="notifikasi.html">
+            <img
+              src="../../assets/icons/notification-alert-2-svgrepo-com.svg"
+            />
+            <span>Notifikasi</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="#">
+            <img src="../../assets/icons/log.svg" />
+            <span>Riwayat</span>
+          </a>
+        </li>
+        <li>
+          <a href="jurnal-hewan.html">
+            <img src="../../assets/icons/health-svgrepo-com.svg" />
+            <span>Jurnal Hewan</span>
+          </a>
+        </li>
+        <li>
+          <a href="profil.html">
+            <img src="../../assets/icons/user-svgrepo-com.svg" />
+            <span>Profil</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="paw-bg">
+        <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
+        <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
+      </div>
+
+      <div class="header-section">
+        <h2>Perangkatmu</h2>
+      </div>
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-content">
+            <h3>Gejala Kejang Terdeteksi</h3>
+            <div class="filterByRange">
+              <select id="filter-range" required>
+                <option value="minggu">Minggu ini</option>
+                <option value="bulan">Bulan ini</option>
+                <option value="tahun">Tahun ini</option>
+              </select>
+            </div>
+            <div class="stat-number" id="kejang">-</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-content">
+            <h3>Gejala Muntah Terdeteksi</h3>
+            <div class="filterByRange">
+              <select id="filter-range" required>
+                <option value="minggu">Minggu ini</option>
+                <option value="bulan">Bulan ini</option>
+                <option value="tahun">Tahun ini</option>
+              </select>
+            </div>
+            <div class="stat-number" id="muntah">-</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline" id="riwayat-list">
+        <!-- Riwayat items will be dynamically inserted here -->
+      </div>
+    </main>
+
+    <script type="module" src="/js/riwayat.js"></script>
+    <script>
+      // Toggle sidebar – versi anti-gagal
+      document.addEventListener("DOMContentLoaded", () => {
+        const toggleButton = document.getElementById("toggle-btn");
+        const sidebar = document.getElementById("sidebar");
+
+        if (!toggleButton || !sidebar) {
+          console.warn("Tombol atau sidebar nggak ketemu!");
+          return;
+        }
+
+        toggleButton.addEventListener("click", () => {
+          sidebar.classList.toggle("close");
+          toggleButton.classList.toggle("rotate");
+
+          // optional: simpan status ke localStorage biar ingat saat refresh
+          localStorage.setItem(
+            "sidebarClosed",
+            sidebar.classList.contains("close")
+          );
+        });
+
+        // ingat posisi terakhir saat reload
+        if (
+          localStorage !== "undefined" &&
+          localStorage.getItem("sidebarClosed") === "true"
+        ) {
+          sidebar.classList.add("close");
+          toggleButton.classList.add("rotate");
+        }
+      });
+    </script>
+    <script>
+      // === DATA RIWAYAT DINAMIS DARI SERVER ===
+      let dataRiwayat = [];
+
+      async function loadRiwayat() {
+        try {
+          const res = await fetch(
+            "http://localhost:8000/api/cats/activities/critical"
+          );
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+          const data = await res.json();
+          console.log("Data dari server:", data); // ← LIHAT INI DI CONSOLE BROWSER
+
+          document.getElementById("kejang").textContent =
+            data.stats.kejang_count;
+          document.getElementById("muntah").textContent =
+            data.stats.muntah_count;
+
+          const logs = data.activities;
+          dataRiwayat = logs.map((log) => ({
+            time: new Date(log.timestamp).toLocaleString("id-ID"),
+            type: "peringatan",
+            title:
+              log.behavior === "KEJANG"
+                ? "Gejala kejang terdeteksi"
+                : "Gejala muntah terdeteksi",
+            device: log.custom_name,
+            behavior: log.behavior,
+          }));
+
+          populateDeviceFilter();
+          renderRiwayat(dataRiwayat);
+        } catch (e) {
+          console.error("Gagal load riwayat:", e);
+          // Opsional: kasih tahu user kalau gagal
+          document.getElementById("kejang").textContent = "?";
+          document.getElementById("muntah").textContent = "?";
+        }
+      }
+
+      function updateStats(items) {
+        const kejang = items.filter((i) => i.behavior === "KEJANG").length;
+        const muntah = items.filter((i) => i.behavior === "MUNTAH").length;
+        document.getElementById("kejang").textContent = kejang;
+        document.getElementById("muntah").textContent = muntah;
+      }
+
+      function populateDeviceFilter() {
+        const select = document.getElementById("kategori-perangkat");
+        select.innerHTML =
+          '<option value="semua-perangkat">Semua perangkat</option>';
+        const devices = [...new Set(dataRiwayat.map((i) => i.device))];
+        devices.forEach((d) => {
+          const opt = document.createElement("option");
+          opt.value = d;
+          opt.textContent = d;
+          select.appendChild(opt);
+        });
+      }
+
+      function renderRiwayat(items) {
+        const container = document.getElementById("riwayat-list");
+        container.innerHTML = "";
+        const groups = { "Hari Ini": [], Kemarin: [], "Lebih Lama": [] };
+
+        const today = new Date();
+        const todayStr = today.toISOString().slice(0, 10);
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().slice(0, 10);
+
+        items.forEach((item) => {
+          // Ambil tanggal dari timestamp asli (bukan dari string yang sudah di-format)
+          const timestamp = item.time; // ini string "1/12/2025, 14:30:22"
+          // Cara paling aman: parse ulang tanggalnya
+          const dateObj = new Date(
+            item.time.replace(/(\d+)\/(\d+)\/(\d+),.*/, "$3-$1-$2")
+          );
+          const dateStr = dateObj.toISOString().slice(0, 10);
+
+          let key = "Lebih Lama";
+          if (dateStr === todayStr) key = "Hari Ini";
+          else if (dateStr === yesterdayStr) key = "Kemarin";
+
+          groups[key].push(item);
+        });
+
+        // function renderRiwayat(items) {
+        //   const container = document.getElementById("riwayat-list");
+        //   container.innerHTML = "";
+        //   const groups = { "Hari Ini": [], Kemarin: [], "Lebih Lama": [] };
+        //   const today = new Date().toISOString().slice(0, 10);
+
+        //   items.forEach((item) => {
+        //     const date = item.time.match(/\d{4}-\d{2}-\d{2}/)[0];
+        //     const key =
+        //       date === today
+        //         ? "Hari Ini"
+        //         : new Date(date) >= new Date(Date.now() - 86400000)
+        //         ? "Kemarin"
+        //         : "Lebih Lama";
+        //     groups[key].push(item);
+        //   });
+
+        Object.keys(groups).forEach((group) => {
+          if (groups[group].length === 0) return;
+          const div = document.createElement("div");
+          div.className = "riwayat-group";
+          div.innerHTML = `<div class="group-label">${group}</div><hr>`;
+          groups[group].forEach((item) => {
+            div.innerHTML += `
+            <div class="timeline-item ${item.type}">
+              <div class="timeline-date">${item.time}</div>
+              <div class="timeline-title">${item.title}</div>
+              <span class="timeline-device">${item.device}</span>
+            </div>`;
+          });
+          container.appendChild(div);
+        });
+        updateStats(items);
+      }
+
+      function applyFilter() {
+        let filtered = dataRiwayat;
+        const tipe = document.getElementById("kategori-riwayat").value;
+        if (tipe === "peringatan")
+          filtered = filtered.filter((x) => x.type === "peringatan");
+        if (tipe === "lainnya")
+          filtered = filtered.filter((x) => x.type === "informasi");
+        const device = document.getElementById("kategori-perangkat").value;
+        if (device !== "semua-perangkat")
+          filtered = filtered.filter((x) => x.device === device);
+        renderRiwayat(filtered);
+      }
+
+      // document
+      //   .getElementById("kategori-riwayat")
+      //   .addEventListener("change", applyFilter);
+      // document
+      //   .getElementById("kategori-perangkat")
+      //   .addEventListener("change", applyFilter);
+
+      // Load pertama + refresh tiap 10 detik
+      loadRiwayat();
+      setInterval(loadRiwayat, 10000);
+    </script>
+  </body>
+</html>
