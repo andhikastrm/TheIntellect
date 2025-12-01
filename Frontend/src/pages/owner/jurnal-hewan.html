@@ -240,13 +240,71 @@
 
     <!-- App logic for jurnal-hewan: UI + placeholder API handlers -->
     <script>
-      // Placeholder API functions (records & activities). Replace with real calls.
+      // LocalStorage-backed API (shares same storage keys as profile page)
+      const STORAGE_KEYS = {
+        CATS: 'petricord_cats_v1',
+        RECORDS: 'petricord_records_v1',
+        ACTIVITIES: 'petricord_activities_v1'
+      };
+
       const API = {
-        async fetchCats() { return []; },
-        async fetchRecords() { return []; },
-        async createRecord(r) { return r; },
-        async fetchActivities() { return []; },
-        async createActivity(a) { return a; }
+        baseUrl: 'http://localhost:8000',
+        async fetchCats() {
+          const token = localStorage.getItem('access_token');
+          if (token) {
+            try {
+              const res = await fetch(`${this.baseUrl}/api/cats/`, { headers: { Authorization: `Bearer ${token}` } });
+              if (res.ok) {
+                const data = await res.json();
+                if (data.kucings) return data.kucings.map(k => ({ id: k.id, name: k.nama }));
+              }
+            } catch (err) { console.error('fetchCats backend failed', err); }
+          }
+          try { const raw = localStorage.getItem(STORAGE_KEYS.CATS); return raw ? JSON.parse(raw) : []; } catch (e) { console.error('fetchCats parse error', e); return []; }
+        },
+        async fetchRecords() {
+          const token = localStorage.getItem('access_token');
+          if (token) {
+            try {
+              const res = await fetch(`${this.baseUrl}/api/cats/medical-records`, { headers: { Authorization: `Bearer ${token}` } });
+              if (res.ok) {
+                const data = await res.json();
+                return data.records || [];
+              }
+            } catch (err) { console.error('fetchRecords backend failed', err); }
+          }
+          try { const raw = localStorage.getItem(STORAGE_KEYS.RECORDS); return raw ? JSON.parse(raw) : []; } catch (e) { console.error('fetchRecords parse error', e); return []; }
+        },
+        async createRecord(r) {
+          const token = localStorage.getItem('access_token');
+          if (token) {
+            try {
+              const fd = new FormData();
+              fd.append('type', r.type);
+              fd.append('date', r.date);
+              fd.append('notes', r.notes || '');
+              const res = await fetch(`${this.baseUrl}/api/cats/medical-records`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: fd });
+              if (res.ok) {
+                const data = await res.json();
+                return data.record || r;
+              }
+            } catch (err) { console.error('createRecord backend failed', err); }
+          }
+          const list = await this.fetchRecords(); list.push(r); localStorage.setItem(STORAGE_KEYS.RECORDS, JSON.stringify(list)); return r;
+        },
+        async deleteRecord(id) {
+          const token = localStorage.getItem('access_token');
+          if (token) {
+            try {
+              const res = await fetch(`${this.baseUrl}/api/cats/medical-records/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
+              if (res.ok) return true;
+            } catch (err) { console.error('deleteRecord backend failed', err); }
+          }
+          try { const list = await this.fetchRecords(); const next = list.filter(x => x.id !== id); localStorage.setItem(STORAGE_KEYS.RECORDS, JSON.stringify(next)); return true; } catch (err) { console.error('deleteRecord error', err); return false; }
+        },
+        async fetchActivities() { try { const token = localStorage.getItem('access_token'); if (token) { const res = await fetch(`${this.baseUrl}/api/cats/todo-activities`, { headers: { Authorization: `Bearer ${token}` } }); if (res.ok) { const data = await res.json(); return data.activities || []; } } const raw = localStorage.getItem(STORAGE_KEYS.ACTIVITIES); return raw ? JSON.parse(raw) : []; } catch (e) { console.error('fetchActivities parse error', e); return []; } },
+        async createActivity(a) { const token = localStorage.getItem('access_token'); if (token) { try { const fd = new FormData(); fd.append('text', a.text); if (a.date) fd.append('date', a.date); const res = await fetch(`${this.baseUrl}/api/cats/todo-activities`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: fd }); if (res.ok) { const data = await res.json(); return data.activity; } } catch (err) { console.error('createActivity backend failed', err); } } const list = await this.fetchActivities(); list.push(a); localStorage.setItem(STORAGE_KEYS.ACTIVITIES, JSON.stringify(list)); return a; },
+        async deleteActivity(id) { const token = localStorage.getItem('access_token'); if (token) { try { const res = await fetch(`${this.baseUrl}/api/cats/todo-activities/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } }); if (res.ok) return true; } catch (err) { console.error('deleteActivity backend failed', err); } } try { const list = await this.fetchActivities(); const next = list.filter(x => x.id !== id); localStorage.setItem(STORAGE_KEYS.ACTIVITIES, JSON.stringify(next)); return true; } catch (err) { console.error('deleteActivity error', err); return false; } }
       };
 
       const state = { cats: [], records: [], activities: [] };
@@ -260,7 +318,7 @@
         state.records.forEach(r => {
           const cat = state.cats.find(c => c.id === r.catId) || { name: 'Tidak diketahui' };
           const tr = document.createElement('tr');
-          tr.innerHTML = `<td>${cat.name}</td><td>${r.type}</td><td>${r.date}</td><td>${r.notes||''}</td>`;
+          tr.innerHTML = `<td>${cat.name}</td><td>${r.type}</td><td>${r.date}</td><td>${r.notes||''}</td><td><button class="btn-delete-record" data-id="${r.id}">Hapus</button></td>`;
           tbody.appendChild(tr);
         });
       }
@@ -299,6 +357,16 @@
 
         renderRecords();
         renderActivities();
+        // If page opened with ?catId=..., set filter selection
+        const params = new URLSearchParams(window.location.search);
+        const initialCatId = params.get('catId');
+        if (initialCatId) {
+          const sel = document.getElementById('filter-cat');
+          if (sel) {
+            sel.value = initialCatId;
+            renderActivities(initialCatId);
+          }
+        }
 
         // Records
         document.getElementById('btn-add-record')?.addEventListener('click', ()=>{ document.getElementById('form-record').reset(); updateCatDropdowns(); showModal('modal-record'); });
@@ -307,14 +375,48 @@
           e.preventDefault(); const fd = new FormData(e.target); const rec = { id: genId('rec'), catId: fd.get('catId'), type: fd.get('type'), date: fd.get('date'), notes: fd.get('notes') }; const created = await API.createRecord(rec); state.records.push(created); renderRecords(); closeModal('modal-record');
         });
 
+        // Record delete (delegated)
+        document.getElementById('records-tbody')?.addEventListener('click', async (e)=>{
+          const btn = e.target.closest('button.btn-delete-record');
+          if (!btn) return;
+          const id = btn.dataset.id;
+          if (!id) return;
+          if (!confirm('Hapus rekaman medis ini?')) return;
+          const ok = await API.deleteRecord(id);
+          if (ok) {
+            state.records = state.records.filter(r => r.id !== id);
+            renderRecords();
+          }
+        });
+
         // Activities
         document.getElementById('btn-add-activity')?.addEventListener('click', ()=>{ document.getElementById('form-activity').reset(); updateCatDropdowns(); showModal('modal-activity'); });
         document.getElementById('btn-cancel-activity')?.addEventListener('click', ()=> closeModal('modal-activity'));
         document.getElementById('form-activity')?.addEventListener('submit', async (e)=>{ e.preventDefault(); const fd = new FormData(e.target); const act = { id: genId('act'), catId: fd.get('catId'), text: fd.get('text'), date: fd.get('date') }; const created = await API.createActivity(act); state.activities.push(created); renderActivities(document.getElementById('filter-cat').value); closeModal('modal-activity'); });
 
-        document.getElementById('activities-ul')?.addEventListener('click', (e)=>{ const btn = e.target.closest('button.done'); if (!btn) return; const id = btn.dataset.id; state.activities = state.activities.filter(a=>a.id !== id); renderActivities(document.getElementById('filter-cat').value); });
+        document.getElementById('activities-ul')?.addEventListener('click', async (e)=>{ const btn = e.target.closest('button.done'); if (!btn) return; const id = btn.dataset.id; const ok = await API.deleteActivity(id); if (ok) { state.activities = state.activities.filter(a=>a.id !== id); renderActivities(document.getElementById('filter-cat').value); } else { alert('Gagal menghapus aktivitas'); } });
 
         document.getElementById('filter-cat')?.addEventListener('change', (e)=>{ renderActivities(e.target.value); });
+      });
+
+      // Listen for storage changes (e.g., when cats/records/activities are updated in another tab)
+      window.addEventListener('storage', (e) => {
+        try {
+          if (e.key === STORAGE_KEYS.CATS) {
+            state.cats = e.newValue ? JSON.parse(e.newValue) : [];
+            updateCatDropdowns();
+            renderRecords();
+            renderActivities(document.getElementById('filter-cat')?.value || '');
+          }
+          if (e.key === STORAGE_KEYS.RECORDS) {
+            state.records = e.newValue ? JSON.parse(e.newValue) : [];
+            renderRecords();
+          }
+          if (e.key === STORAGE_KEYS.ACTIVITIES) {
+            state.activities = e.newValue ? JSON.parse(e.newValue) : [];
+            renderActivities(document.getElementById('filter-cat')?.value || '');
+          }
+        } catch (err) { console.error('storage event parse error', err); }
       });
     </script>
   </body>
