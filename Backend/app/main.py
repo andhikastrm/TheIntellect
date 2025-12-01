@@ -6,6 +6,7 @@ from app.database.db import engine, Base
 from app.routers import auth, cats
 import os
 import firebase_admin
+from fastapi.staticfiles import StaticFiles
 from firebase_admin import credentials
 
 print("\n" + "="*100)
@@ -74,7 +75,7 @@ else:
 
 static_dir = os.path.join(project_root, "static")
 os.makedirs(os.path.join(static_dir, "uploads"), exist_ok=True)
-app.mount("/static", StaticFiles(directory=static_dir), name="static_uploads")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 async def root():

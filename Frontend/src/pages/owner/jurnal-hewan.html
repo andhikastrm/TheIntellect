@@ -1,423 +1,395 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jurnal Hewan</title>
-  </head>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jurnal Hewan</title>
   <title>Perangkat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+<body>
+  <nav id="sidebar">
+    <ul>
+      <li>
+        <span class="logo">
+          <img src="../../assets/images/petricord-logo.svg" style="width: 100px" />
+        </span>
+        <button onclick="toggleSidebar()" id="toggle-btn">
+          <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
+        </button>
+      </li>
+      <li>
+        <a href="perangkat.html">
+          <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
+          <span>Perangkat</span>
+        </a>
+      </li>
+      <li>
+        <a href="notifikasi.html">
+          <img src="../../assets/icons/notification-alert-2-svgrepo-com.svg" />
+          <span>Notifikasi</span>
+        </a>
+      </li>
+      <li>
+        <a href="riwayat.html">
+          <img src="../../assets/icons/log.svg" />
+          <span>Riwayat</span>
+        </a>
+      </li>
+      <li class="active">
+        <a href="#">
+          <img src="../../assets/icons/health-svgrepo-com.svg" />
+          <span>Jurnal Hewan</span>
+        </a>
+      </li>
+      <li>
+        <a href="profil.html">
+          <img src="../../assets/icons/user-svgrepo-com.svg" />
+          <span>Profil</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <main>
+    <div class="paw-bg">
+      <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
+      <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
+    </div>
+    <div class="header-section">
+      <h2>Jurnal Hewan</h2>
+    </div>
+    <p class="text-gray-500">
+      Simpan catatan kesehatan hewan peliharaanmu dengan mudah di sini!
+    </p>
 
-  <body>
-    <nav id="sidebar">
-      <ul>
-        <li>
-          <span class="logo">
-            <img
-              src="../../assets/images/petricord-logo.svg"
-              style="width: 100px"
-            />
-          </span>
-          <button onclick="toggleSidebar()" id="toggle-btn">
-            <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
-          </button>
-        </li>
-        <li>
-          <a href="perangkat.html">
-            <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
-            <span>Perangkat</span>
-          </a>
-        </li>
-        <li>
-          <a href="notifikasi.html">
-            <img
-              src="../../assets/icons/notification-alert-2-svgrepo-com.svg"
-            />
-            <span>Notifikasi</span>
-          </a>
-        </li>
-        <li>
-          <a href="riwayat.html">
-            <img src="../../assets/icons/log.svg" />
-            <span>Riwayat</span>
-          </a>
-        </li>
-        <li class="active">
-          <a href="#">
-            <img src="../../assets/icons/health-svgrepo-com.svg" />
-            <span>Jurnal Hewan</span>
-          </a>
-        </li>
-        <li>
-          <a href="profil.html">
-            <img src="../../assets/icons/user-svgrepo-com.svg" />
-            <span>Profil</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <main>
-      <div class="paw-bg">
-        <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
-        <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
-      </div>
-      <div class="header-section">
-        <h2>Jurnal Hewan</h2>
-      </div>
-      <p class="text-gray-500">
-        Simpan catatan kesehatan hewan peliharaanmu dengan mudah di sini!
-      </p>
+    <!-- Kelola Hewan removed from this page -->
 
-      <!-- Kelola Hewan removed from this page -->
-
-      <!-- Rekaman Medis - Full width -->
-      <section class="rekaman-medis section-full">
-        <div class="section-inner">
-          <div class="section-header">
-            <h3>Rekaman Medis</h3>
-            <div class="actions">
-              <button id="btn-add-record" class="btn-add-record">
-                Tambah Rekaman
-              </button>
-            </div>
-          </div>
-
-          <div class="records-list">
-            <table class="records-table">
-              <thead>
-                <tr>
-                  <th>Hewan</th>
-                  <th>Tipe</th>
-                  <th>Tanggal</th>
-                  <th>Catatan</th>
-                </tr>
-              </thead>
-              <tbody id="records-tbody">
-                <!-- Rows populated by JS -->
-              </tbody>
-            </table>
+    <!-- Rekaman Medis - Full width -->
+    <section class="rekaman-medis section-full">
+      <div class="section-inner">
+        <div class="section-header">
+          <h3>Rekaman Medis</h3>
+          <div class="actions">
+            <button id="btn-add-record" class="btn-add-record">
+              Tambah Rekaman
+            </button>
           </div>
         </div>
-      </section>
 
-      <!-- Aktivitas (To-do list) - Full width -->
-      <section class="aktivitas section-full">
-        <div class="section-inner">
-          <div class="section-header">
-            <h3>Aktivitas (To-do list)</h3>
-            <div class="actions">
-              <select id="filter-cat" class="select-cat">
-                <option value="" disabled selected>Pilih hewan</option>
-              </select>
-              <button id="btn-add-activity" class="btn-add-activity">
-                Tambah Aktivitas
-              </button>
-            </div>
-          </div>
-
-          <div class="todo-list">
-            <ul id="activities-ul">
-              <!-- Items populated by JS -->
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- Modals / Forms (hidden by default) -->
-      <div id="modal-overlay" class="modal-overlay hidden"></div>
-
-      <!-- Cat modal removed (Kelola Hewan removed) -->
-
-      <!-- Add Medical Record Modal -->
-      <div
-        id="modal-record"
-        class="modal hidden"
-        role="dialog"
-        aria-modal="true"
-      >
-        <div class="modal-content">
-          <h4>Tambah Rekaman Medis</h4>
-          <form id="form-record">
-            <label
-              >Hewan:
-              <select name="catId" id="record-cat-select" required>
-                <!-- Filled by JS -->
-              </select>
-            </label>
-            <label
-              >Tipe Rekaman:
-              <select name="type" id="record-type" required>
-                <option value="vaksin">Vaksin</option>
-                <option value="grooming">Grooming</option>
-                <option value="checkup">Pemeriksaan Rutin (Check-up)</option>
-              </select>
-            </label>
-            <label>Tanggal:<input name="date" type="date" required /></label>
-            <label>Catatan:<textarea name="notes"></textarea></label>
-            <div class="modal-actions">
-              <button type="submit" class="btn btn-primary">Simpan</button>
-              <button
-                type="button"
-                id="btn-cancel-record"
-                class="btn-cancel-record"
-              >
-                Batal
-              </button>
-            </div>
-          </form>
+        <div class="records-list">
+          <table class="records-table">
+            <thead>
+              <tr>
+                <th>Hewan</th>
+                <th>Tipe</th>
+                <th>Tanggal</th>
+                <th>Catatan</th>
+              </tr>
+            </thead>
+            <tbody id="records-tbody">
+              <!-- Rows populated by JS -->
+            </tbody>
+          </table>
         </div>
       </div>
+    </section>
 
-      <!-- Add Activity Modal -->
-      <div
-        id="modal-activity"
-        class="modal hidden"
-        role="dialog"
-        aria-modal="true"
-      >
-        <div class="modal-content">
-          <h4>Tambah Aktivitas</h4>
-          <form id="form-activity">
-            <label
-              >Hewan:
-              <select name="catId" id="activity-cat-select" required>
-                <!-- Filled by JS -->
-              </select>
-            </label>
-            <label>Deskripsi:<input name="text" required /></label>
-            <label>Tanggal:<input name="date" type="date" /></label>
-            <div class="modal-actions">
-              <button type="submit" class="btn btn-primary">Simpan</button>
-              <button
-                type="button"
-                id="btn-cancel-activity"
-                class="btn-cancel-activity"
-              >
-                Batal
-              </button>
-            </div>
-          </form>
+    <!-- Aktivitas (To-do list) - Full width -->
+    <section class="aktivitas section-full">
+      <div class="section-inner">
+        <div class="section-header">
+          <h3>Aktivitas (To-do list)</h3>
+          <div class="actions">
+            <select id="filter-cat" class="select-cat">
+              <option value="" disabled selected>Pilih hewan</option>
+            </select>
+            <button id="btn-add-activity" class="btn-add-activity">
+              Tambah Aktivitas
+            </button>
+          </div>
+        </div>
+
+        <div class="todo-list">
+          <ul id="activities-ul">
+            <!-- Items populated by JS -->
+          </ul>
         </div>
       </div>
-    </main>
-    <script type="module" src="/js/jurnal-hewan.js"></script>
-    <script>
-      // Toggle sidebar – versi anti-gagal
-      document.addEventListener("DOMContentLoaded", () => {
-        const toggleButton = document.getElementById("toggle-btn");
-        const sidebar = document.getElementById("sidebar");
+    </section>
 
-        if (!toggleButton || !sidebar) {
-          console.warn("Tombol atau sidebar nggak ketemu!");
-          return;
-        }
+    <!-- Modals / Forms (hidden by default) -->
+    <div id="modal-overlay" class="modal-overlay hidden"></div>
 
-        toggleButton.addEventListener("click", () => {
-          sidebar.classList.toggle("close");
-          toggleButton.classList.toggle("rotate");
+    <!-- Cat modal removed (Kelola Hewan removed) -->
 
-          // optional: simpan status ke localStorage biar ingat saat refresh
-          localStorage.setItem(
-            "sidebarClosed",
-            sidebar.classList.contains("close")
-          );
-        });
+    <!-- Add Medical Record Modal -->
+    <div id="modal-record" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <h4>Tambah Rekaman Medis</h4>
+        <form id="form-record">
+          <label>Hewan:
+            <select name="catId" id="record-cat-select" required>
+              <!-- Filled by JS -->
+            </select>
+          </label>
+          <label>Tipe Rekaman:
+            <select name="type" id="record-type" required>
+              <option value="vaksin">Vaksin</option>
+              <option value="grooming">Grooming</option>
+              <option value="checkup">Pemeriksaan Rutin (Check-up)</option>
+            </select>
+          </label>
+          <label>Tanggal:<input name="date" type="date" required /></label>
+          <label>Catatan:<textarea name="notes"></textarea></label>
+          <div class="modal-actions">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" id="btn-cancel-record" class="btn-cancel-record">
+              Batal
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-        // ingat posisi terakhir saat reload
-        if (
-          localStorage !== "undefined" &&
-          localStorage.getItem("sidebarClosed") === "true"
-        ) {
-          sidebar.classList.add("close");
-          toggleButton.classList.add("rotate");
-        }
-      });
-    </script>
+    <!-- Add Activity Modal -->
+    <div id="modal-activity" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <h4>Tambah Aktivitas</h4>
+        <form id="form-activity">
+          <label>Hewan:
+            <select name="catId" id="activity-cat-select" required>
+              <!-- Filled by JS -->
+            </select>
+          </label>
+          <label>Deskripsi:<input name="text" required /></label>
+          <label>Tanggal:<input name="date" type="date" /></label>
+          <div class="modal-actions">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" id="btn-cancel-activity" class="btn-cancel-activity">
+              Batal
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="/js/jurnal-hewan.js"></script>
+  <script>
+    // Toggle sidebar – versi anti-gagal
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggleButton = document.getElementById("toggle-btn");
+      const sidebar = document.getElementById("sidebar");
 
-    <!-- App logic for jurnal-hewan: UI + placeholder API handlers -->
-    <script>
-      // LocalStorage-backed API (shares same storage keys as profile page)
-      const STORAGE_KEYS = {
-        CATS: 'petricord_cats_v1',
-        RECORDS: 'petricord_records_v1',
-        ACTIVITIES: 'petricord_activities_v1'
-      };
-
-      const API = {
-        baseUrl: 'http://localhost:8000',
-        async fetchCats() {
-          const token = localStorage.getItem('access_token');
-          if (token) {
-            try {
-              const res = await fetch(`${this.baseUrl}/api/cats/`, { headers: { Authorization: `Bearer ${token}` } });
-              if (res.ok) {
-                const data = await res.json();
-                if (data.kucings) return data.kucings.map(k => ({ id: k.id, name: k.nama }));
-              }
-            } catch (err) { console.error('fetchCats backend failed', err); }
-          }
-          try { const raw = localStorage.getItem(STORAGE_KEYS.CATS); return raw ? JSON.parse(raw) : []; } catch (e) { console.error('fetchCats parse error', e); return []; }
-        },
-        async fetchRecords() {
-          const token = localStorage.getItem('access_token');
-          if (token) {
-            try {
-              const res = await fetch(`${this.baseUrl}/api/cats/medical-records`, { headers: { Authorization: `Bearer ${token}` } });
-              if (res.ok) {
-                const data = await res.json();
-                return data.records || [];
-              }
-            } catch (err) { console.error('fetchRecords backend failed', err); }
-          }
-          try { const raw = localStorage.getItem(STORAGE_KEYS.RECORDS); return raw ? JSON.parse(raw) : []; } catch (e) { console.error('fetchRecords parse error', e); return []; }
-        },
-        async createRecord(r) {
-          const token = localStorage.getItem('access_token');
-          if (token) {
-            try {
-              const fd = new FormData();
-              fd.append('type', r.type);
-              fd.append('date', r.date);
-              fd.append('notes', r.notes || '');
-              const res = await fetch(`${this.baseUrl}/api/cats/medical-records`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: fd });
-              if (res.ok) {
-                const data = await res.json();
-                return data.record || r;
-              }
-            } catch (err) { console.error('createRecord backend failed', err); }
-          }
-          const list = await this.fetchRecords(); list.push(r); localStorage.setItem(STORAGE_KEYS.RECORDS, JSON.stringify(list)); return r;
-        },
-        async deleteRecord(id) {
-          const token = localStorage.getItem('access_token');
-          if (token) {
-            try {
-              const res = await fetch(`${this.baseUrl}/api/cats/medical-records/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
-              if (res.ok) return true;
-            } catch (err) { console.error('deleteRecord backend failed', err); }
-          }
-          try { const list = await this.fetchRecords(); const next = list.filter(x => x.id !== id); localStorage.setItem(STORAGE_KEYS.RECORDS, JSON.stringify(next)); return true; } catch (err) { console.error('deleteRecord error', err); return false; }
-        },
-        async fetchActivities() { try { const token = localStorage.getItem('access_token'); if (token) { const res = await fetch(`${this.baseUrl}/api/cats/todo-activities`, { headers: { Authorization: `Bearer ${token}` } }); if (res.ok) { const data = await res.json(); return data.activities || []; } } const raw = localStorage.getItem(STORAGE_KEYS.ACTIVITIES); return raw ? JSON.parse(raw) : []; } catch (e) { console.error('fetchActivities parse error', e); return []; } },
-        async createActivity(a) { const token = localStorage.getItem('access_token'); if (token) { try { const fd = new FormData(); fd.append('text', a.text); if (a.date) fd.append('date', a.date); const res = await fetch(`${this.baseUrl}/api/cats/todo-activities`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: fd }); if (res.ok) { const data = await res.json(); return data.activity; } } catch (err) { console.error('createActivity backend failed', err); } } const list = await this.fetchActivities(); list.push(a); localStorage.setItem(STORAGE_KEYS.ACTIVITIES, JSON.stringify(list)); return a; },
-        async deleteActivity(id) { const token = localStorage.getItem('access_token'); if (token) { try { const res = await fetch(`${this.baseUrl}/api/cats/todo-activities/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } }); if (res.ok) return true; } catch (err) { console.error('deleteActivity backend failed', err); } } try { const list = await this.fetchActivities(); const next = list.filter(x => x.id !== id); localStorage.setItem(STORAGE_KEYS.ACTIVITIES, JSON.stringify(next)); return true; } catch (err) { console.error('deleteActivity error', err); return false; } }
-      };
-
-      const state = { cats: [], records: [], activities: [] };
-
-      function showModal(id) { document.getElementById('modal-overlay').classList.remove('hidden'); document.getElementById(id).classList.remove('hidden'); }
-      function closeModal(id) { document.getElementById('modal-overlay').classList.add('hidden'); document.getElementById(id).classList.add('hidden'); }
-
-      function renderRecords() {
-        const tbody = document.getElementById('records-tbody');
-        tbody.innerHTML = '';
-        state.records.forEach(r => {
-          const cat = state.cats.find(c => c.id === r.catId) || { name: 'Tidak diketahui' };
-          const tr = document.createElement('tr');
-          tr.innerHTML = `<td>${cat.name}</td><td>${r.type}</td><td>${r.date}</td><td>${r.notes||''}</td><td><button class="btn-delete-record" data-id="${r.id}">Hapus</button></td>`;
-          tbody.appendChild(tr);
-        });
+      if (!toggleButton || !sidebar) {
+        console.warn("Tombol atau sidebar nggak ketemu!");
+        return;
       }
 
-      function renderActivities(filterCatId='') {
-        const ul = document.getElementById('activities-ul');
-        ul.innerHTML = '';
-        const list = state.activities.filter(a => !filterCatId || a.catId === filterCatId);
-        list.forEach(a => {
-          const cat = state.cats.find(c => c.id === a.catId) || { name: 'Tidak diketahui' };
-          const li = document.createElement('li');
-          li.innerHTML = `<div class="activity-item"><div class="left"><strong>${cat.name}</strong> - ${a.text}</div><div class="right"><button class="btn done" data-id="${a.id}">Selesai</button></div></div>`;
-          ul.appendChild(li);
-        });
+      toggleButton.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+        toggleButton.classList.toggle("rotate");
+
+        // optional: simpan status ke localStorage biar ingat saat refresh
+        localStorage.setItem(
+          "sidebarClosed",
+          sidebar.classList.contains("close")
+        );
+      });
+
+      // ingat posisi terakhir saat reload
+      if (
+        localStorage !== "undefined" &&
+        localStorage.getItem("sidebarClosed") === "true"
+      ) {
+        sidebar.classList.add("close");
+        toggleButton.classList.add("rotate");
       }
+    });
+  </script>
 
-      function updateCatDropdowns() {
-        const selects = [document.getElementById('record-cat-select'), document.getElementById('activity-cat-select'), document.getElementById('filter-cat')];
-        selects.forEach(sel => {
-          if (!sel) return;
-          const current = sel.value;
-          sel.innerHTML = '<option value="" disabled selected>- Pilih Hewan -</option>';
-          state.cats.forEach(c => {
-            const opt = document.createElement('option'); opt.value = c.id; opt.textContent = c.name; sel.appendChild(opt);
-          });
-          sel.value = current;
-        });
-      }
+  <!-- App logic for jurnal-hewan: UI + placeholder API handlers -->
+  <script>
+    // LocalStorage-backed API (shares same storage keys as profile page)
+    const STORAGE_KEYS = {
+      CATS: 'petricord_cats_v1',
+      RECORDS: 'petricord_records_v1',
+      ACTIVITIES: 'petricord_activities_v1'
+    };
 
-      function genId(prefix='id'){ return prefix + '_' + Math.random().toString(36).slice(2,9); }
-
-      document.addEventListener('DOMContentLoaded', async () => {
-        state.cats = await API.fetchCats();
-        state.records = await API.fetchRecords();
-        state.activities = await API.fetchActivities();
-
-        renderRecords();
-        renderActivities();
-        // If page opened with ?catId=..., set filter selection
-        const params = new URLSearchParams(window.location.search);
-        const initialCatId = params.get('catId');
-        if (initialCatId) {
-          const sel = document.getElementById('filter-cat');
-          if (sel) {
-            sel.value = initialCatId;
-            renderActivities(initialCatId);
-          }
+    const API = {
+      baseUrl: 'http://localhost:8000',
+      async fetchCats() {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+          try {
+            const res = await fetch(`${this.baseUrl}/api/cats/`, { headers: { Authorization: `Bearer ${token}` } });
+            if (res.ok) {
+              const data = await res.json();
+              if (data.kucings) return data.kucings.map(k => ({ id: k.id, name: k.nama }));
+            }
+          } catch (err) { console.error('fetchCats backend failed', err); }
         }
+        try { const raw = localStorage.getItem(STORAGE_KEYS.CATS); return raw ? JSON.parse(raw) : []; } catch (e) { console.error('fetchCats parse error', e); return []; }
+      },
+      async fetchRecords() {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+          try {
+            const res = await fetch(`${this.baseUrl}/api/cats/medical-records`, { headers: { Authorization: `Bearer ${token}` } });
+            if (res.ok) {
+              const data = await res.json();
+              return data.records || [];
+            }
+          } catch (err) { console.error('fetchRecords backend failed', err); }
+        }
+        try { const raw = localStorage.getItem(STORAGE_KEYS.RECORDS); return raw ? JSON.parse(raw) : []; } catch (e) { console.error('fetchRecords parse error', e); return []; }
+      },
+      async createRecord(r) {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+          try {
+            const fd = new FormData();
+            fd.append('type', r.type);
+            fd.append('date', r.date);
+            fd.append('notes', r.notes || '');
+            const res = await fetch(`${this.baseUrl}/api/cats/medical-records`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: fd });
+            if (res.ok) {
+              const data = await res.json();
+              return data.record || r;
+            }
+          } catch (err) { console.error('createRecord backend failed', err); }
+        }
+        const list = await this.fetchRecords(); list.push(r); localStorage.setItem(STORAGE_KEYS.RECORDS, JSON.stringify(list)); return r;
+      },
+      async deleteRecord(id) {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+          try {
+            const res = await fetch(`${this.baseUrl}/api/cats/medical-records/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
+            if (res.ok) return true;
+          } catch (err) { console.error('deleteRecord backend failed', err); }
+        }
+        try { const list = await this.fetchRecords(); const next = list.filter(x => x.id !== id); localStorage.setItem(STORAGE_KEYS.RECORDS, JSON.stringify(next)); return true; } catch (err) { console.error('deleteRecord error', err); return false; }
+      },
+      async fetchActivities() { try { const token = localStorage.getItem('access_token'); if (token) { const res = await fetch(`${this.baseUrl}/api/cats/todo-activities`, { headers: { Authorization: `Bearer ${token}` } }); if (res.ok) { const data = await res.json(); return data.activities || []; } } const raw = localStorage.getItem(STORAGE_KEYS.ACTIVITIES); return raw ? JSON.parse(raw) : []; } catch (e) { console.error('fetchActivities parse error', e); return []; } },
+      async createActivity(a) { const token = localStorage.getItem('access_token'); if (token) { try { const fd = new FormData(); fd.append('text', a.text); if (a.date) fd.append('date', a.date); const res = await fetch(`${this.baseUrl}/api/cats/todo-activities`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: fd }); if (res.ok) { const data = await res.json(); return data.activity; } } catch (err) { console.error('createActivity backend failed', err); } } const list = await this.fetchActivities(); list.push(a); localStorage.setItem(STORAGE_KEYS.ACTIVITIES, JSON.stringify(list)); return a; },
+      async deleteActivity(id) { const token = localStorage.getItem('access_token'); if (token) { try { const res = await fetch(`${this.baseUrl}/api/cats/todo-activities/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } }); if (res.ok) return true; } catch (err) { console.error('deleteActivity backend failed', err); } } try { const list = await this.fetchActivities(); const next = list.filter(x => x.id !== id); localStorage.setItem(STORAGE_KEYS.ACTIVITIES, JSON.stringify(next)); return true; } catch (err) { console.error('deleteActivity error', err); return false; } }
+    };
 
-        // Records
-        document.getElementById('btn-add-record')?.addEventListener('click', ()=>{ document.getElementById('form-record').reset(); updateCatDropdowns(); showModal('modal-record'); });
-        document.getElementById('btn-cancel-record')?.addEventListener('click', ()=> closeModal('modal-record'));
-        document.getElementById('form-record')?.addEventListener('submit', async (e)=>{
-          e.preventDefault(); const fd = new FormData(e.target); const rec = { id: genId('rec'), catId: fd.get('catId'), type: fd.get('type'), date: fd.get('date'), notes: fd.get('notes') }; const created = await API.createRecord(rec); state.records.push(created); renderRecords(); closeModal('modal-record');
+    const state = { cats: [], records: [], activities: [] };
+
+    function showModal(id) { document.getElementById('modal-overlay').classList.remove('hidden'); document.getElementById(id).classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById('modal-overlay').classList.add('hidden'); document.getElementById(id).classList.add('hidden'); }
+
+    function renderRecords() {
+      const tbody = document.getElementById('records-tbody');
+      tbody.innerHTML = '';
+      state.records.forEach(r => {
+        const cat = state.cats.find(c => c.id === r.catId) || { name: 'Tidak diketahui' };
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${cat.name}</td><td>${r.type}</td><td>${r.date}</td><td>${r.notes || ''}</td><td><button class="btn-delete-record" data-id="${r.id}">Hapus</button></td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderActivities(filterCatId = '') {
+      const ul = document.getElementById('activities-ul');
+      ul.innerHTML = '';
+      const list = state.activities.filter(a => !filterCatId || a.catId === filterCatId);
+      list.forEach(a => {
+        const cat = state.cats.find(c => c.id === a.catId) || { name: 'Tidak diketahui' };
+        const li = document.createElement('li');
+        li.innerHTML = `<div class="activity-item"><div class="left"><strong>${cat.name}</strong> - ${a.text}</div><div class="right"><button class="btn done" data-id="${a.id}">Selesai</button></div></div>`;
+        ul.appendChild(li);
+      });
+    }
+
+    function updateCatDropdowns() {
+      const selects = [document.getElementById('record-cat-select'), document.getElementById('activity-cat-select'), document.getElementById('filter-cat')];
+      selects.forEach(sel => {
+        if (!sel) return;
+        const current = sel.value;
+        sel.innerHTML = '<option value="" disabled selected>- Pilih Hewan -</option>';
+        state.cats.forEach(c => {
+          const opt = document.createElement('option'); opt.value = c.id; opt.textContent = c.name; sel.appendChild(opt);
         });
+        sel.value = current;
+      });
+    }
 
-        // Record delete (delegated)
-        document.getElementById('records-tbody')?.addEventListener('click', async (e)=>{
-          const btn = e.target.closest('button.btn-delete-record');
-          if (!btn) return;
-          const id = btn.dataset.id;
-          if (!id) return;
-          if (!confirm('Hapus rekaman medis ini?')) return;
-          const ok = await API.deleteRecord(id);
-          if (ok) {
-            state.records = state.records.filter(r => r.id !== id);
-            renderRecords();
-          }
-        });
+    function genId(prefix = 'id') { return prefix + '_' + Math.random().toString(36).slice(2, 9); }
 
-        // Activities
-        document.getElementById('btn-add-activity')?.addEventListener('click', ()=>{ document.getElementById('form-activity').reset(); updateCatDropdowns(); showModal('modal-activity'); });
-        document.getElementById('btn-cancel-activity')?.addEventListener('click', ()=> closeModal('modal-activity'));
-        document.getElementById('form-activity')?.addEventListener('submit', async (e)=>{ e.preventDefault(); const fd = new FormData(e.target); const act = { id: genId('act'), catId: fd.get('catId'), text: fd.get('text'), date: fd.get('date') }; const created = await API.createActivity(act); state.activities.push(created); renderActivities(document.getElementById('filter-cat').value); closeModal('modal-activity'); });
+    document.addEventListener('DOMContentLoaded', async () => {
+      state.cats = await API.fetchCats();
+      state.records = await API.fetchRecords();
+      state.activities = await API.fetchActivities();
 
-        document.getElementById('activities-ul')?.addEventListener('click', async (e)=>{ const btn = e.target.closest('button.done'); if (!btn) return; const id = btn.dataset.id; const ok = await API.deleteActivity(id); if (ok) { state.activities = state.activities.filter(a=>a.id !== id); renderActivities(document.getElementById('filter-cat').value); } else { alert('Gagal menghapus aktivitas'); } });
+      renderRecords();
+      renderActivities();
+      // If page opened with ?catId=..., set filter selection
+      const params = new URLSearchParams(window.location.search);
+      const initialCatId = params.get('catId');
+      if (initialCatId) {
+        const sel = document.getElementById('filter-cat');
+        if (sel) {
+          sel.value = initialCatId;
+          renderActivities(initialCatId);
+        }
+      }
 
-        document.getElementById('filter-cat')?.addEventListener('change', (e)=>{ renderActivities(e.target.value); });
+      // Records
+      document.getElementById('btn-add-record')?.addEventListener('click', () => { document.getElementById('form-record').reset(); updateCatDropdowns(); showModal('modal-record'); });
+      document.getElementById('btn-cancel-record')?.addEventListener('click', () => closeModal('modal-record'));
+      document.getElementById('form-record')?.addEventListener('submit', async (e) => {
+        e.preventDefault(); const fd = new FormData(e.target); const rec = { id: genId('rec'), catId: fd.get('catId'), type: fd.get('type'), date: fd.get('date'), notes: fd.get('notes') }; const created = await API.createRecord(rec); state.records.push(created); renderRecords(); closeModal('modal-record');
       });
 
-      // Listen for storage changes (e.g., when cats/records/activities are updated in another tab)
-      window.addEventListener('storage', (e) => {
-        try {
-          if (e.key === STORAGE_KEYS.CATS) {
-            state.cats = e.newValue ? JSON.parse(e.newValue) : [];
-            updateCatDropdowns();
-            renderRecords();
-            renderActivities(document.getElementById('filter-cat')?.value || '');
-          }
-          if (e.key === STORAGE_KEYS.RECORDS) {
-            state.records = e.newValue ? JSON.parse(e.newValue) : [];
-            renderRecords();
-          }
-          if (e.key === STORAGE_KEYS.ACTIVITIES) {
-            state.activities = e.newValue ? JSON.parse(e.newValue) : [];
-            renderActivities(document.getElementById('filter-cat')?.value || '');
-          }
-        } catch (err) { console.error('storage event parse error', err); }
+      // Record delete (delegated)
+      document.getElementById('records-tbody')?.addEventListener('click', async (e) => {
+        const btn = e.target.closest('button.btn-delete-record');
+        if (!btn) return;
+        const id = btn.dataset.id;
+        if (!id) return;
+        if (!confirm('Hapus rekaman medis ini?')) return;
+        const ok = await API.deleteRecord(id);
+        if (ok) {
+          state.records = state.records.filter(r => r.id !== id);
+          renderRecords();
+        }
       });
-    </script>
-  </body>
+
+      // Activities
+      document.getElementById('btn-add-activity')?.addEventListener('click', () => { document.getElementById('form-activity').reset(); updateCatDropdowns(); showModal('modal-activity'); });
+      document.getElementById('btn-cancel-activity')?.addEventListener('click', () => closeModal('modal-activity'));
+      document.getElementById('form-activity')?.addEventListener('submit', async (e) => { e.preventDefault(); const fd = new FormData(e.target); const act = { id: genId('act'), catId: fd.get('catId'), text: fd.get('text'), date: fd.get('date') }; const created = await API.createActivity(act); state.activities.push(created); renderActivities(document.getElementById('filter-cat').value); closeModal('modal-activity'); });
+
+      document.getElementById('activities-ul')?.addEventListener('click', async (e) => { const btn = e.target.closest('button.done'); if (!btn) return; const id = btn.dataset.id; const ok = await API.deleteActivity(id); if (ok) { state.activities = state.activities.filter(a => a.id !== id); renderActivities(document.getElementById('filter-cat').value); } else { alert('Gagal menghapus aktivitas'); } });
+
+      document.getElementById('filter-cat')?.addEventListener('change', (e) => { renderActivities(e.target.value); });
+    });
+
+    // Listen for storage changes (e.g., when cats/records/activities are updated in another tab)
+    window.addEventListener('storage', (e) => {
+      try {
+        if (e.key === STORAGE_KEYS.CATS) {
+          state.cats = e.newValue ? JSON.parse(e.newValue) : [];
+          updateCatDropdowns();
+          renderRecords();
+          renderActivities(document.getElementById('filter-cat')?.value || '');
+        }
+        if (e.key === STORAGE_KEYS.RECORDS) {
+          state.records = e.newValue ? JSON.parse(e.newValue) : [];
+          renderRecords();
+        }
+        if (e.key === STORAGE_KEYS.ACTIVITIES) {
+          state.activities = e.newValue ? JSON.parse(e.newValue) : [];
+          renderActivities(document.getElementById('filter-cat')?.value || '');
+        }
+      } catch (err) { console.error('storage event parse error', err); }
+    });
+  </script>
+</body>
+
 </html>

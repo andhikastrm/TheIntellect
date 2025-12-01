@@ -5,8 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profil</title>
-  <title>Perangkat</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 
@@ -61,15 +59,14 @@
     <div class="header-section">
       <h2>Profil</h2>
     </div>
-    <!-- Profil User - Full width (placed before Kelola Hewan) -->
+
+    <!-- Profil User - Full width -->
     <section class="profil-user section-full">
       <div class="section-inner">
         <div class="section-header">
           <h3>Profil Saya</h3>
           <div class="actions">
-            <button id="btn-edit-profile" class="btn-edit-profile">
-              Edit Profil
-            </button>
+            <button id="btn-edit-profile" class="btn-edit-profile">Edit Profil</button>
             <button id="btn-logout" class="btn-logout">Logout</button>
           </div>
         </div>
@@ -79,9 +76,7 @@
           </div>
           <div class="profile-info">
             <h4 id="profile-name">Nama Pengguna</h4>
-            <div id="profile-email" class="profile-email">
-              email@domain.com
-            </div>
+            <div id="profile-email" class="profile-email">email@domain.com</div>
           </div>
         </div>
       </div>
@@ -92,17 +87,12 @@
       <div class="section-inner">
         <div class="section-header">
           <h3>Kelola Hewan</h3>
-
         </div>
-
         <div class="kelola-list">
           <div class="cats-grid" id="cats-container">
             <!-- Add box -->
             <div class="add-cat-box" id="add-cat-box" title="Tambah Hewan">
-              <div class="add-icon">
-                +
-                <!-- You can replace with an SVG icon -->
-              </div>
+              <div class="add-icon">+</div>
               <div class="add-text">Tambah Hewan</div>
             </div>
             <!-- Cards will be inserted here by JS -->
@@ -111,9 +101,7 @@
       </div>
     </section>
 
-    <!-- Rekaman Medis and Aktivitas removed from this page (handled elsewhere) -->
-
-    <!-- Modals / Forms (hidden by default) -->
+    <!-- Modals -->
     <div id="modal-overlay" class="modal-overlay hidden"></div>
 
     <!-- Add/Edit Cat Modal -->
@@ -132,11 +120,10 @@
           <label>Ras:<input name="breed" /></label>
           <label>Usia (bulan):<input name="ageMonths" type="number" min="0" /></label>
           <label>Berat (kg):<input name="weight" type="number" step="0.1" min="0" /></label>
+          <label>Deskripsi:<textarea name="description" rows="3"></textarea></label>
           <div class="modal-actions">
             <button type="submit" class="btn-primary">Simpan</button>
-            <button type="button" id="btn-cancel-cat" class="btn-cancel-cat">
-              Batal
-            </button>
+            <button type="button" id="btn-cancel-cat" class="btn-cancel-cat">Batal</button>
           </div>
         </form>
       </div>
@@ -156,20 +143,21 @@
           <label>Nama:<input name="name" required /></label>
           <div class="modal-actions">
             <button type="submit" class="btn-primary">Simpan</button>
-            <button type="button" id="btn-cancel-profile" class="btn-cancel-cat">
-              Batal
-            </button>
+            <button type="button" id="btn-cancel-profile" class="btn-cancel-cat">Batal</button>
           </div>
         </form>
       </div>
     </div>
   </main>
-  <!-- TAMBAHIN INI DI PALING BAWAH, SETELAH SEMUA SCRIPT LAIN -->
+
+  <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script type="module" src="/js/profil.js"></script>
 
   <script>
-    // CONFIG FIREBASE KAMU (SUDAH BENAR)
+    
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
       authDomain: "petricord-f8c54.firebaseapp.com",
@@ -182,7 +170,7 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // KETIKA USER LOGIN VIA GOOGLE → ISI NAMA & EMAIL OTOMATIS
+    // Firebase Auth State - Auto-fill profile from Google login
     auth.onAuthStateChanged((user) => {
       if (user) {
         document.getElementById("profile-name").textContent = user.displayName || user.email.split("@")[0];
@@ -190,169 +178,192 @@
         if (user.photoURL) {
           document.getElementById("profile-photo-img").src = user.photoURL;
         }
-        console.log("Login Gmail sukses:", user.displayName);
-      } else {
-        alert("Kamu belum login via Google!");
-        window.location.href = "/pages/auth/login.html";
+        console.log("Firebase user:", user.displayName);
       }
     });
   </script>
-  <script type="module" src="/js/profil.js"></script>
+
   <script>
-    // Toggle sidebar – versi anti-gagal
+    // Sidebar Toggle
     document.addEventListener("DOMContentLoaded", () => {
       const toggleButton = document.getElementById("toggle-btn");
       const sidebar = document.getElementById("sidebar");
 
-      if (!toggleButton || !sidebar) {
-        console.warn("Tombol atau sidebar nggak ketemu!");
-        return;
-      }
+      if (!toggleButton || !sidebar) return;
 
       toggleButton.addEventListener("click", () => {
         sidebar.classList.toggle("close");
         toggleButton.classList.toggle("rotate");
-
-        // optional: simpan status ke localStorage biar ingat saat refresh
-        localStorage.setItem(
-          "sidebarClosed",
-          sidebar.classList.contains("close")
-        );
+        localStorage.setItem("sidebarClosed", sidebar.classList.contains("close"));
       });
 
-      // ingat posisi terakhir saat reload
-      if (
-        localStorage !== "undefined" &&
-        localStorage.getItem("sidebarClosed") === "true"
-      ) {
+      if (localStorage.getItem("sidebarClosed") === "true") {
         sidebar.classList.add("close");
         toggleButton.classList.add("rotate");
       }
     });
   </script>
 
-  <!-- App logic for profil page: UI + placeholder API handlers -->
+  <!-- Main API Integration Script -->
   <script>
-    /*
-          Placeholder API functions for profile & cats. Replace with real fetch calls.
-          Profile endpoints examples:
-            GET  /api/profile
-            PUT  /api/profile
-        */
-    const STORAGE_KEYS = {
-      CATS: 'petricord_cats_v1',
-      PROFILE: 'petricord_profile_v1'
-    };
-
     const API = {
       baseUrl: "http://localhost:8000",
+
+      getToken() {
+        return localStorage.getItem("access_token");
+      },
+
+      getAuthHeaders() {
+        const token = this.getToken();
+        return token ? { Authorization: `Bearer ${token}` } : {};
+      },
+
+      // ==================== CATS CRUD ====================
+
       async fetchCats() {
-        const token = localStorage.getItem("access_token");
-        if (token) {
-          try {
-            const res = await fetch(`${this.baseUrl}/api/cats/`, {
-              headers: { Authorization: `Bearer ${token}` }
-            });
-            if (res.ok) {
-              const data = await res.json();
-              if (data.kucings) return data.kucings.map(k => ({ id: k.id, name: k.nama, breed: k.ras, ageMonths: k.umur, weight: k.berat_badan, photoData: k.foto, gender: k.jenis_kelamin }));
-            }
-          } catch (err) {
-            console.error('fetchCats backend failed', err);
-          }
-        }
         try {
-          const raw = localStorage.getItem(STORAGE_KEYS.CATS);
-          return raw ? JSON.parse(raw) : [];
-        } catch (e) {
-          console.error('fetchCats parse error', e);
+          const res = await fetch(`${this.baseUrl}/api/cats/`, {
+            headers: this.getAuthHeaders()
+          });
+
+          if (!res.ok) {
+            if (res.status === 401) {
+              alert("Session expired. Please login again.");
+              window.location.href = "/pages/auth/login.html";
+              return [];
+            }
+            throw new Error(`HTTP ${res.status}`);
+          }
+
+          const data = await res.json();
+          console.log("Fetched cats:", data);
+
+          return (data.kucings || []).map(k => ({
+            id: k.id,
+            name: k.nama,
+            breed: k.ras,
+            ageMonths: k.umur,
+            weight: k.berat_badan,
+            photoData: k.foto,
+            description: k.deskripsi
+          }));
+        } catch (err) {
+          console.error('fetchCats failed:', err);
           return [];
         }
       },
-      async createCat(cat, file) {
-        const token = localStorage.getItem("access_token");
-        if (token) {
-          try {
-            const fd = new FormData();
-            fd.append('nama', cat.name || '');
-            fd.append('umur', cat.ageMonths || '');
-            fd.append('ras', cat.breed || '');
-            fd.append('berat_badan', cat.weight || '');
-            fd.append('deskripsi', cat.description || '');
-            if (file) fd.append('foto', file);
-            const res = await fetch(`${this.baseUrl}/api/cats/`, {
-              method: 'POST',
-              headers: { Authorization: `Bearer ${token}` },
-              body: fd
-            });
-            if (!res.ok) {
-              const txt = await res.text();
-              throw new Error(txt || 'Failed to create cat');
-            }
-            const data = await res.json();
-            if (data.kucing) {
-              const k = data.kucing;
-              return { id: k.id, name: k.nama, breed: k.ras, ageMonths: k.umur, weight: k.berat_badan, photoData: k.foto };
-            }
-          } catch (err) {
-            console.error('createCat backend failed', err);
+
+      async createCat(catData, file) {
+        try {
+          const fd = new FormData();
+          fd.append('nama', catData.name || '');
+          fd.append('umur', catData.ageMonths || '');
+          fd.append('ras', catData.breed || '');
+          fd.append('berat_badan', catData.weight || '');
+          fd.append('deskripsi', catData.description || '');
+          if (file) fd.append('foto', file);
+
+          const res = await fetch(`${this.baseUrl}/api/cats/`, {
+            method: 'POST',
+            headers: this.getAuthHeaders(),
+            body: fd
+          });
+
+          if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(errorText || 'Failed to create cat');
           }
+
+          const data = await res.json();
+          console.log("Created cat:", data);
+
+          if (data.kucing) {
+            const k = data.kucing;
+            return {
+              id: k.id,
+              name: k.nama,
+              breed: k.ras,
+              ageMonths: k.umur,
+              weight: k.berat_badan,
+              photoData: k.foto,
+              description: k.deskripsi
+            };
+          }
+          return null;
+        } catch (err) {
+          console.error('createCat failed:', err);
+          alert('Gagal menambah hewan: ' + err.message);
+          return null;
         }
-        const list = await this.fetchCats();
-        const created = { ...cat, id: genId('cat') };
-        list.push(created);
-        localStorage.setItem(STORAGE_KEYS.CATS, JSON.stringify(list));
-        return created;
-      },
-      async updateCat(id, cat) {
-        const list = await this.fetchCats();
-        const idx = list.findIndex((c) => c.id === id);
-        if (idx !== -1) list[idx] = cat;
-        localStorage.setItem(STORAGE_KEYS.CATS, JSON.stringify(list));
-        return cat;
-      },
-      async deleteCat(id) {
-        const token = localStorage.getItem('access_token');
-        if (token) {
-          try {
-            const res = await fetch(`${this.baseUrl}/api/cats/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
-            if (res.ok) return true;
-          } catch (err) { console.error('deleteCat backend failed', err); }
-        }
-        const list = await this.fetchCats();
-        const next = list.filter((c) => c.id !== id);
-        localStorage.setItem(STORAGE_KEYS.CATS, JSON.stringify(next));
-        return true;
       },
 
-      async fetchProfile() {
+      async updateCat(id, catData, file) {
         try {
-          const raw = localStorage.getItem(STORAGE_KEYS.PROFILE);
-          if (raw) return JSON.parse(raw);
-        } catch (e) {
-          console.error('fetchProfile parse error', e);
+          const fd = new FormData();
+          fd.append('nama', catData.name || '');
+          fd.append('umur', catData.ageMonths || '');
+          fd.append('ras', catData.breed || '');
+          fd.append('berat_badan', catData.weight || '');
+          fd.append('deskripsi', catData.description || '');
+          if (file) fd.append('foto', file);
+
+          const res = await fetch(`${this.baseUrl}/api/cats/${id}`, {
+            method: 'PUT',
+            headers: this.getAuthHeaders(),
+            body: fd
+          });
+
+          if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(errorText || 'Failed to update cat');
+          }
+
+          const data = await res.json();
+          console.log("Updated cat:", data);
+
+          if (data.kucing) {
+            const k = data.kucing;
+            return {
+              id: k.id,
+              name: k.nama,
+              breed: k.ras,
+              ageMonths: k.umur,
+              weight: k.berat_badan,
+              photoData: k.foto,
+              description: k.deskripsi
+            };
+          }
+          return null;
+        } catch (err) {
+          console.error('updateCat failed:', err);
+          alert('Gagal update hewan: ' + err.message);
+          return null;
         }
-        return {
-          id: 'me',
-          name: 'Nama Pengguna',
-          email: 'email@domain.com',
-          photoData: null,
-        };
       },
-      async updateProfile(profile) {
+
+      async deleteCat(id) {
         try {
-          localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(profile));
-        } catch (e) {
-          console.error('updateProfile error', e);
+          const res = await fetch(`${this.baseUrl}/api/cats/${id}`, {
+            method: 'DELETE',
+            headers: this.getAuthHeaders()
+          });
+
+          if (!res.ok) {
+            throw new Error('Failed to delete cat');
+          }
+
+          const data = await res.json();
+          console.log("Deleted cat:", data);
+          return true;
+        } catch (err) {
+          console.error('deleteCat failed:', err);
+          alert('Gagal hapus hewan: ' + err.message);
+          return false;
         }
-        return profile;
-      },
+      }
     };
 
-    // helper to generate unique ids for local objects
-    function genId(prefix = 'id') {
-      return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
-    }
+    // ==================== STATE & UI ====================
 
     const state = { cats: [], profile: null };
 
@@ -360,18 +371,10 @@
       document.getElementById("modal-overlay").classList.remove("hidden");
       document.getElementById(id).classList.remove("hidden");
     }
+
     function closeModal(id) {
       document.getElementById("modal-overlay").classList.add("hidden");
       document.getElementById(id).classList.add("hidden");
-    }
-
-    function readFileAsDataURL(file) {
-      return new Promise((res, rej) => {
-        const fr = new FileReader();
-        fr.onload = () => res(fr.result);
-        fr.onerror = rej;
-        fr.readAsDataURL(file);
-      });
     }
 
     function renderProfile() {
@@ -390,230 +393,175 @@
     function renderCats() {
       const container = document.getElementById("cats-container");
       const addBoxHtml = `
-              <div class="add-cat-box" id="add-cat-box" title="Tambah Hewan">
-                <div class="add-icon">+</div>
-                <div class="add-text">Tambah Hewan</div>
-              </div>`;
+        <div class="add-cat-box" id="add-cat-box" title="Tambah Hewan">
+          <div class="add-icon">+</div>
+          <div class="add-text">Tambah Hewan</div>
+        </div>`;
       container.innerHTML = addBoxHtml;
+
       state.cats.forEach((cat) => {
         const card = document.createElement("div");
         card.className = "cat-card";
         card.dataset.id = cat.id;
-        const imgSrc = cat.photoData || "../../assets/images/paw.png";
+
+        // Handle photo URL - prepend base URL if needed
+        let imgSrc = cat.photoData || "../../assets/images/paw.png";
+        if (imgSrc && imgSrc.startsWith('/static/')) {
+          imgSrc = API.baseUrl + imgSrc;
+        }
+
         card.innerHTML = `
-                <div class="cat-left"><img src="${imgSrc}" alt="${cat.name
-          }" /></div>
-                <div class="cat-right">
-                  <h4 class="cat-name">${cat.name}</h4>
-                  <div class="cat-meta">${cat.breed ? "Ras: " + cat.breed : ""
-          }</div>
-                  <div class="cat-meta">${cat.ageMonths ? cat.ageMonths + " bulan" : ""
-          } ${cat.weight ? " - " + cat.weight + " kg" : ""}</div>
-                  <div class="card-actions">
-                    <button class="btn-edit-cat" data-id="${cat.id
-          }">Edit</button>
-                    <button class="btn-delete-cat" data-id="${cat.id
-          }">Hapus</button>
-                  </div>
-                </div>`;
+          <div class="cat-left"><img src="${imgSrc}" alt="${cat.name}" /></div>
+          <div class="cat-right">
+            <h4 class="cat-name">${cat.name}</h4>
+            <div class="cat-meta">${cat.breed ? "Ras: " + cat.breed : ""}</div>
+            <div class="cat-meta">${cat.ageMonths ? cat.ageMonths + " bulan" : ""} ${cat.weight ? " - " + cat.weight + " kg" : ""}</div>
+            <div class="card-actions">
+              <button class="btn-edit-cat" data-id="${cat.id}">Edit</button>
+              <button class="btn-delete-cat" data-id="${cat.id}">Hapus</button>
+            </div>
+          </div>`;
         container.appendChild(card);
       });
     }
 
-    // Wire up UI
+    // ==================== EVENT HANDLERS ====================
+
     document.addEventListener("DOMContentLoaded", async () => {
+      // Load cats from backend
       state.cats = await API.fetchCats();
-      state.profile = await API.fetchProfile();
-      renderProfile();
       renderCats();
 
-      // Profile edit
-      document
-        .getElementById("btn-edit-profile")
-        .addEventListener("click", () => {
-          const form = document.getElementById("form-profile");
+      // Add cat button
+      document.getElementById("cats-container").addEventListener("click", (e) => {
+        const add = e.target.closest("#add-cat-box");
+        if (add) {
+          const form = document.getElementById("form-cat");
           form.reset();
-          const preview = document.getElementById("profile-photo-preview");
-          preview.style.display = "none";
-          preview.querySelector("img").src = "";
-          if (state.profile) form.name.value = state.profile.name || "";
-          showModal("modal-profile");
-        });
-      document
-        .getElementById("btn-cancel-profile")
-        .addEventListener("click", () => closeModal("modal-profile"));
+          form.id.value = "";
+          document.getElementById("cat-photo-preview").style.display = "none";
+          document.getElementById("modal-cat-title").textContent = "Tambah Hewan";
+          showModal("modal-cat");
+        }
+      });
 
-      const pInput = document.getElementById("profile-photo-input");
-      if (pInput)
-        pInput.addEventListener("change", (ev) => {
-          const f = ev.target.files && ev.target.files[0];
-          const preview = document.getElementById("profile-photo-preview");
-          const img = preview.querySelector("img");
-          if (f) {
-            img.src = URL.createObjectURL(f);
-            preview.style.display = "";
-          } else {
-            img.src = "";
-            preview.style.display = "none";
-          }
-        });
-
-      document
-        .getElementById("form-profile")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const form = e.target;
-          const fd = new FormData(form);
-          const file = form.photo.files && form.photo.files[0];
-          let photoData = (state.profile && state.profile.photoData) || null;
-          if (file) photoData = await readFileAsDataURL(file);
-          const updated = {
-            ...(state.profile || {}),
-            name: fd.get("name"),
-            photoData,
-          };
-          await API.updateProfile(updated);
-          state.profile = updated;
-          renderProfile();
-          closeModal("modal-profile");
-        });
-
-      // Add cat handling (kept)
-      const openAddCatModal = () => {
-        const form = document.getElementById("form-cat");
-        form.reset();
-        form.id.value = "";
-        const preview = document.getElementById("cat-photo-preview");
-        preview.style.display = "none";
-        preview.querySelector("img").src = "";
-        document.getElementById("modal-cat-title").textContent =
-          "Tambah Hewan";
-        showModal("modal-cat");
-      };
-
-      document
-        .getElementById("cats-container")
-        .addEventListener("click", (e) => {
-          const add = e.target.closest("#add-cat-box");
-          if (add) openAddCatModal();
-        });
-
-      document
-        .getElementById("btn-cancel-cat")
-        .addEventListener("click", () => closeModal("modal-cat"));
+      // Cancel cat modal
+      document.getElementById("btn-cancel-cat").addEventListener("click", () => {
+        closeModal("modal-cat");
+      });
 
       // Cat photo preview
-      const photoInput = document.getElementById("cat-photo-input");
-      if (photoInput)
-        photoInput.addEventListener("change", (ev) => {
-          const f = ev.target.files && ev.target.files[0];
+      document.getElementById("cat-photo-input").addEventListener("change", (ev) => {
+        const file = ev.target.files?.[0];
+        const preview = document.getElementById("cat-photo-preview");
+        const img = preview.querySelector("img");
+        if (file) {
+          img.src = URL.createObjectURL(file);
+          preview.style.display = "";
+        } else {
+          img.src = "";
+          preview.style.display = "none";
+        }
+      });
+
+      // Submit cat form (Create or Update)
+      document.getElementById("form-cat").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const id = form.id.value;
+        const file = form.photo.files?.[0];
+
+        const catData = {
+          name: form.name.value,
+          breed: form.breed.value,
+          ageMonths: form.ageMonths.value,
+          weight: form.weight.value,
+          description: form.description.value
+        };
+
+        if (id) {
+          // UPDATE
+          const updated = await API.updateCat(id, catData, file);
+          if (updated) {
+            const idx = state.cats.findIndex(c => c.id == id);
+            if (idx !== -1) state.cats[idx] = updated;
+          }
+        } else {
+          // CREATE
+          const created = await API.createCat(catData, file);
+          if (created) {
+            state.cats.push(created);
+          }
+        }
+
+        renderCats();
+        closeModal("modal-cat");
+      });
+
+      // Edit/Delete cats
+      document.getElementById("cats-container").addEventListener("click", async (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+
+        const id = btn.dataset.id;
+
+        // EDIT
+        if (btn.classList.contains("btn-edit-cat")) {
+          const cat = state.cats.find((c) => c.id == id);
+          if (!cat) return;
+
+          const form = document.getElementById("form-cat");
+          form.id.value = cat.id;
+          form.name.value = cat.name || "";
+          form.breed.value = cat.breed || "";
+          form.ageMonths.value = cat.ageMonths || "";
+          form.weight.value = cat.weight || "";
+          form.description.value = cat.description || "";
+
           const preview = document.getElementById("cat-photo-preview");
           const img = preview.querySelector("img");
-          if (f) {
-            img.src = URL.createObjectURL(f);
+          if (cat.photoData) {
+            let photoUrl = cat.photoData;
+            if (photoUrl.startsWith('/static/')) {
+              photoUrl = API.baseUrl + photoUrl;
+            }
+            img.src = photoUrl;
             preview.style.display = "";
           } else {
             img.src = "";
             preview.style.display = "none";
           }
-        });
 
-      document
-        .getElementById("form-cat")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const form = e.target;
-          const fd = new FormData(form);
-          const id = fd.get("id");
-          const file = form.photo.files && form.photo.files[0];
-          let photoData = null;
-          if (file) photoData = await readFileAsDataURL(file);
-          if (id) {
-            const cat = state.cats.find((c) => c.id === id);
-            if (!cat) return;
-            cat.name = fd.get("name");
-            cat.breed = fd.get("breed");
-            cat.ageMonths = fd.get("ageMonths");
-            cat.weight = fd.get("weight");
-            if (photoData) cat.photoData = photoData;
-            await API.updateCat(cat.id, cat);
-          } else {
-            const cat = {
-              id: genId("cat"),
-              name: fd.get("name"),
-              breed: fd.get("breed"),
-              ageMonths: fd.get("ageMonths"),
-              weight: fd.get("weight"),
-              photoData,
-            };
-            const created = await API.createCat(cat, file);
-            state.cats.push(created);
-          }
-          renderCats();
-          closeModal("modal-cat");
-        });
+          document.getElementById("modal-cat-title").textContent = "Edit Hewan";
+          showModal("modal-cat");
+        }
 
-      // Edit/Delete cats
-      document
-        .getElementById("cats-container")
-        .addEventListener("click", (e) => {
-          const btn = e.target.closest("button");
-          if (!btn) return;
-          const id = btn.dataset.id;
-          if (btn.classList.contains("btn-edit-cat")) {
-            const cat = state.cats.find((c) => c.id === id);
-            if (!cat) return;
-            const form = document.getElementById("form-cat");
-            form.id.value = cat.id;
-            form.name.value = cat.name || "";
-            form.breed.value = cat.breed || "";
-            form.ageMonths.value = cat.ageMonths || "";
-            form.weight.value = cat.weight || "";
-            const preview = document.getElementById("cat-photo-preview");
-            const img = preview.querySelector("img");
-            if (cat.photoData) {
-              img.src = cat.photoData;
-              preview.style.display = "";
-            } else {
-              img.src = "";
-              preview.style.display = "none";
-            }
-            document.getElementById("modal-cat-title").textContent =
-              "Edit Hewan";
-            showModal("modal-cat");
-          }
-          if (btn.classList.contains("btn-delete-cat")) {
-            if (!confirm("Hapus hewan ini?")) return;
-            (async () => {
-              const ok = await API.deleteCat(id);
-              if (ok) {
-                state.cats = state.cats.filter((c) => c.id !== id);
-                renderCats();
-              } else {
-                alert('Gagal menghapus hewan.');
-              }
-            })();
-          }
-        });
+        // DELETE
+        if (btn.classList.contains("btn-delete-cat")) {
+          if (!confirm("Hapus hewan ini?")) return;
 
-      // Logout button: calls API.logout (if available), clears storage and redirects
-      const logoutBtn = document.getElementById('btn-logout');
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', async () => {
-          if (!confirm('Keluar dari akun?')) return;
-          try {
-            if (API.logout) await API.logout();
-          } catch (err) {
-            console.error('API.logout failed', err);
+          const success = await API.deleteCat(id);
+          if (success) {
+            state.cats = state.cats.filter((c) => c.id != id);
+            renderCats();
           }
-          try {
-            localStorage.removeItem('authToken');
-            sessionStorage.clear();
-          } catch (e) { /* ignore */ }
-          // Redirect to login page (adjust path if your login page differs)
-          window.location.href = '/login.html';
-        });
-      }
+        }
+      });
+
+      // Logout button
+      document.getElementById('btn-logout').addEventListener('click', async () => {
+        if (!confirm('Keluar dari akun?')) return;
+
+        try {
+          await firebase.auth().signOut();
+        } catch (e) {
+          console.error('Firebase signout error:', e);
+        }
+
+        localStorage.removeItem('access_token');
+        sessionStorage.clear();
+        window.location.href = '/pages/auth/login.html';
+      });
     });
   </script>
 </body>

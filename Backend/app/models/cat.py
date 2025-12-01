@@ -23,6 +23,7 @@ class Cat(Base):
     umur = Column(Integer, nullable=True)
     berat_badan = Column(Float, nullable=True)
     foto = Column(String(500), nullable=True)
+    ras = Column(String(100), nullable=True)
     deskripsi = Column(Text, nullable=True)
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
 

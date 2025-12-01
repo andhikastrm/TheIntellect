@@ -8,10 +8,12 @@ from sqlalchemy.orm import Session
 from app.database.db import get_db
 from app.models.user import User
 from app.models.cat import Cat, Device
+from typing import Optional, List
 from app.core.security import get_current_user
 from app.models.cat import MedicalRecord, CatActivityTodo
 from datetime import datetime, date, timezone, timedelta
 from sqlalchemy import func, and_
+from ..schemas.cat import CatResponse, CatCreate, CatUpdate
 import shutil
 import os
 
@@ -429,8 +431,7 @@ async def get_latest_activity_per_behavior(db: Session = Depends(get_db)):
         
         print(f"Error di latest-by-behavior: {e}")
         raise HTTPException(status_code=500, detail="Gagal mengambil data aktivitas terbaru")
-
-
+    
 
 @router.get("/activities/critical")
 async def get_critical_activities(db: Session = Depends(get_db)):
@@ -466,14 +467,225 @@ async def get_critical_activities(db: Session = Depends(get_db)):
     }
 
 
+# Helper function to save uploaded file
+def save_upload_file(upload_file: UploadFile, destination: Path) -> str:
+    try:
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        with destination.open("wb") as buffer:
+            shutil.copyfileobj(upload_file.file, buffer)
+        return str(destination)
+    finally:
+        upload_file.file.close()
 
-@router.get("/cats")
-async def get_my_cats(db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+
+# GET all cats for current user
+@router.get("/", response_model=dict)
+async def get_my_cats(
+    db: Session = Depends(get_db), 
+    user: User = Depends(get_current_user)
+):
+    cats = db.query(Cat).filter(Cat.owner_id == user.id).all()
     
-    cat = db.query(Cat).filter(Cat.owner_id == user.id).first()
+    if not cats:
+        return {"kucings": []}
+    
+    return {
+        "kucings": [
+            {
+                "id": cat.id,
+                "nama": cat.nama,
+                "ras": cat.ras,
+                "umur": cat.umur,
+                "berat_badan": cat.berat_badan,
+                "foto": cat.foto,
+                "deskripsi": cat.deskripsi,
+            }
+            for cat in cats
+        ]
+    }
+
+
+# GET single cat by ID
+@router.get("/{cat_id}", response_model=dict)
+async def get_cat(
+    cat_id: int,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    cat = db.query(Cat).filter(
+        Cat.id == cat_id,
+        Cat.owner_id == user.id
+    ).first()
+    
     if not cat:
-        return {"cats": []}
-    return {"cats": [{"id": cat.id, "name": cat.nama}]}
+        raise HTTPException(status_code=404, detail="Cat not found")
+    
+    return {
+        "kucing": {
+            "id": cat.id,
+            "nama": cat.nama,
+            "ras": cat.ras,
+            "umur": cat.umur,
+            "berat_badan": cat.berat_badan,
+            "foto": cat.foto,
+            "deskripsi": cat.deskripsi,
+        }
+    }
+
+
+# CREATE new cat
+@router.post("/", response_model=dict)
+async def create_cat(
+    nama: str = Form(...),
+    ras: Optional[str] = Form(None),
+    umur: Optional[int] = Form(None),
+    berat_badan: Optional[float] = Form(None),
+    deskripsi: Optional[str] = Form(None),
+    foto: Optional[UploadFile] = File(None),
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    # Handle photo upload
+    foto_path = None
+    if foto:
+        # Create uploads directory if it doesn't exist
+        upload_dir = Path("uploads/cats")
+        upload_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Generate unique filename
+        file_extension = os.path.splitext(foto.filename)[1]
+        filename = f"cat_{user.id}_{int(os.time.time())}{file_extension}"
+        file_path = upload_dir / filename
+        
+        # Save file
+        foto_path = save_upload_file(foto, file_path)
+    
+    # Create new cat
+    new_cat = Cat(
+        nama=nama,
+        ras=ras,
+        umur=umur,
+        berat_badan=berat_badan,
+        foto=foto_path,
+        deskripsi=deskripsi,
+        owner_id=user.id
+    )
+    
+    db.add(new_cat)
+    db.commit()
+    db.refresh(new_cat)
+    
+    return {
+        "message": "Cat created successfully",
+        "kucing": {
+            "id": new_cat.id,
+            "nama": new_cat.nama,
+            "ras": new_cat.ras,
+            "umur": new_cat.umur,
+            "berat_badan": new_cat.berat_badan,
+            "foto": new_cat.foto,
+            "deskripsi": new_cat.deskripsi,
+        }
+    }
+
+
+# UPDATE cat
+@router.put("/{cat_id}", response_model=dict)
+async def update_cat(
+    cat_id: int,
+    nama: Optional[str] = Form(None),
+    ras: Optional[str] = Form(None),
+    umur: Optional[int] = Form(None),
+    berat_badan: Optional[float] = Form(None),
+    deskripsi: Optional[str] = Form(None),
+    foto: Optional[UploadFile] = File(None),
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    cat = db.query(Cat).filter(
+        Cat.id == cat_id,
+        Cat.owner_id == user.id
+    ).first()
+    
+    if not cat:
+        raise HTTPException(status_code=404, detail="Cat not found")
+    
+    # Update fields
+    if nama is not None:
+        cat.nama = nama
+    if ras is not None:
+        cat.ras = ras
+    if umur is not None:
+        cat.umur = umur
+    if berat_badan is not None:
+        cat.berat_badan = berat_badan
+    if deskripsi is not None:
+        cat.deskripsi = deskripsi
+    
+    # Handle photo upload
+    if foto:
+        # Delete old photo if exists
+        if cat.foto and os.path.exists(cat.foto):
+            try:
+                os.remove(cat.foto)
+            except:
+                pass
+        
+        upload_dir = Path("uploads/cats")
+        upload_dir.mkdir(parents=True, exist_ok=True)
+        
+        file_extension = os.path.splitext(foto.filename)[1]
+        filename = f"cat_{user.id}_{int(os.time.time())}{file_extension}"
+        file_path = upload_dir / filename
+        
+        cat.foto = save_upload_file(foto, file_path)
+    
+    db.commit()
+    db.refresh(cat)
+    
+    return {
+        "message": "Cat updated successfully",
+        "kucing": {
+            "id": cat.id,
+            "nama": cat.nama,
+            "ras": cat.ras,
+            "umur": cat.umur,
+            "berat_badan": cat.berat_badan,
+            "foto": cat.foto,
+            "deskripsi": cat.deskripsi,
+        }
+    }
+
+
+# DELETE cat
+@router.delete("/{cat_id}", response_model=dict)
+async def delete_cat(
+    cat_id: int,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    cat = db.query(Cat).filter(
+        Cat.id == cat_id,
+        Cat.owner_id == user.id
+    ).first()
+    
+    if not cat:
+        raise HTTPException(status_code=404, detail="Cat not found")
+    
+    # Delete photo file if exists
+    if cat.foto and os.path.exists(cat.foto):
+        try:
+            os.remove(cat.foto)
+        except:
+            pass
+    
+    db.delete(cat)
+    db.commit()
+    
+    return {
+        "message": "Cat deleted successfully",
+        "id": cat_id
+    }
 
 
 @router.get("/medical-records")

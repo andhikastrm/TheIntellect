@@ -1,238 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notifikasi</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <nav id="sidebar">
-      <ul>
-        <li>
-          <span class="logo">
-            <img
-              src="../../assets/images/petricord-logo.svg"
-              style="width: 100px"
-            />
-          </span>
-          <button onclick="toggleSidebar()" id="toggle-btn">
-            <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
-          </button>
-        </li>
-        <li>
-          <a href="perangkat.html">
-            <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
-            <span>Perangkat</span>
-          </a>
-        </li>
-        <li class="active">
-          <a href="notifikasi.html">
-            <img
-              src="../../assets/icons/notification-alert-2-svgrepo-com.svg"
-            />
-            <span>Notifikasi</span>
-          </a>
-        </li>
-        <li>
-          <a href="riwayat.html">
-            <img src="../../assets/icons/log.svg" />
-            <span>Riwayat</span>
-          </a>
-        </li>
-        <li>
-          <a href="jurnal-hewan.html">
-            <img src="../../assets/icons/health-svgrepo-com.svg" />
-            <span>Jurnal Hewan</span>
-          </a>
-        </li>
-        <li>
-          <a href="pengaturan.html">
-            <img src="../../assets/icons/settings-svgrepo-com.svg" />
-            <span>Pengaturan</span>
-          </a>
-        </li>
-        <li>
-          <a href="profil.html">
-            <img src="../../assets/icons/user-svgrepo-com.svg" />
-            <span>Profil</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
 
-    <main>
-      <div class="paw-bg">
-        <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
-        <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notifikasi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <nav id="sidebar">
+    <ul>
+      <li>
+        <span class="logo">
+          <img src="../../assets/images/petricord-logo.svg" style="width: 100px" />
+        </span>
+        <button onclick="toggleSidebar()" id="toggle-btn">
+          <img src="../../assets/icons/double-arrow-right-svgrepo-com.svg" />
+        </button>
+      </li>
+      <li>
+        <a href="perangkat.html">
+          <img src="../../assets/icons/devices-svgrepo-com-outline.svg" />
+          <span>Perangkat</span>
+        </a>
+      </li>
+      <li class="active">
+        <a href="notifikasi.html">
+          <img src="../../assets/icons/notification-alert-2-svgrepo-com.svg" />
+          <span>Notifikasi</span>
+        </a>
+      </li>
+      <li>
+        <a href="riwayat.html">
+          <img src="../../assets/icons/log.svg" />
+          <span>Riwayat</span>
+        </a>
+      </li>
+      <li>
+        <a href="jurnal-hewan.html">
+          <img src="../../assets/icons/health-svgrepo-com.svg" />
+          <span>Jurnal Hewan</span>
+        </a>
+      </li>
+      <li>
+        <a href="pengaturan.html">
+          <img src="../../assets/icons/settings-svgrepo-com.svg" />
+          <span>Pengaturan</span>
+        </a>
+      </li>
+      <li>
+        <a href="profil.html">
+          <img src="../../assets/icons/user-svgrepo-com.svg" />
+          <span>Profil</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="paw-bg">
+      <img src="../../assets/images/paw.png" class="paw deco paw-1" alt="" />
+      <img src="../../assets/images/paw.png" class="paw deco paw-2" alt="" />
+    </div>
+    <div class="paw-background" id="pawBackground"></div>
+    <div class="content-wrapper">
+      <div class="header-section">
+        <h2>Notifikasi</h2>
+        <div class="header-controls">
+          <select id="kategori" required>
+            <option value="semua-riwayat" disabled selected>- Semua riwayat -</option>
+            <option value="peringatan">Masalah Produk</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
+        </div>
       </div>
-      <div class="paw-background" id="pawBackground"></div>
-      <div class="content-wrapper">
-        <div class="header-section">
-          <h2>Notifikasi</h2>
-          <div class="header-controls">
-            <select id="kategori" required>
-              <option value="semua-riwayat" disabled selected>- Semua riwayat -</option>
-              <option value="peringatan">Masalah Produk</option>
-              <option value="lainnya">Lainnya</option>
-            </select>
+
+      <div class="notifikasi-container">
+        <!-- Notifikasi 1: Peringatan -->
+        <div class="notifikasi-item" data-category="peringatan">
+          <div class="notifikasi-content">
+            <div class="notifikasi-content-header">
+              <div class="notifikasi-badge badge-peringatan">
+                <svg width="23" height="23" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="notifikasi-label label-peringatan">Peringatan</span>
+              </div>
+              <span class="notifikasi-time">5 menit yang lalu</span>
+            </div>
+            <h3 class="notifikasi-title">Aktivitas abnormal terdeteksi</h3>
+            <p class="notifikasi-description">
+              Lihat detail atau periksa riwayat pada perangkatmu sekarang.
+            </p>
+            <div class="notifikasi-footer">
+              <div class="device-tag">
+                <span>Pet Patrol Lt 1</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="notifikasi-container">
-          <!-- Notifikasi 1: Peringatan -->
-          <div class="notifikasi-item" data-category="peringatan">
-            <div class="notifikasi-content">
-              <div class="notifikasi-content-header">
-                <div class="notifikasi-badge badge-peringatan">
-                  <svg
-                    width="23"
-                    height="23"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span class="notifikasi-label label-peringatan"
-                    >Peringatan</span
-                  >
-                </div>
-                <span class="notifikasi-time">5 menit yang lalu</span>
+        <!-- Notifikasi 2: Informasi -->
+        <div class="notifikasi-item" data-category="informasi">
+          <div class="notifikasi-content">
+            <div class="notifikasi-content-header">
+              <div class="notifikasi-badge badge-informasi">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M22 11.0857V12.0057C21.9988 14.1621 21.3005 16.2604 20.0093 17.9875C18.7182 19.7147 16.9033 20.9782 14.8354 21.5896C12.7674 22.201 10.5573 22.1276 8.53447 21.3803C6.51168 20.633 4.78465 19.2518 3.61096 17.4428C2.43727 15.6338 1.87979 13.4938 2.02168 11.342C2.16356 9.19029 2.99721 7.14205 4.39828 5.5028C5.79935 3.86354 7.69279 2.72111 9.79619 2.24587C11.8996 1.77063 14.1003 1.98806 16.07 2.86572M22 4L12 14.01L9 11.01"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="notifikasi-label label-informasi">Informasi</span>
               </div>
-              <h3 class="notifikasi-title">Aktivitas abnormal terdeteksi</h3>
-              <p class="notifikasi-description">
-                Lihat detail atau periksa riwayat pada perangkatmu sekarang.
-              </p>
-              <div class="notifikasi-footer">
-                <div class="device-tag">
-                  <span>Pet Patrol Lt 1</span>
-                </div>
+              <span class="notifikasi-time">15 menit yang lalu</span>
+            </div>
+            <h3 class="notifikasi-title">
+              Kucing kamu lagi fokus sama makanannya! 😋🍴
+            </h3>
+            <p class="notifikasi-description">
+              Lihat detail atau periksa riwayat pada perangkatmu sekarang.
+            </p>
+            <div class="notifikasi-footer">
+              <div class="device-tag">
+                <span>Pet Patrol Lt 3</span>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Notifikasi 2: Informasi -->
-          <div class="notifikasi-item" data-category="informasi">
-            <div class="notifikasi-content">
-              <div class="notifikasi-content-header">
-                <div class="notifikasi-badge badge-informasi">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M22 11.0857V12.0057C21.9988 14.1621 21.3005 16.2604 20.0093 17.9875C18.7182 19.7147 16.9033 20.9782 14.8354 21.5896C12.7674 22.201 10.5573 22.1276 8.53447 21.3803C6.51168 20.633 4.78465 19.2518 3.61096 17.4428C2.43727 15.6338 1.87979 13.4938 2.02168 11.342C2.16356 9.19029 2.99721 7.14205 4.39828 5.5028C5.79935 3.86354 7.69279 2.72111 9.79619 2.24587C11.8996 1.77063 14.1003 1.98806 16.07 2.86572M22 4L12 14.01L9 11.01"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span class="notifikasi-label label-informasi"
-                    >Informasi</span
-                  >
-                </div>
-                <span class="notifikasi-time">15 menit yang lalu</span>
+        <!-- Notifikasi 3: Penting -->
+        <div class="notifikasi-item" data-category="penting">
+          <div class="notifikasi-content">
+            <div class="notifikasi-content-header">
+              <div class="notifikasi-badge badge-penting">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M6 18V14M6 14H8L13 17V7L8 10H5C3.89543 10 3 10.8954 3 12V12C3 13.1046 3.89543 14 5 14H6ZM17 7L19 5M17 17L19 19M19 12H21"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="notifikasi-label label-penting">Penting</span>
               </div>
-              <h3 class="notifikasi-title">
-                Kucing kamu lagi fokus sama makanannya! 😋🍴
-              </h3>
-              <p class="notifikasi-description">
-                Lihat detail atau periksa riwayat pada perangkatmu sekarang.
-              </p>
-              <div class="notifikasi-footer">
-                <div class="device-tag">
-                  <span>Pet Patrol Lt 3</span>
-                </div>
-              </div>
+              <span class="notifikasi-time"> 3 jam yang lalu</span>
             </div>
-          </div>
-
-          <!-- Notifikasi 3: Penting -->
-          <div class="notifikasi-item" data-category="penting">
-            <div class="notifikasi-content">
-              <div class="notifikasi-content-header">
-                <div class="notifikasi-badge badge-penting">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6 18V14M6 14H8L13 17V7L8 10H5C3.89543 10 3 10.8954 3 12V12C3 13.1046 3.89543 14 5 14H6ZM17 7L19 5M17 17L19 19M19 12H21"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span class="notifikasi-label label-penting">Penting</span>
-                </div>
-                <span class="notifikasi-time"> 3 jam yang lalu</span>
-              </div>
-              <h3 class="notifikasi-title">Baterai perangkatmu habis 🪫</h3>
-              <p class="notifikasi-description">
-                Isi daya pernagkatmu segera agar tetap terhubung.
-              </p>
-              <div class="notifikasi-footer">
-                <div class="device-tag">
-                  <span>Pet Patrol Lt 3</span>
-                </div>
+            <h3 class="notifikasi-title">Baterai perangkatmu habis 🪫</h3>
+            <p class="notifikasi-description">
+              Isi daya pernagkatmu segera agar tetap terhubung.
+            </p>
+            <div class="notifikasi-footer">
+              <div class="device-tag">
+                <span>Pet Patrol Lt 3</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <script type="module" src="/js/notifikasi.js"></script>
-    <script>
-      const toggleButton = document.getElementById("toggle-btn");
-      const sidebar = document.getElementById("sidebar");
+  <script type="module" src="/js/notifikasi.js"></script>
+  <script>
+    const toggleButton = document.getElementById("toggle-btn");
+    const sidebar = document.getElementById("sidebar");
 
-      function toggleSidebar() {
-        sidebar.classList.toggle("close");
-        toggleButton.classList.toggle("rotate");
-      }
+    function toggleSidebar() {
+      sidebar.classList.toggle("close");
+      toggleButton.classList.toggle("rotate");
+    }
 
-      // REVISI TOTAL: script filter kategori yang benar
-      document.addEventListener("DOMContentLoaded", function () {
-        const kategoriSelect = document.getElementById("kategori"); // ID sudah sesuai
-        const notifikasiItems = document.querySelectorAll(".notifikasi-item");
 
-        kategoriSelect.addEventListener("change", function () {
-          const selected = this.value; // "semua" | "peringatan" | "informasi" | "penting"
-
-          notifikasiItems.forEach((item) => {
-            const category = item.getAttribute("data-category");
-
-            if (selected === "semua" || selected === category) {
-              item.style.display = "flex"; // tampilkan
-            } else {
-              item.style.display = "none"; // sembunyikan
-            }
-          });
+    document.addEventListener("DOMContentLoaded", function () {
+      const kategoriSelect = document.getElementById("kategori");
+      const notifikasiItems = document.querySelectorAll(".notifikasi-item");
+      kategoriSelect.addEventListener("change", function () {
+        const selected = this.value;
+        notifikasiItems.forEach((item) => {
+          const category = item.getAttribute("data-category");
+          if (selected === "semua" || selected === category) {
+            item.style.display = "flex";
+          } else {
+            item.style.display = "none";
+          }
         });
-
-        // Optional: jalankan sekali saat load agar default "Semua" langsung aktif
-        kategoriSelect.value = "semua";
-        kategoriSelect.dispatchEvent(new Event("change"));
       });
-    </script>
-  </body>
+      kategoriSelect.value = "semua";
+      kategoriSelect.dispatchEvent(new Event("change"));
+    });
+  </script>
+</body>
+
 </html>
