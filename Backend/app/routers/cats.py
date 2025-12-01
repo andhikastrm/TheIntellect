@@ -9,7 +9,8 @@ from app.database.db import get_db
 from app.models.user import User
 from app.models.cat import Cat, Device
 from app.core.security import get_current_user
-from datetime import datetime, timezone, timedelta
+from app.models.cat import MedicalRecord, CatActivityTodo
+from datetime import datetime, date, timezone, timedelta
 from sqlalchemy import func, and_
 import shutil
 import os
@@ -46,9 +47,7 @@ def time_ago(dt: datetime) -> str:
 async def tambah_kucing(
     nama: str = Form(...),
     umur: int = Form(None),
-    jenis_kelamin: str = Form(...),
     ras: str = Form(None),
-    warna: str = Form(None),
     berat_badan: float = Form(None),
     deskripsi: str = Form(None),
     foto: UploadFile = File(None),
@@ -67,9 +66,7 @@ async def tambah_kucing(
     kucing = Cat(
         nama=nama,
         umur=umur,
-        jenis_kelamin=jenis_kelamin,
         ras=ras,
-        warna=warna,
         berat_badan=berat_badan,
         deskripsi=deskripsi,
         foto=foto_path,
@@ -382,3 +379,157 @@ async def get_critical_activities(db: Session = Depends(get_db)):
         },
         "activities": result
     }
+
+# ==================== JURNAL HEWAN — VERSI TANPA CAT_ID (SUPER SIMPLE) ====================
+
+@router.get("/cats")
+async def get_my_cats(db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    # Ambil kucing pertama user (kalau ada)
+    cat = db.query(Cat).filter(Cat.owner_id == user.id).first()
+    if not cat:
+        return {"cats": []}
+    return {"cats": [{"id": cat.id, "name": cat.nama}]}
+
+
+@router.get("/medical-records")
+async def get_medical_records(cat_id: int | None = None, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    # If cat_id provided, validate ownership and use that cat
+    if cat_id:
+        cat = db.query(Cat).filter(Cat.id == cat_id, Cat.owner_id == user.id).first()
+        if not cat:
+            raise HTTPException(404, "Kucing tidak ditemukan atau bukan milikmu")
+    else:
+        cat = db.query(Cat).filter(Cat.owner_id == user.id).first()
+    if not cat:
+        return {"records": []}
+
+    records = (
+        db.query(MedicalRecord)
+        .filter(MedicalRecord.cat_id == cat.id)
+        .order_by(MedicalRecord.date.desc())
+        .all()
+    )
+    
+    return {
+        "records": [
+            {
+                "id": r.id,
+                "type": r.type,
+                "date": r.date.isoformat(),
+                "notes": r.notes or ""
+            }
+            for r in records
+        ]
+    }
+
+
+@router.post("/medical-records")
+async def create_medical_record(
+    type: str = Form(...),
+    date: date = Form(...),
+    notes: str = Form(None),
+    cat_id: int | None = Form(None),
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    # Allow specifying a particular cat if user has multiple
+    if cat_id:
+        cat = db.query(Cat).filter(Cat.id == cat_id, Cat.owner_id == user.id).first()
+        if not cat:
+            raise HTTPException(404, "Kucing tidak ditemukan atau bukan milikmu")
+    else:
+        cat = db.query(Cat).filter(Cat.owner_id == user.id).first()
+    if not cat:
+        raise HTTPException(404, "Kamu belum punya hewan")
+
+    record = MedicalRecord(cat_id=cat.id, type=type, date=date, notes=notes)
+    db.add(record)
+    db.commit()
+    db.refresh(record)
+    
+    return {"success": True, "record": {"id": record.id, "type": type, "date": str(date), "notes": notes or ""}}
+
+
+@router.get("/todo-activities")
+async def get_todo_activities(cat_id: int | None = None, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    if cat_id:
+        cat = db.query(Cat).filter(Cat.id == cat_id, Cat.owner_id == user.id).first()
+        if not cat:
+            raise HTTPException(404, "Kucing tidak ditemukan atau bukan milikmu")
+    else:
+        cat = db.query(Cat).filter(Cat.owner_id == user.id).first()
+    if not cat:
+        return {"activities": []}
+
+    activities = (
+        db.query(CatActivityTodo)
+        .filter(CatActivityTodo.cat_id == cat.id)
+        .filter(CatActivityTodo.is_done == False)
+        .order_by(CatActivityTodo.date.asc().nulls_last(), CatActivityTodo.created_at.desc())
+        .all()
+    )
+    
+    return {
+        "activities": [
+            {
+                "id": a.id,
+                "text": a.text,
+                "date": a.date.isoformat() if a.date else None
+            }
+            for a in activities
+        ]
+    }
+
+
+@router.delete("/medical-records/{record_id}")
+async def delete_medical_record(record_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    record = db.query(MedicalRecord).filter(MedicalRecord.id == record_id).first()
+    if not record:
+        raise HTTPException(404, "Rekaman medis tidak ditemukan")
+    # pastikan permission: owner harus sama
+    cat = db.query(Cat).filter(Cat.id == record.cat_id, Cat.owner_id == user.id).first()
+    if not cat:
+        raise HTTPException(403, "Bukan punyamu!")
+    db.delete(record)
+    db.commit()
+    return {"success": True}
+
+
+@router.post("/todo-activities")
+async def create_todo_activity(
+    text: str = Form(...),
+    date: date = Form(None),
+    cat_id: int | None = Form(None),
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    if cat_id:
+        cat = db.query(Cat).filter(Cat.id == cat_id, Cat.owner_id == user.id).first()
+        if not cat:
+            raise HTTPException(404, "Kucing tidak ditemukan atau bukan milikmu")
+    else:
+        cat = db.query(Cat).filter(Cat.owner_id == user.id).first()
+    if not cat:
+        raise HTTPException(404, "Kamu belum punya hewan")
+
+    activity = CatActivityTodo(cat_id=cat.id, text=text, date=date)
+    db.add(activity)
+    db.commit()
+    db.refresh(activity)
+    
+    return {"success": True, "activity": {"id": activity.id, "text": text, "date": str(date) if date else None}}
+
+
+@router.delete("/todo-activities/{activity_id}")
+async def complete_todo(activity_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    activity = db.query(CatActivityTodo).filter(CatActivityTodo.id == activity_id).first()
+    if not activity:
+        raise HTTPException(404, "Aktivitas tidak ditemukan")
+    
+    cat = db.query(Cat).filter(Cat.id == activity.cat_id, Cat.owner_id == user.id).first()
+    if not cat:
+        raise HTTPException(403, "Bukan punyamu!")
+
+    activity.is_done = True
+    db.commit()
+    return {"success": True}

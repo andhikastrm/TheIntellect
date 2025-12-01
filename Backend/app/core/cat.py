@@ -8,6 +8,5 @@ class Cat(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     nama = Column(String(50), nullable=False)
     ras = Column(String(50))
-    jenis_kelamin = Column(String(20))
     umur = Column(String(20))
     berat_badan = Column(String(20))
