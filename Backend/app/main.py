@@ -1,8 +1,7 @@
-# Backend/app/main.py
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
-from fastapi.middleware.cors import CORSMiddleware   # <-- BARU DITAMBAH
+from fastapi.middleware.cors import CORSMiddleware
 from app.database.db import engine, Base
 from app.routers import auth, cats
 import os
@@ -13,7 +12,6 @@ print("\n" + "="*100)
 print("                  PETRICORD BACKEND — VERSI FINAL 100% JALAN")
 print("="*100)
 
-# ==================== FIREBASE INIT ====================
 service_paths = [
     "firebase-service-account.json",
     "../firebase-service-account.json",
@@ -33,14 +31,11 @@ for path in service_paths:
 if not cred:
     print("firebase-service-account.json gak ketemu → tetep jalan kok (cuma login Google gak verif)")
 
-# ==================== DATABASE ====================
 Base.metadata.create_all(bind=engine)
 print("Database & tabel 'users' + 'cats' siap!")
 
-# ==================== FASTAPI APP ====================
 app = FastAPI(title="Petricord API", version="1.0")
 
-# WHITELIST CORS — INI YANG KAMU MINTA
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -57,11 +52,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# API ROUTES — HARUS DULUAN!
 app.include_router(auth.router, prefix="/api/auth")
 app.include_router(cats.router, prefix="/api/cats")
 
-# ==================== FIX PATH FRONTEND ====================
 current_file = os.path.abspath(__file__)
 backend_dir = os.path.dirname(os.path.dirname(current_file))
 project_root = os.path.dirname(backend_dir)
@@ -79,12 +72,10 @@ if os.path.isdir(frontend_path):
 else:
     print("FOLDER Frontend TIDAK DITEMUKAN!")
 
-# ==================== STATIC UPLOADS ====================
 static_dir = os.path.join(project_root, "static")
 os.makedirs(os.path.join(static_dir, "uploads"), exist_ok=True)
 app.mount("/static", StaticFiles(directory=static_dir), name="static_uploads")
 
-# ==================== ROOT REDIRECT ====================
 @app.get("/")
 async def root():
     return RedirectResponse("/Frontend/login.html")

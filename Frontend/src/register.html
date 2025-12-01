@@ -1,231 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ayo bergabung dengan Petricord.</title>
 
-    <!-- Script Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <!-- Link Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayo bergabung dengan Petricord.</title>
 
-    <!-- Link Favicon -->
-    <link
-      rel="icon"
-      href="/assets/images/petricord-logo.svg"
-      type="image/x-icon"
-    />
-  </head>
-  <body>
-    <header>
-      <nav class="navbar navbar-expand-lg fixed-top">
-        <div
-          class="container-fluid d-flex align-items-center justify-content-between"
-        >
-          <!-- Brand -->
-          <a class="navbar-brand" href="index.html">
-            <img src="./assets/images/petricord-logo.svg" height="30" />
+  <!-- Script Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <!-- Link Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Link Favicon -->
+  <link rel="icon" href="/assets/images/petricord-logo.svg" type="image/x-icon" />
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container-fluid d-flex align-items-center justify-content-between">
+        <!-- Brand -->
+        <a class="navbar-brand" href="index.html">
+          <img src="./assets/images/petricord-logo.svg" height="30" />
+        </a>
+        <div class="d-flex ms-lg-auto mt-lg-0">
+          <a class="btn backbtn" onclick="history.back()">
+            <img class="back-icon" src="./assets/icons/back-arrow-svgrepo-com.svg" alt="Back" />
           </a>
-          <div class="d-flex ms-lg-auto mt-lg-0">
-            <a class="btn backbtn" onclick="history.back()">
-              <img
-                class="back-icon"
-                src="./assets/icons/back-arrow-svgrepo-com.svg"
-                alt="Back"
-              />
-            </a>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <main class="main">
-      <div class="container-bg">
-        <img src="./assets/images/paw.png" class="paw paw1" alt="" />
-        <img src="./assets/images/paw.png" class="paw paw2" alt="" />
-      </div>
-
-      <div class="main-container">
-        <div class="row welcoming">
-          <p>Saatnya bergabung menjadi Cordian!</p>
-        </div>
-        <div class="row container-register">
-          <div class="register-heading">
-            <h5>Buat Akun Baru</h5>
-          </div>
-          <div class="register-form">
-            <!-- Nama -->
-            <input type="text" id="nama" placeholder="Nama" />
-            <!-- Email -->
-            <div class="input-group">
-              <label class="floating-label" id="emailLabel"
-                >Masukkan email yang valid</label
-              >
-              <input type="email" id="email" placeholder="Email" required />
-              <span class="input-icon"></span>
-            </div>
-
-            <!-- Password -->
-            <div class="input-group">
-              <label class="floating-label" id="passLabel"
-                >Password minimal 6 karakter</label
-              >
-              <input
-                type="password"
-                id="pass"
-                placeholder="Password"
-                required
-              />
-              <span class="input-icon"></span>
-            </div>
-            <button class="withemail" onclick="registerManual()">
-              Daftar dengan email
-            </button>
-            <div class="form-divider">
-              <span>atau</span>
-            </div>
-            <button class="google" onclick="googleSignIn()">
-              Daftar dengan Google
-            </button>
-            <p>
-              Sudah punya akun?
-              <a href="login.html" style="color: #7f620b; font-weight: 500"
-                >Masuk</a
-              >
-            </p>
-          </div>
         </div>
       </div>
-    </main>
+    </nav>
+  </header>
 
-    <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
-        authDomain: "petricord-f8c54.firebaseapp.com",
-        projectId: "petricord-f8c54",
-        storageBucket: "petricord-f8c54.firebasestorage.app",
-        messagingSenderId: "814472267558",
-        appId: "1:814472267558:web:d97ddfd93757a7fe5f63e7",
-      };
-      firebase.initializeApp(firebaseConfig);
-      const provider = new firebase.auth.GoogleAuthProvider();
+  <main class="main">
+    <div class="container-bg">
+      <img src="./assets/images/paw.png" class="paw paw1" alt="" />
+      <img src="./assets/images/paw.png" class="paw paw2" alt="" />
+    </div>
 
-      async function registerManual() {
-        const email = document.getElementById("email").value;
-        const pass = document.getElementById("pass").value;
-        const nama =
-          document.getElementById("nama").value || email.split("@")[0];
-        try {
-          await firebase.auth().createUserWithEmailAndPassword(email, pass);
-          const user = firebase.auth().currentUser;
-          await user.updateProfile({ displayName: nama });
-          const token = await user.getIdToken();
-          await syncToBackend(token);
-        } catch (e) {
-          alert(e.message);
-        }
+    <div class="main-container">
+      <div class="row welcoming">
+        <p>Saatnya bergabung menjadi Cordian!</p>
+      </div>
+      <div class="row container-register">
+        <div class="register-heading">
+          <h5>Buat Akun Baru</h5>
+        </div>
+        <div class="register-form">
+          <!-- Nama -->
+          <input type="text" id="nama" placeholder="Nama" />
+          <!-- Email -->
+          <div class="input-group">
+            <label class="floating-label" id="emailLabel">Masukkan email yang valid</label>
+            <input type="email" id="email" placeholder="Email" required />
+            <span class="input-icon"></span>
+          </div>
+
+          <!-- Password -->
+          <div class="input-group">
+            <label class="floating-label" id="passLabel">Password minimal 6 karakter</label>
+            <input type="password" id="pass" placeholder="Password" required />
+            <span class="input-icon"></span>
+          </div>
+          <button class="withemail" onclick="registerManual()">
+            Daftar dengan email
+          </button>
+          <div class="form-divider">
+            <span>atau</span>
+          </div>
+          <button class="google" onclick="googleSignIn()">
+            Daftar dengan Google
+          </button>
+          <p>
+            Sudah punya akun?
+            <a href="login.html" style="color: #7f620b; font-weight: 500">Masuk</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="/js/register.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCTwQ8IlGP_N_-fALBqu5269QlvJ7G8Mrk",
+      authDomain: "petricord-f8c54.firebaseapp.com",
+      projectId: "petricord-f8c54",
+      storageBucket: "petricord-f8c54.firebasestorage.app",
+      messagingSenderId: "814472267558",
+      appId: "1:814472267558:web:d97ddfd93757a7fe5f63e7",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+
+    async function googleSignIn() {
+      try {
+        const result = await firebase.auth().signInWithPopup(provider);
+        const token = await result.user.getIdToken();
+        await syncToBackend(token);
+      } catch (e) {
+        alert(e.message);
+      }
+    }
+
+    async function syncToBackend(token) {
+      const resp = await fetch("/api/auth/google-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+      const data = await resp.json();
+      if (data.success) {
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("user_name", data.user.nama || "Cordian");
+        alert(
+          "Akun berhasil dibuat! Selamat datang, " +
+          (data.user.nama || "Cordian") +
+          "!"
+        );
+        window.location.href = "owner-dashboard.html"; // RELATIVE PATH = PASTI JALAN
+      } else {
+        alert("Gagal sync ke server: " + (data.detail || "Unknown error"));
+      }
+    }
+
+    // Real-time validasi email
+    document.getElementById("email").addEventListener("input", function () {
+      const email = this.value.trim();
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (email === "") {
+        this.classList.remove("input-valid", "input-invalid");
+      } else if (regex.test(email)) {
+        this.classList.remove("input-invalid");
+        this.classList.add("input-valid");
+      } else {
+        this.classList.remove("input-valid");
+        this.classList.add("input-invalid");
+      }
+    });
+
+    // Real-time validasi password (min 6 karakter)
+    document.getElementById("pass").addEventListener("input", function () {
+      if (this.value.length === 0) {
+        this.classList.remove("input-valid", "input-invalid");
+      } else if (this.value.length >= 6) {
+        this.classList.remove("input-invalid");
+        this.classList.add("input-valid");
+      } else {
+        this.classList.remove("input-valid");
+        this.classList.add("input-invalid");
+      }
+    });
+
+    // Register dengan backend API langsung
+    async function registerManual() {
+      const email = document.getElementById("email");
+      const pass = document.getElementById("pass");
+      const namaInput = document.getElementById("nama");
+
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+      const passValid = pass.value.length >= 6;
+
+      if (!emailValid || !passValid) {
+        if (!emailValid) email.classList.add("input-invalid");
+        if (!passValid) pass.classList.add("input-invalid");
+        alert("Mohon periksa email dan password terlebih dahulu!");
+        return;
       }
 
-      async function googleSignIn() {
-        try {
-          const result = await firebase.auth().signInWithPopup(provider);
-          const token = await result.user.getIdToken();
-          await syncToBackend(token);
-        } catch (e) {
-          alert(e.message);
-        }
-      }
+      const nama = namaInput.value.trim() || email.value.split("@")[0];
 
-      async function syncToBackend(token) {
-        const resp = await fetch("/api/auth/google-login", {
+      try {
+        const resp = await fetch("http://127.0.0.1:8000/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token }),
+          body: JSON.stringify({
+            nama: nama,
+            email: email.value.trim(),
+            password: pass.value
+          }),
         });
+
         const data = await resp.json();
-        if (data.success) {
+
+        if (resp.ok && data.success) {
           localStorage.setItem("access_token", data.access_token);
           localStorage.setItem("user_name", data.user.nama || "Cordian");
-          alert(
-            "Akun berhasil dibuat! Selamat datang, " +
-              (data.user.nama || "Cordian") +
-              "!"
-          );
-          window.location.href = "owner-dashboard.html"; // RELATIVE PATH = PASTI JALAN
+          localStorage.setItem("user_email", data.user.email || "");
+
+          alert("Akun berhasil dibuat! Selamat datang, " + (data.user.nama || "Cordian") + "!");
+          window.location.href = "/pages/owner/perangkat";
         } else {
-          alert("Gagal sync ke server: " + (data.detail || "Unknown error"));
-        }
-      }
-
-      // Real-time validasi email
-      document.getElementById("email").addEventListener("input", function () {
-        const email = this.value.trim();
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (email === "") {
-          this.classList.remove("input-valid", "input-invalid");
-        } else if (regex.test(email)) {
-          this.classList.remove("input-invalid");
-          this.classList.add("input-valid");
-        } else {
-          this.classList.remove("input-valid");
-          this.classList.add("input-invalid");
-        }
-      });
-
-      // Real-time validasi password (min 6 karakter)
-      document.getElementById("pass").addEventListener("input", function () {
-        if (this.value.length === 0) {
-          this.classList.remove("input-valid", "input-invalid");
-        } else if (this.value.length >= 6) {
-          this.classList.remove("input-invalid");
-          this.classList.add("input-valid");
-        } else {
-          this.classList.remove("input-valid");
-          this.classList.add("input-invalid");
-        }
-      });
-
-      // Ganti fungsi registerManual() kamu jadi ini (biar cek dulu sebelum daftar)
-      async function registerManual() {
-        const email = document.getElementById("email");
-        const pass = document.getElementById("pass");
-
-        const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-        const passValid = pass.value.length >= 6;
-
-        if (!emailValid || !passValid) {
-          if (!emailValid) email.classList.add("input-invalid");
-          if (!passValid) pass.classList.add("input-invalid");
-          alert("Mohon periksa email dan password terlebih dahulu!");
-          return;
-        }
-
-        // Kalau valid → lanjut ke Firebase (kode lama kamu)
-        const nama =
-          document.getElementById("nama").value || email.value.split("@")[0];
-        try {
-          await firebase
-            .auth()
-            .createUserWithEmailAndPassword(email.value, pass.value);
-          const user = firebase.auth().currentUser;
-          await user.updateProfile({ displayName: nama });
-          const token = await user.getIdToken();
-          await syncToBackend(token);
-        } catch (e) {
-          alert(e.message);
+          alert("Registrasi gagal: " + (data.detail || "Unknown error"));
           email.classList.add("input-invalid");
           pass.classList.add("input-invalid");
         }
+      } catch (e) {
+        alert("Koneksi ke server gagal: " + e.message);
+        email.classList.add("input-invalid");
+        pass.classList.add("input-invalid");
       }
-    </script>
+    }
+  </script>
+</body>
 
-    <!-- Link custom JS -->
-    <script type="module" src="/js/register.js"></script>
-  </body>
 </html>

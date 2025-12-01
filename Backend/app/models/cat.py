@@ -1,14 +1,8 @@
-# Backend/app/models/cat.py
-# SEMUA MODEL DALAM 1 FILE → AMAN, NO CIRCULAR IMPORT, SIAP PAKAI!
-
 from sqlalchemy import Column, Integer, String, Enum, Float, Text, ForeignKey, DateTime, Date, Boolean
 from sqlalchemy.orm import relationship
 from app.database.db import Base
 from datetime import datetime
 import enum
-
-
-# ===== ENUM =====
 
 class TipePerangkat(enum.Enum):
     GPS = "GPS"
@@ -21,7 +15,6 @@ class StatusPerangkat(enum.Enum):
     Nonaktif = "Nonaktif"
 
 
-# ===== MODEL CAT =====
 class Cat(Base):
     __tablename__ = "cats"
 
@@ -33,14 +26,12 @@ class Cat(Base):
     deskripsi = Column(Text, nullable=True)
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
 
-    # RELASI KE MEDICAL RECORD & TODO
     medical_records = relationship("MedicalRecord", back_populates="cat", cascade="all, delete-orphan")
     todo_activities = relationship("CatActivityTodo", back_populates="cat", cascade="all, delete-orphan")
 
     owner = relationship("User", back_populates="cats")
 
 
-# ===== MODEL DEVICE =====
 class Device(Base):
     __tablename__ = "devices"
 
@@ -50,9 +41,11 @@ class Device(Base):
     tipe = Column(Enum(TipePerangkat), nullable=False)
     status = Column(Enum(StatusPerangkat), default=StatusPerangkat.Aktif)
     assigned_at = Column(DateTime, default=datetime.utcnow)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=True)
+
+    user = relationship("User", back_populates="devices")
 
 
-# ===== MODEL CAT ACTIVITY (DETEKSI ML) =====
 class CatActivity(Base):
     __tablename__ = "cat_activities"
 
@@ -62,9 +55,11 @@ class CatActivity(Base):
     image_path = Column(String(500))               
     detected_image = Column(String(500))           
     created_at = Column(DateTime, default=datetime.utcnow)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=True)
+
+    user = relationship("User", back_populates="cat_activities")
 
 
-# ===== MODEL MEDICAL RECORD (JURNAL HEWAN) =====
 class MedicalRecord(Base):
     __tablename__ = "medical_records"
 
@@ -75,11 +70,9 @@ class MedicalRecord(Base):
     notes = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
-    # Relasi balik ke Cat
     cat = relationship("Cat", back_populates="medical_records")
 
 
-# ===== MODEL TODO ACTIVITY (TO-DO LIST / REMINDER) =====
 class CatActivityTodo(Base):
     __tablename__ = "cat_todo_activities"
 
@@ -90,5 +83,4 @@ class CatActivityTodo(Base):
     is_done = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
-    # Relasi balik ke Cat
     cat = relationship("Cat", back_populates="todo_activities")

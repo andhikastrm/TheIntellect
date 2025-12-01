@@ -1,18 +1,11 @@
-# app/dependencies.py
-
 from fastapi import Depends, HTTPException, status, Header
 from sqlalchemy.orm import Session
 
-# INI YANG BENAR SESUAI STRUKTUR KAMU
 from .database.db import get_db
 from .models.user import User
 
-# Firebase
 import firebase_admin
 from firebase_admin import auth as firebase_auth
-
-# firebase_admin.initialize_app() harus dipanggil sekali di main.py
-# (lihat langkah selanjutnya)
 
 async def get_current_user_firebase(
     authorization: str = Header(None),
@@ -39,10 +32,8 @@ async def get_current_user_firebase(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    # Cari user berdasarkan firebase_uid
     user = db.query(User).filter(User.firebase_uid == firebase_uid).first()
 
-    # Kalau belum ada di DB, buat otomatis
     if not user:
         new_user = User(
             firebase_uid=firebase_uid,

@@ -1,4 +1,3 @@
-# app/models/cat_user.py
 from sqlalchemy import Column, Integer, ForeignKey
 from ..database.db import Base
 

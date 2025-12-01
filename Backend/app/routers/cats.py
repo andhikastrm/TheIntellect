@@ -1,4 +1,4 @@
-# Backend/app/routers/cats.py — VERSI FINAL TERBAIK
+
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form, status
 from fastapi.requests import Request
 from datetime import datetime
@@ -42,7 +42,7 @@ def time_ago(dt: datetime) -> str:
     return "baru saja"
 
 
-# ==================== KUCING ====================
+
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def tambah_kucing(
     nama: str = Form(...),
@@ -94,7 +94,6 @@ def hapus_kucing(cat_id: int, db: Session = Depends(get_db), user: User = Depend
     return {"success": True, "message": "Kucing dihapus"}
 
 
-# ==================== PERANGKAT ====================
 
 @router.get("/devices/public")
 async def get_all_devices_public(db: Session = Depends(get_db)):
@@ -106,7 +105,7 @@ async def get_all_devices_public(db: Session = Depends(get_db)):
             "serial_number": d.serial_number,
             "tipe": d.tipe.value if hasattr(d.tipe, "value") else str(d.tipe),
             "status": d.status.value if hasattr(d.status, "value") else str(d.status),
-            # tambah field lain kalau perlu
+            
         }
         for d in devices
     ]
@@ -151,7 +150,7 @@ def hapus_perangkat(device_id: int, db: Session = Depends(get_db), user: User = 
     return {"success": True}
 
 
-# ==================== FITUR BARU: CEK / BUAT OTOMATIS BY SERIAL NUMBER ====================
+
 @router.get("/devices/serial/{serial_number}")
 def get_or_create_device_by_serial(
     serial_number: str,
@@ -181,12 +180,12 @@ def get_or_create_device_by_serial(
             }
         }
 
-    # Belum ada → buat baru otomatis
+    
     new_device = Device(
         nama_perangkat=f"Smart Collar - {serial_number[-6:].upper()}",
         serial_number=serial_number,
-        tipe="GPS",      # default
-        status="Aktif"   # default
+        tipe="GPS",      
+        status="Aktif"   
     )
     db.add(new_device)
     db.commit()
@@ -207,7 +206,7 @@ def get_or_create_device_by_serial(
     }
 
 
-# ==================== API DETEKSI TANPA CAT_ID (PAKAI DEVICE SERIAL) ====================
+
 
 
 @router.post("/detect-behavior")
@@ -224,17 +223,17 @@ async def detect_behavior_only(
     if not serial_number:
         raise HTTPException(status_code=400, detail="Header X-Device-Serial wajib dikirim")
 
-    # CARI DEVICE — KALAU GAK ADA, BUAT BARU!
+    
     device = db.query(Device).filter(Device.serial_number == serial_number).first()
 
     if not device:
-        # BUAT DEVICE BARU OTOMATIS
+        
         if not device:
             device = Device(
                 nama_perangkat=f"Smart Collar - {serial_number}",
                 serial_number=serial_number,
-                tipe="Kamera",        # string → aman!
-                status="Aktif"        # string → aman!
+                tipe="Kamera",        
+                status="Aktif"        
             )
             db.add(device)
             db.commit()
@@ -242,7 +241,7 @@ async def detect_behavior_only(
             print(f"Device baru dibuat: {serial_number}")
 
 
-    # LANJUT DETEKSI JIKA SUDAH ADA CAT_ID
+    
     timestamp = int(datetime.now().timestamp())
     raw_filename = f"raw_{timestamp}.jpg"
     raw_path = f"static/uploads_raw/{raw_filename}"
@@ -253,7 +252,7 @@ async def detect_behavior_only(
 
     result = detect_behavior(raw_path)
 
-    # Simpan aktivitas
+    
     activity = CatActivity(
         behavior=result["behavior"],
         confidence=result["confidence"],
@@ -273,7 +272,7 @@ async def detect_behavior_only(
         "device_serial": serial_number
     }
 
-# ==================== API UNTUK NOTIFIKASI (SEMUA AKTIVITAS KECUALI "TIDAK TERDETEKSI") ====================
+
 def time_ago(dt: datetime) -> str:
     if not dt:
         return "tidak diketahui"
@@ -295,18 +294,18 @@ def time_ago(dt: datetime) -> str:
 @router.get("/activities/latest-by-behavior")
 async def get_latest_activity_per_behavior(db: Session = Depends(get_db)):
     try:
-        # Step 1: Ambil ID dari record terbaru per behavior (paling aman!)
+        
         subq = (
             db.query(
                 CatActivity.behavior,
-                func.max(CatActivity.id).label("max_id")  # pakai ID, bukan timestamp!
+                func.max(CatActivity.id).label("max_id")  
             )
             .filter(CatActivity.behavior != "tidak terdeteksi")
             .group_by(CatActivity.behavior)
             .subquery()
         )
 
-        # Step 2: Join balik pakai ID (pasti unik!)
+        
         activities = (
             db.query(CatActivity)
             .join(
@@ -322,7 +321,7 @@ async def get_latest_activity_per_behavior(db: Session = Depends(get_db)):
 
         result = []
         for act in activities:
-            # Konversi ke WIB
+            
             ts = act.created_at
             if ts.tzinfo is None:
                 ts = ts.replace(tzinfo=timezone.utc)
@@ -332,21 +331,21 @@ async def get_latest_activity_per_behavior(db: Session = Depends(get_db)):
                 "id": act.id,
                 "behavior": act.behavior.capitalize(),
                 "confidence": round(act.confidence * 100, 1),
-                "timestamp": ts_wib.isoformat(),  # ISO dengan +07:00
+                "timestamp": ts_wib.isoformat(),  
                 "timestamp_display": ts_wib.strftime("%d %b %Y, %H:%M WIB"),
-                "custom_name": "Kamera Utama",  # nanti diganti kalau sudah ada device_serial
+                "custom_name": "Kamera Utama",  
                 "time_ago": time_ago(ts_wib)
             })
 
         return {"activities": result}
 
     except Exception as e:
-        # Biar lo tau error apa di terminal
+        
         print(f"Error di latest-by-behavior: {e}")
         raise HTTPException(status_code=500, detail="Gagal mengambil data aktivitas terbaru")
 
 
-# ==================== API UNTUK RIWAYAT (HANYA KEJANG & MUNTAH + STATISTIK) ====================
+
 @router.get("/activities/critical")
 async def get_critical_activities(db: Session = Depends(get_db)):
     critical = db.query(CatActivity)\
@@ -380,11 +379,11 @@ async def get_critical_activities(db: Session = Depends(get_db)):
         "activities": result
     }
 
-# ==================== JURNAL HEWAN — VERSI TANPA CAT_ID (SUPER SIMPLE) ====================
+
 
 @router.get("/cats")
 async def get_my_cats(db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    # Ambil kucing pertama user (kalau ada)
+    
     cat = db.query(Cat).filter(Cat.owner_id == user.id).first()
     if not cat:
         return {"cats": []}
@@ -393,7 +392,7 @@ async def get_my_cats(db: Session = Depends(get_db), user: User = Depends(get_cu
 
 @router.get("/medical-records")
 async def get_medical_records(cat_id: int | None = None, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    # If cat_id provided, validate ownership and use that cat
+    
     if cat_id:
         cat = db.query(Cat).filter(Cat.id == cat_id, Cat.owner_id == user.id).first()
         if not cat:
@@ -432,7 +431,7 @@ async def create_medical_record(
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user)
 ):
-    # Allow specifying a particular cat if user has multiple
+    
     if cat_id:
         cat = db.query(Cat).filter(Cat.id == cat_id, Cat.owner_id == user.id).first()
         if not cat:
@@ -486,7 +485,7 @@ async def delete_medical_record(record_id: int, db: Session = Depends(get_db), u
     record = db.query(MedicalRecord).filter(MedicalRecord.id == record_id).first()
     if not record:
         raise HTTPException(404, "Rekaman medis tidak ditemukan")
-    # pastikan permission: owner harus sama
+    
     cat = db.query(Cat).filter(Cat.id == record.cat_id, Cat.owner_id == user.id).first()
     if not cat:
         raise HTTPException(403, "Bukan punyamu!")

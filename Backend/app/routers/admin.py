@@ -1,4 +1,3 @@
-# app/routers/admin.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from ..database.db import get_db
@@ -15,6 +14,6 @@ async def get_all_cats(current_user: User = Depends(get_current_user), db: Sessi
     cats = db.query(Cat).all()
     result = []
     for cat in cats:
-        owner = db.query(User).filter(User.id == cat.owner_id).first()  # nanti adjust relasi
+        owner = db.query(User).filter(User.id == cat.owner_id).first()
         result.append({**cat.__dict__, "owner_nama": owner.nama if owner else "Unknown"})
     return result
