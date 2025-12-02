@@ -13,6 +13,7 @@ from app.core.security import get_current_user
 from app.models.cat import MedicalRecord, CatActivityTodo
 from datetime import datetime, date, timezone, timedelta
 from sqlalchemy import func, and_
+from pathlib import Path
 from ..schemas.cat import CatResponse, CatCreate, CatUpdate
 import shutil
 import os
